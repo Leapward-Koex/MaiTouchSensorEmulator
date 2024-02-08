@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO.Ports;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO.Ports;
 using System.Windows;
 
 namespace WpfMaiTouchEmulator;
@@ -88,22 +82,17 @@ internal class MaiTouchComConnector
 
     void SerialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
     {
-        string recievedData = serialPort.ReadExisting();
+        var recievedData = serialPort.ReadExisting();
         var commands = recievedData.Split(new[] { '}' }, StringSplitOptions.RemoveEmptyEntries);
-        foreach (string command in commands)
+        foreach (var command in commands)
         {
-            string cleanedCommand = command.TrimStart('{');
-            // Implement your logic to process the received data here
+            var cleanedCommand = command.TrimStart('{');
             Console.WriteLine($"Received data: {cleanedCommand}");
             OnDataRecieved(cleanedCommand);
 
-
-            // Check if the received packet is a STAT packet
             if (cleanedCommand == "STAT")
             {
-                // Simulate entering active mode
                 isActiveMode = true;
-                Console.WriteLine("Entered Active Mode");
             }
             else if (cleanedCommand == "RSET")
             {
@@ -115,12 +104,11 @@ internal class MaiTouchComConnector
             }
             else if (cleanedCommand[2] == 'r' || cleanedCommand[2] == 'k')
             {
-                char leftOrRight = cleanedCommand[0];
-                char sensor = cleanedCommand[1];
-                char ratio = cleanedCommand[3];
+                var leftOrRight = cleanedCommand[0];
+                var sensor = cleanedCommand[1];
+                var ratio = cleanedCommand[3];
 
-                // Create the new string in the specified format
-                string newString = $"({leftOrRight}{sensor}{cleanedCommand[2]}{ratio})";
+                var newString = $"({leftOrRight}{sensor}{cleanedCommand[2]}{ratio})";
                 serialPort.Write(newString);
                 OnDataSent(newString);
             }

@@ -1,25 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Runtime.InteropServices;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using System.Windows.Media.Imaging; // For BitmapImage
-using System.IO;
-using System.Windows.Interop; // For Imaging.CreateBitmapSourceFromHBitmap
-using System.Runtime.InteropServices;
-using System.Drawing;
-using System.Drawing.Imaging;
-using System.Windows.Controls.Primitives; // For Marshal
 
 namespace WpfMaiTouchEmulator;
 /// <summary>
@@ -30,20 +12,25 @@ public partial class TouchPanel : Window
     internal Action<TouchValue> onTouch;
     internal Action<TouchValue> onRelease;
 
-    [DllImport("user32.dll")]
-    public static extern int SetWindowLong(IntPtr window, int index, int value);
+    private readonly Dictionary<int, System.Windows.Controls.Image> activeTouches = [];
+    private readonly TouchPanelPositionManager _positionManager;
 
-    [DllImport("user32.dll")]
-    public static extern int GetWindowLong(IntPtr window, int index);
+    private enum ResizeDirection
+    {
+        BottomRight = 8,
+    }
 
-    public const int GWL_EXSTYLE = -20;
-    public const int WS_EX_TRANSPARENT = 0x00000020;
-    public const int WS_EX_LAYERED = 0x00080000;
+
+    [DllImport("user32.dll", CharSet = CharSet.Auto)]
+    private static extern bool ReleaseCapture();
+
+    [DllImport("user32.dll", CharSet = CharSet.Auto)]
+    private static extern int SendMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
 
     public TouchPanel()
     {
         InitializeComponent();
-        this.Topmost = true;
+        Topmost = true;
         _positionManager = new TouchPanelPositionManager();
 
     }
@@ -60,12 +47,6 @@ public partial class TouchPanel : Window
         }
     }
 
-    private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-    {
-        // This allows the entire window to be draggable
-        DragMove();
-    }
-
     private void DragBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
     {
         // This event is for the draggable bar, it calls DragMove to move the window
@@ -80,17 +61,6 @@ public partial class TouchPanel : Window
         }
     }
 
-    private enum ResizeDirection
-    {
-        BottomRight = 8,
-    }
-
-    [DllImport("user32.dll", CharSet = CharSet.Auto)]
-    private static extern bool ReleaseCapture();
-
-    [DllImport("user32.dll", CharSet = CharSet.Auto)]
-    private static extern int SendMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
-
     private void ResizeWindow(ResizeDirection direction)
     {
         ReleaseCapture();
@@ -100,14 +70,10 @@ public partial class TouchPanel : Window
                     IntPtr.Zero);
     }
 
-    private Dictionary<int, System.Windows.Controls.Image> activeTouches = new Dictionary<int, System.Windows.Controls.Image>();
-    private TouchPanelPositionManager _positionManager;
-
     private void Element_TouchDown(object sender, TouchEventArgs e)
     {
         // Cast the sender to a Border to ensure it's the correct element type.
-        var element = sender as System.Windows.Controls.Image;
-        if (element != null)
+        if (sender is System.Windows.Controls.Image element)
         {
             // Highlight the element and add it to the active touches tracking.
             HighlightElement(element, true);
@@ -125,7 +91,7 @@ public partial class TouchPanel : Window
         if (hitTestResult != null && hitTestResult.VisualHit is System.Windows.Controls.Image newElement)
         {
             // If this touch point is already tracking another element, unhighlight the previous one.
-            if (activeTouches.TryGetValue(e.TouchDevice.Id, out System.Windows.Controls.Image previousElement) && previousElement != newElement)
+            if (activeTouches.TryGetValue(e.TouchDevice.Id, out var previousElement) && previousElement != newElement)
             {
                 HighlightElement(previousElement, false);
                 onRelease((TouchValue)previousElement.Tag);
@@ -149,7 +115,7 @@ public partial class TouchPanel : Window
     private void Element_TouchUp(object sender, TouchEventArgs e)
     {
         // When touch is lifted, unhighlight the associated element and remove it from tracking.
-        if (activeTouches.TryGetValue(e.TouchDevice.Id, out System.Windows.Controls.Image element))
+        if (activeTouches.TryGetValue(e.TouchDevice.Id, out var element))
         {
             HighlightElement(element, false);
             onRelease((TouchValue)element.Tag);
@@ -159,10 +125,10 @@ public partial class TouchPanel : Window
         e.Handled = true;
     }
 
-    private bool IsTouchInsideWindow(System.Windows.Point touchPoint)
+    private bool IsTouchInsideWindow(Point touchPoint)
     {
         // Define the window's bounds
-        var windowBounds = new Rect(0, 0, this.ActualWidth, this.ActualHeight);
+        var windowBounds = new Rect(0, 0, ActualWidth, ActualHeight);
 
         // Check if the touch point is within the window's bounds
         return windowBounds.Contains(touchPoint);

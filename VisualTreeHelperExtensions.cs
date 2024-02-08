@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Windows;
-using System.Windows.Controls;
+﻿using System.Windows;
 using System.Windows.Media;
 
 public static class VisualTreeHelperExtensions
@@ -11,10 +9,10 @@ public static class VisualTreeHelperExtensions
         var images = new List<Image>();
 
         // Recursive search of the visual tree to find all Image controls
-        for (int i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
+        for (var i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
         {
             var child = VisualTreeHelper.GetChild(parent, i);
-            if (child != null && child is Image)
+            if (child is not null and Image)
             {
                 images.Add((Image)child);
             }
