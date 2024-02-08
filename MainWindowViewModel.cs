@@ -1,65 +1,59 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace WpfMaiTouchEmulator
+namespace WpfMaiTouchEmulator;
+
+internal class MainWindowViewModel : INotifyPropertyChanged
 {
-    class MainWindowViewModel : INotifyPropertyChanged
+    private bool _isAutomaticPortConnectingEnabled;
+    private bool _isDebugEnabled;
+    private bool _isAutomaticPositioningEnabled;
+    private bool _isExitWithSinmaiEnabled;
+
+    public bool IsDebugEnabled
     {
-        private bool _isAutomaticPortConnectingEnabled;
-        private bool _isDebugEnabled;
-        private bool _isAutomaticPositioningEnabled;
-        private bool _isExitWithSinmaiEnabled;
-
-        public bool IsDebugEnabled
+        get => _isDebugEnabled;
+        set
         {
-            get => _isDebugEnabled;
-            set
-            {
-                _isDebugEnabled = value;
-                OnPropertyChanged();
-            }
+            _isDebugEnabled = value;
+            OnPropertyChanged();
         }
+    }
 
-        public bool IsAutomaticPositioningEnabled
+    public bool IsAutomaticPositioningEnabled
+    {
+        get => _isAutomaticPositioningEnabled;
+        set
         {
-            get => _isAutomaticPositioningEnabled;
-            set
-            {
-                _isAutomaticPositioningEnabled = value;
-                OnPropertyChanged();
-            }
+            _isAutomaticPositioningEnabled = value;
+            OnPropertyChanged();
         }
+    }
 
-        public bool IsAutomaticPortConnectingEnabled
+    public bool IsAutomaticPortConnectingEnabled
+    {
+        get => _isAutomaticPortConnectingEnabled;
+        set
         {
-            get => _isAutomaticPortConnectingEnabled;
-            set
-            {
-                _isAutomaticPortConnectingEnabled = value;
-                OnPropertyChanged();
-            }
+            _isAutomaticPortConnectingEnabled = value;
+            OnPropertyChanged();
         }
+    }
 
-        public bool IsExitWithSinmaiEnabled
+    public bool IsExitWithSinmaiEnabled
+    {
+        get => _isExitWithSinmaiEnabled;
+        set
         {
-            get => _isExitWithSinmaiEnabled;
-            set
-            {
-                _isExitWithSinmaiEnabled = value;
-                OnPropertyChanged();
-            }
+            _isExitWithSinmaiEnabled = value;
+            OnPropertyChanged();
         }
+    }
 
-        public event PropertyChangedEventHandler? PropertyChanged;
+    public event PropertyChangedEventHandler? PropertyChanged;
 
-        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+    protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }

@@ -18,7 +18,8 @@ public partial class MainWindow : Window
 {
     private readonly MaiTouchSensorButtonStateManager buttonState;
     private MaiTouchComConnector connector;
-    private readonly TouchPanel _touchPanel;
+    private readonly VirtualComPortManager comPortManager;
+    private TouchPanel _touchPanel;
 
     public MainWindow()
     {
@@ -26,7 +27,12 @@ public partial class MainWindow : Window
         Title = "Mai Touch Emulator";
         buttonState = new MaiTouchSensorButtonStateManager(buttonStateValue);
         connector = new MaiTouchComConnector(buttonState);
-        connector.OnConnectStatusChange = (status) => Title = $"Mai Touch Emulator - {status}";
+        comPortManager = new VirtualComPortManager();
+        connector.OnConnectStatusChange = (status) =>
+        {
+            connectionStateLabel.Content = status;
+        };
+
         connector.OnDataSent = (data) =>
         {
             Application.Current.Dispatcher.Invoke(() =>
@@ -44,22 +50,34 @@ public partial class MainWindow : Window
             });
         };
 
-        _touchPanel = new TouchPanel();
-        _touchPanel.onTouch = (value) => { buttonState.PressButton(value); };
-        _touchPanel.onRelease = (value) => { buttonState.ReleaseButton(value); };
-        _touchPanel.Show();
-        DataContext = new MainWindowViewModel()
-        {
-            IsDebugEnabled = Properties.Settings.Default.IsDebugEnabled,
-            IsAutomaticPortConnectingEnabled = Properties.Settings.Default.IsAutomaticPortConnectingEnabled,
-            IsAutomaticPositioningEnabled = Properties.Settings.Default.IsAutomaticPositioningEnabled,
-            IsExitWithSinmaiEnabled = Properties.Settings.Default.IsExitWithSinmaiEnabled
-        };
+        Loaded += (s, e) => {
+            _touchPanel = new TouchPanel();
+            _touchPanel.onTouch = (value) => { buttonState.PressButton(value); };
+            _touchPanel.onRelease = (value) => { buttonState.ReleaseButton(value); };
+            _touchPanel.Show();
+            _touchPanel.Owner = this;
+            DataContext = new MainWindowViewModel()
+            {
+                IsDebugEnabled = Properties.Settings.Default.IsDebugEnabled,
+                IsAutomaticPortConnectingEnabled = Properties.Settings.Default.IsAutomaticPortConnectingEnabled,
+                IsAutomaticPositioningEnabled = Properties.Settings.Default.IsAutomaticPositioningEnabled,
+                IsExitWithSinmaiEnabled = Properties.Settings.Default.IsExitWithSinmaiEnabled
+            };
 
-        var dataContext = (MainWindowViewModel)DataContext;
-        _touchPanel.SetDebugMode(dataContext.IsDebugEnabled);
-        AutomaticTouchPanelPositioningLoop();
-        ExitWithSinmaiLoop();
+            var dataContext = (MainWindowViewModel)DataContext;
+            _touchPanel.SetDebugMode(dataContext.IsDebugEnabled);
+            AutomaticTouchPanelPositioningLoop();
+            AutomaticcPortConnectingLoop();
+            ExitWithSinmaiLoop();
+        };
+    }
+
+    private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+    {
+        foreach (Window childWindow in OwnedWindows)
+        {
+            childWindow.Close();
+        }
     }
 
     private async void ExitWithSinmaiLoop()
@@ -98,9 +116,23 @@ public partial class MainWindow : Window
         }
     }
 
+    private async void AutomaticcPortConnectingLoop()
+    {
+        var dataContext = (MainWindowViewModel)DataContext;
+        while (true)
+        {
+            if (dataContext.IsAutomaticPortConnectingEnabled)
+            {
+                await connector.StartTouchSensorPolling();
+            }
+            await Task.Delay(1000);
+        }
+    }
+    
+
     private async void ConnectToPortButton_Click(object sender, RoutedEventArgs e)
     {
-        await connector.startLoopAsync();
+        await connector.StartTouchSensorPolling();
     }
 
     private void debugMode_Click(object sender, RoutedEventArgs e)
@@ -138,5 +170,23 @@ public partial class MainWindow : Window
         dataContext.IsExitWithSinmaiEnabled = !enabled;
         Properties.Settings.Default.IsExitWithSinmaiEnabled = dataContext.IsExitWithSinmaiEnabled;
         Properties.Settings.Default.Save();
+    }
+
+    private async void buttonInstallComPort_Click(object sender, RoutedEventArgs e)
+    {
+        var output = await comPortManager.InstallComPort();
+        MessageBox.Show(output);
+    }
+
+    private async void buttonUninstallComPorts_Click(object sender, RoutedEventArgs e)
+    {
+        var output = await comPortManager.UninstallVirtualPorts();
+        MessageBox.Show(output);
+    }
+
+    private async void buttonListComPorts_Click(object sender, RoutedEventArgs e)
+    {
+        var output = await comPortManager.CheckInstalledPortsAsync();
+        MessageBox.Show(output);
     }
 }

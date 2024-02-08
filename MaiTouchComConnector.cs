@@ -12,6 +12,7 @@ internal class MaiTouchComConnector
 {
     private static SerialPort? serialPort;
     private bool isActiveMode;
+    private bool _connected;
     private readonly MaiTouchSensorButtonStateManager _buttonState;
 
     public Action<string> OnConnectStatusChange
@@ -35,61 +36,53 @@ internal class MaiTouchComConnector
         _buttonState = buttonState;
     }
 
-    public async Task startLoopAsync()
+    public async Task StartTouchSensorPolling()
     {
-        string virtualPort = "COM23"; // Adjust as needed
-
-
-        try
+        if (!_connected)
         {
-
-            // Use setupc.exe to create a virtual COM port pair
-            //StartProcessWithAdminRights("C:\\Program Files (x86)\\com0com\\setupc.exe", $"PortName=COM3 PortName=COM23");
-
-            serialPort = new SerialPort(virtualPort, 9600, Parity.None, 8, StopBits.One);
-            serialPort.DataReceived += SerialPort_DataReceived;
-            serialPort.Open();
-            Console.WriteLine("Serial port opened successfully.");
-            OnConnectStatusChange("Connected");
-
-
-
-            // Simulate receiving a STAT packet
-            // Keep the program running to simulate active mode
-            while (true)
+            var virtualPort = "COM23"; // Adjust as needed
+            try
             {
-                if (isActiveMode)
+                OnConnectStatusChange("Conecting...");
+                serialPort = new SerialPort(virtualPort, 9600, Parity.None, 8, StopBits.One);
+                serialPort.DataReceived += SerialPort_DataReceived;
+                serialPort.Open();
+                Console.WriteLine("Serial port opened successfully.");
+                OnConnectStatusChange("Connected to port");
+                _connected = true;
+
+                while (true)
                 {
-                    SendTouchscreenState();
-                    await Task.Delay(1);
+                    if (isActiveMode)
+                    {
+                        SendTouchscreenState();
+                        await Task.Delay(1);
+                    }
+                    else
+                    {
+                        await Task.Delay(100);
+                    }
                 }
-                else
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error opening serial port: {ex.Message}");
+                Application.Current.Dispatcher.Invoke(() =>
                 {
-                    await Task.Delay(100);
+                    MessageBox.Show(ex.Message, "Error connecting to COM port", MessageBoxButton.OK, MessageBoxImage.Error);
+                });
+
+            }
+            finally
+            {
+                _connected = false;
+                OnConnectStatusChange("Not Connected");
+                if (serialPort?.IsOpen == true)
+                {
+                    serialPort.Close();
                 }
             }
-
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error opening serial port: {ex.Message}");
-            Application.Current.Dispatcher.Invoke(() =>
-            {
-                MessageBox.Show(ex.Message, "Error connecting to COM port", MessageBoxButton.OK, MessageBoxImage.Error);
-            });
-
-        }
-        finally
-        {
-            OnConnectStatusChange("Not Connected");
-            // Close the serial port when done
-            if (serialPort.IsOpen)
-            {
-                serialPort.Close();
-            }
-
-            // Use setupc.exe to remove the virtual COM port pair with administrator privileges
-            //StartProcessWithAdminRights("C:\\Program Files (x86)\\com0com\\setupc.exe", $"remove 0");
         }
     }
 
@@ -142,6 +135,5 @@ internal class MaiTouchComConnector
     {
         var currentState = _buttonState.GetCurrentState();
         serialPort?.Write(currentState, 0, currentState.Length);
-        //Console.WriteLine($"Sent Touchscreen State: {report}");*/
     }
 }

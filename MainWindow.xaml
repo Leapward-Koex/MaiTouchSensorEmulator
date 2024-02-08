@@ -3,9 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:WpfMaiTouchEmulator"
         mc:Ignorable="d"
-        Title="MainWindow" Height="243" Width="800">
+        Closing="MainWindow_Closing"
+        Title="MainWindow" Height="282" Width="800">
     <Grid Background="Transparent">
         <Button x:Name="ConnectToPortButton" Content="Connect to port" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Click="ConnectToPortButton_Click" Width="105"/>
         <TextBox x:Name="RecievedLogBox"
@@ -31,7 +31,10 @@
         <CheckBox x:Name="automaticPortConnecting" HorizontalAlignment="Left" Margin="10,81,0,0" VerticalAlignment="Top" Height="17" Width="224" Content="Automatic port connecting" IsChecked="{Binding Path=IsAutomaticPortConnectingEnabled}" Click="automaticPortConnecting_Click"/>
         <Label x:Name="label1" Content="Connection state" HorizontalAlignment="Left" Margin="238,8,0,0" VerticalAlignment="Top"/>
         <Label x:Name="connectionStateLabel" Content="Not connected" HorizontalAlignment="Left" Margin="238,31,0,0" VerticalAlignment="Top" FontSize="10"/>
-        <CheckBox x:Name="exitWithSinmai" HorizontalAlignment="Left" Margin="10,103,0,0" VerticalAlignment="Top" Height="17" Width="224" Content="Automatic port connecting" IsChecked="{Binding IsExitWithSinmaiEnabled}" Click="exitWithSinmai_Click"/>
+        <CheckBox x:Name="exitWithSinmai" HorizontalAlignment="Left" Margin="10,103,0,0" VerticalAlignment="Top" Height="17" Width="224" Content="Exit when Sinmai exits" IsChecked="{Binding IsExitWithSinmaiEnabled}" Click="exitWithSinmai_Click"/>
+        <Button x:Name="buttonInstallComPort" Content="Install com port" HorizontalAlignment="Left" Margin="10,147,0,0" VerticalAlignment="Top" Click="buttonInstallComPort_Click"/>
+        <Button x:Name="buttonUninstallComPorts" Content="Uninstall com port" HorizontalAlignment="Left" Margin="10,172,0,0" VerticalAlignment="Top" Click="buttonUninstallComPorts_Click"/>
+        <Button x:Name="buttonListComPorts" Content="List installed com ports" HorizontalAlignment="Left" Margin="10,197,0,0" VerticalAlignment="Top" Click="buttonListComPorts_Click"/>
 
     </Grid>
 

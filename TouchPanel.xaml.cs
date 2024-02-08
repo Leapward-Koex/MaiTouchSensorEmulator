@@ -189,7 +189,10 @@ public partial class TouchPanel : Window
 
     private void HighlightElement(System.Windows.Controls.Image element, bool highlight)
     {
-        element.Opacity = highlight ? 0.8 : 0.3;
+        if (Properties.Settings.Default.IsDebugEnabled)
+        {
+            element.Opacity = highlight ? 0.8 : 0.3;
+        }
     }
 
 }
