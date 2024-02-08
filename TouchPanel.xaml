@@ -1,0 +1,74 @@
+﻿<Window x:Class="WpfMaiTouchEmulator.TouchPanel"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfMaiTouchEmulator"
+        mc:Ignorable="d"
+        Title="TouchPanel" Height="820" Width="800"
+        AllowsTransparency="True" WindowStyle="None" Background="Transparent"
+>
+    <Border Background="#01000000">
+        <StackPanel>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="0"/>
+                </Grid.ColumnDefinitions>
+                <Border HorizontalAlignment="Left" VerticalAlignment="Top"
+                Height="20" Background="Gray" MouseLeftButtonDown="DragBar_MouseLeftButtonDown"
+                Cursor="SizeAll">
+                    <Border Width="200" HorizontalAlignment="Right" Background="Transparent"/>
+                </Border>
+
+                <!-- Resize handle in the top right corner -->
+
+            </Grid>
+
+            <Viewbox Stretch="Uniform" Opacity="1">
+                <Canvas Width="502" Height="502">
+                    <Image Source="C:\Dev\WpfMaiTouchEmulator\assets\A1.png" Canvas.Left="276" HorizontalAlignment="Left" VerticalAlignment="Center" PreviewTouchDown="Element_TouchDown" PreviewTouchMove="Element_TouchMove" PreviewTouchUp="Element_TouchUp" Tag="{x:Static local:TouchValue.A1}" Canvas.Top="3"/>
+                    <Image Source="C:\Dev\WpfMaiTouchEmulator\assets\A2.png" Canvas.Left="382" HorizontalAlignment="Left" VerticalAlignment="Top" PreviewTouchDown="Element_TouchDown" PreviewTouchMove="Element_TouchMove" PreviewTouchUp="Element_TouchUp" Tag="{x:Static local:TouchValue.A2}" Canvas.Top="102"/>
+                    <Image Source="C:\Dev\WpfMaiTouchEmulator\assets\A3.png" Canvas.Left="382" HorizontalAlignment="Left" VerticalAlignment="Center" PreviewTouchDown="Element_TouchDown" PreviewTouchMove="Element_TouchMove" PreviewTouchUp="Element_TouchUp" Tag="{x:Static local:TouchValue.A3}" Canvas.Top="276"/>
+                    <Image Source="C:\Dev\WpfMaiTouchEmulator\assets\A4.png" Canvas.Left="276" HorizontalAlignment="Left" VerticalAlignment="Top" PreviewTouchDown="Element_TouchDown" PreviewTouchMove="Element_TouchMove" PreviewTouchUp="Element_TouchUp" Tag="{x:Static local:TouchValue.A4}" Canvas.Top="382"/>
+                    <Image Source="C:\Dev\WpfMaiTouchEmulator\assets\A5.png" Canvas.Left="102" HorizontalAlignment="Left" VerticalAlignment="Center" PreviewTouchDown="Element_TouchDown" PreviewTouchMove="Element_TouchMove" PreviewTouchUp="Element_TouchUp" Tag="{x:Static local:TouchValue.A5}" Canvas.Top="382"/>
+                    <Image Source="C:\Dev\WpfMaiTouchEmulator\assets\A6.png" Canvas.Left="4" HorizontalAlignment="Center" VerticalAlignment="Top" PreviewTouchDown="Element_TouchDown" PreviewTouchMove="Element_TouchMove" PreviewTouchUp="Element_TouchUp" Tag="{x:Static local:TouchValue.A6}" Canvas.Top="276"/>
+                    <Image Source="C:\Dev\WpfMaiTouchEmulator\assets\A7.png" Canvas.Left="3" HorizontalAlignment="Left" VerticalAlignment="Top" PreviewTouchDown="Element_TouchDown" PreviewTouchMove="Element_TouchMove" PreviewTouchUp="Element_TouchUp" Tag="{x:Static local:TouchValue.A7}" Canvas.Top="102"/>
+                    <Image Source="C:\Dev\WpfMaiTouchEmulator\assets\A8.png" Canvas.Left="102" HorizontalAlignment="Left" VerticalAlignment="Top" PreviewTouchDown="Element_TouchDown" PreviewTouchMove="Element_TouchMove" PreviewTouchUp="Element_TouchUp" Tag="{x:Static local:TouchValue.A8}" Canvas.Top="3"/>
+                    <Image Source="C:\Dev\WpfMaiTouchEmulator\assets\B1.png" Canvas.Left="254" HorizontalAlignment="Left" VerticalAlignment="Top" PreviewTouchDown="Element_TouchDown" PreviewTouchMove="Element_TouchMove" PreviewTouchUp="Element_TouchUp" Tag="{x:Static local:TouchValue.B1}" Canvas.Top="120"/>
+                    <Image Source="C:\Dev\WpfMaiTouchEmulator\assets\B2.png" Canvas.Left="315" HorizontalAlignment="Left" VerticalAlignment="Center" PreviewTouchDown="Element_TouchDown" PreviewTouchMove="Element_TouchMove" PreviewTouchUp="Element_TouchUp" Tag="{x:Static local:TouchValue.B2}" Canvas.Top="178"/>
+                    <Image Source="C:\Dev\WpfMaiTouchEmulator\assets\B3.png" Canvas.Left="315" HorizontalAlignment="Left" VerticalAlignment="Top" PreviewTouchDown="Element_TouchDown" PreviewTouchMove="Element_TouchMove" PreviewTouchUp="Element_TouchUp" Tag="{x:Static local:TouchValue.B3}" Canvas.Top="253"/>
+                    <Image Source="C:\Dev\WpfMaiTouchEmulator\assets\B4.png" Canvas.Left="254" HorizontalAlignment="Left" VerticalAlignment="Top" PreviewTouchDown="Element_TouchDown" PreviewTouchMove="Element_TouchMove" PreviewTouchUp="Element_TouchUp" Tag="{x:Static local:TouchValue.B4}" Canvas.Top="314"/>
+                    <Image Source="C:\Dev\WpfMaiTouchEmulator\assets\B5.png" Canvas.Left="178" HorizontalAlignment="Left" VerticalAlignment="Top" PreviewTouchDown="Element_TouchDown" PreviewTouchMove="Element_TouchMove" PreviewTouchUp="Element_TouchUp" Tag="{x:Static local:TouchValue.B5}" Canvas.Top="314"/>
+                    <Image Source="C:\Dev\WpfMaiTouchEmulator\assets\B6.png" Canvas.Left="120" HorizontalAlignment="Left" VerticalAlignment="Top" PreviewTouchDown="Element_TouchDown" PreviewTouchMove="Element_TouchMove" PreviewTouchUp="Element_TouchUp" Tag="{x:Static local:TouchValue.B6}" Canvas.Top="253"/>
+                    <Image Source="C:\Dev\WpfMaiTouchEmulator\assets\B7.png" Canvas.Left="120" HorizontalAlignment="Center" VerticalAlignment="Top" PreviewTouchDown="Element_TouchDown" PreviewTouchMove="Element_TouchMove" PreviewTouchUp="Element_TouchUp" Tag="{x:Static local:TouchValue.B7}" Canvas.Top="178"/>
+                    <Image Source="C:\Dev\WpfMaiTouchEmulator\assets\B8.png" Canvas.Left="178" HorizontalAlignment="Left" VerticalAlignment="Top" PreviewTouchDown="Element_TouchDown" PreviewTouchMove="Element_TouchMove" PreviewTouchUp="Element_TouchUp" Tag="{x:Static local:TouchValue.B8}" Canvas.Top="120"/>
+                    <Image Source="C:\Dev\WpfMaiTouchEmulator\assets\C1.png" Canvas.Left="254" HorizontalAlignment="Left" VerticalAlignment="Center" PreviewTouchDown="Element_TouchDown" PreviewTouchMove="Element_TouchMove" PreviewTouchUp="Element_TouchUp" Tag="{x:Static local:TouchValue.C1}" Canvas.Top="203"/>
+                    <Image Source="C:\Dev\WpfMaiTouchEmulator\assets\C2.png" Canvas.Left="203" HorizontalAlignment="Left" VerticalAlignment="Center" PreviewTouchDown="Element_TouchDown" PreviewTouchMove="Element_TouchMove" PreviewTouchUp="Element_TouchUp" Tag="{x:Static local:TouchValue.C2}" Canvas.Top="203"/>
+                    <Image Source="C:\Dev\WpfMaiTouchEmulator\assets\D1.png" Canvas.Left="219" HorizontalAlignment="Left" VerticalAlignment="Center" PreviewTouchDown="Element_TouchDown" PreviewTouchMove="Element_TouchMove" PreviewTouchUp="Element_TouchUp" Tag="{x:Static local:TouchValue.D1}"/>
+                    <Image Source="C:\Dev\WpfMaiTouchEmulator\assets\D2.png" Canvas.Left="354" HorizontalAlignment="Left" VerticalAlignment="Top" PreviewTouchDown="Element_TouchDown" PreviewTouchMove="Element_TouchMove" PreviewTouchUp="Element_TouchUp" Tag="{x:Static local:TouchValue.D2}" Canvas.Top="52"/>
+                    <Image Source="C:\Dev\WpfMaiTouchEmulator\assets\D3.png" Canvas.Left="417" HorizontalAlignment="Center" VerticalAlignment="Top" PreviewTouchDown="Element_TouchDown" PreviewTouchMove="Element_TouchMove" PreviewTouchUp="Element_TouchUp" Tag="{x:Static local:TouchValue.D3}" Canvas.Top="219"/>
+                    <Image Source="C:\Dev\WpfMaiTouchEmulator\assets\D4.png" Canvas.Left="354" HorizontalAlignment="Left" VerticalAlignment="Top" PreviewTouchDown="Element_TouchDown" PreviewTouchMove="Element_TouchMove" PreviewTouchUp="Element_TouchUp" Tag="{x:Static local:TouchValue.D4}" Canvas.Top="353"/>
+                    <Image Source="C:\Dev\WpfMaiTouchEmulator\assets\D5.png" Canvas.Left="219" HorizontalAlignment="Center" VerticalAlignment="Top" PreviewTouchDown="Element_TouchDown" PreviewTouchMove="Element_TouchMove" PreviewTouchUp="Element_TouchUp" Tag="{x:Static local:TouchValue.D5}" Canvas.Top="416"/>
+                    <Image Source="C:\Dev\WpfMaiTouchEmulator\assets\D6.png" Canvas.Left="53" HorizontalAlignment="Left" VerticalAlignment="Top" PreviewTouchDown="Element_TouchDown" PreviewTouchMove="Element_TouchMove" PreviewTouchUp="Element_TouchUp" Tag="{x:Static local:TouchValue.D6}" Canvas.Top="354"/>
+                    <Image Source="C:\Dev\WpfMaiTouchEmulator\assets\D7.png" Canvas.Left="0" HorizontalAlignment="Left" VerticalAlignment="Top" PreviewTouchDown="Element_TouchDown" PreviewTouchMove="Element_TouchMove" PreviewTouchUp="Element_TouchUp" Tag="{x:Static local:TouchValue.D7}" Canvas.Top="218"/>
+                    <Image Source="C:\Dev\WpfMaiTouchEmulator\assets\D8.png" Canvas.Left="53" HorizontalAlignment="Left" VerticalAlignment="Top" PreviewTouchDown="Element_TouchDown" PreviewTouchMove="Element_TouchMove" PreviewTouchUp="Element_TouchUp" Tag="{x:Static local:TouchValue.D8}" Canvas.Top="52"/>
+                    <Image Source="C:\Dev\WpfMaiTouchEmulator\assets\E1.png" Canvas.Left="217" HorizontalAlignment="Left" VerticalAlignment="Top" PreviewTouchDown="Element_TouchDown" PreviewTouchMove="Element_TouchMove" PreviewTouchUp="Element_TouchUp" Tag="{x:Static local:TouchValue.E1}" Canvas.Top="73"/>
+                    <Image Source="C:\Dev\WpfMaiTouchEmulator\assets\E2.png" Canvas.Left="329" HorizontalAlignment="Left" VerticalAlignment="Top" PreviewTouchDown="Element_TouchDown" PreviewTouchMove="Element_TouchMove" PreviewTouchUp="Element_TouchUp" Tag="{x:Static local:TouchValue.E2}" Canvas.Top="125"/>
+                    <Image Source="C:\Dev\WpfMaiTouchEmulator\assets\E3.png" Canvas.Left="361" HorizontalAlignment="Left" VerticalAlignment="Center" PreviewTouchDown="Element_TouchDown" PreviewTouchMove="Element_TouchMove" PreviewTouchUp="Element_TouchUp" Tag="{x:Static local:TouchValue.E3}" Canvas.Top="217"/>
+                    <Image Source="C:\Dev\WpfMaiTouchEmulator\assets\E4.png" Canvas.Left="329" HorizontalAlignment="Left" VerticalAlignment="Top" PreviewTouchDown="Element_TouchDown" PreviewTouchMove="Element_TouchMove" PreviewTouchUp="Element_TouchUp" Tag="{x:Static local:TouchValue.E4}" Canvas.Top="328"/>
+                    <Image Source="C:\Dev\WpfMaiTouchEmulator\assets\E5.png" Canvas.Left="217" HorizontalAlignment="Center" VerticalAlignment="Top" PreviewTouchDown="Element_TouchDown" PreviewTouchMove="Element_TouchMove" PreviewTouchUp="Element_TouchUp" Tag="{x:Static local:TouchValue.E5}" Canvas.Top="361"/>
+                    <Image Source="C:\Dev\WpfMaiTouchEmulator\assets\E6.png" Canvas.Left="125" HorizontalAlignment="Left" VerticalAlignment="Top" PreviewTouchDown="Element_TouchDown" PreviewTouchMove="Element_TouchMove" PreviewTouchUp="Element_TouchUp" Tag="{x:Static local:TouchValue.E6}" Canvas.Top="328"/>
+                    <Image Source="C:\Dev\WpfMaiTouchEmulator\assets\E7.png" Canvas.Left="73" HorizontalAlignment="Left" VerticalAlignment="Top" PreviewTouchDown="Element_TouchDown" PreviewTouchMove="Element_TouchMove" PreviewTouchUp="Element_TouchUp" Tag="{x:Static local:TouchValue.E7}" Canvas.Top="217"/>
+                    <Image Source="C:\Dev\WpfMaiTouchEmulator\assets\E8.png" Canvas.Left="125" HorizontalAlignment="Left" VerticalAlignment="Top" PreviewTouchDown="Element_TouchDown" PreviewTouchMove="Element_TouchMove" PreviewTouchUp="Element_TouchUp" Tag="{x:Static local:TouchValue.E8}" Canvas.Top="125"/>
+                    <Border x:Name="ResizeGrip"
+                Width="20" Height="20" Background="White"
+                MouseDown="ResizeGrip_MouseDown" RenderTransformOrigin="19.05,-0.7" Canvas.Left="482" Canvas.Top="482"/>
+
+                </Canvas>
+            </Viewbox>
+        </StackPanel>
+
+    </Border>
+
+</Window>

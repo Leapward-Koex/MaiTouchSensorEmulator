@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34525.116
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfMaiTouchEmulator", "WpfMaiTouchEmulator.csproj", "{12065588-9C14-41F6-B866-76CAEBDF9E89}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{12065588-9C14-41F6-B866-76CAEBDF9E89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12065588-9C14-41F6-B866-76CAEBDF9E89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12065588-9C14-41F6-B866-76CAEBDF9E89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12065588-9C14-41F6-B866-76CAEBDF9E89}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {54F9B40B-528A-4EBE-BE07-6DCB97467469}
+	EndGlobalSection
+EndGlobal
