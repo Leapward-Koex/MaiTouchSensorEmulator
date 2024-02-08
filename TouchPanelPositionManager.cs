@@ -11,7 +11,7 @@ namespace WpfMaiTouchEmulator
     class TouchPanelPositionManager
     {
         [DllImport("user32.dll", SetLastError = true)]
-        static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
+        static extern IntPtr FindWindow(string? lpClassName, string lpWindowName);
 
         [DllImport("user32.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
@@ -26,7 +26,7 @@ namespace WpfMaiTouchEmulator
             public int Bottom;
         }
 
-        public Rect? GetTouchPanelPosition()
+        public Rect? GetSinMaiWindowPosition()
         {
             // Replace "OtherAppWindowName" with the window name (title) of the other application
             IntPtr hWnd = FindWindow(null, "Sinmai");
@@ -37,19 +37,11 @@ namespace WpfMaiTouchEmulator
                 {
                     // Calculate the desired size and position based on the other application's window
                     int width = Convert.ToInt32((rect.Right - rect.Left));
-                    int height = width + 20;
+                    int height = width;
                     int left = rect.Left + ((rect.Right - rect.Left) - width) / 2; // Center horizontally
                     int top = rect.Bottom - height;
                     return new Rect(left, top, width, height);
                 }
-                else
-                {
-                    MessageBox.Show("Failed to get window rect.");
-                }
-            }
-            else
-            {
-                MessageBox.Show("Other application window not found.");
             }
             return null;
         }

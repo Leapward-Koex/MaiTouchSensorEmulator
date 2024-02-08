@@ -7,27 +7,31 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="243" Width="800">
     <Grid Background="Transparent">
-        <Button x:Name="ConnectToPortButton" Content="Connect to port" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Click="ConnectToPortButton_Click"/>
-        <Button x:Name="Touch_A1" Content="Touch A1" HorizontalAlignment="Left" Margin="10,92,0,0" VerticalAlignment="Top" PreviewMouseDown="Touch_A1_PreviewMouseDown" PreviewMouseUp="Touch_A1_PreviewMouseUp" />
-        <Button x:Name="Touch_A2_C1" Content="Touch A2 C1" HorizontalAlignment="Left" Margin="10,117,0,0" VerticalAlignment="Top" PreviewMouseUp="Touch_A2_C1_PreviewMouseUp" PreviewMouseDown="Touch_A2_C1_PreviewMouseDown" />
+        <Button x:Name="ConnectToPortButton" Content="Connect to port" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Click="ConnectToPortButton_Click" Width="105"/>
         <TextBox x:Name="RecievedLogBox"
              IsReadOnly="True"
              HorizontalScrollBarVisibility="Disabled"
              VerticalScrollBarVisibility="Auto"
              AcceptsReturn="True"
              AcceptsTab="True"
-             TextWrapping="Wrap" Margin="124,33,530,10" />
+             TextWrapping="Wrap" Margin="376,34,278,9" />
         <TextBox x:Name="SentLogBox"
             IsReadOnly="True"
             HorizontalScrollBarVisibility="Disabled"
             VerticalScrollBarVisibility="Auto"
             AcceptsReturn="True"
             AcceptsTab="True"
-            TextWrapping="Wrap" Margin="290,33,364,10" />
-        <Label x:Name="label" Content="Recieved" HorizontalAlignment="Left" Margin="124,7,0,0" VerticalAlignment="Top" Width="88"/>
-        <Label x:Name="label_Copy" Content="Sent" HorizontalAlignment="Left" Margin="290,7,0,0" VerticalAlignment="Top" Width="88"/>
-        <Label x:Name="label_Copy1" Content="Button State" HorizontalAlignment="Left" Margin="458,7,0,0" VerticalAlignment="Top" Width="88"/>
-        <Label x:Name="buttonStateValue" Content="0" HorizontalAlignment="Left" Margin="458,33,0,0" VerticalAlignment="Top" RenderTransformOrigin="3.566,1.468"/>
+            TextWrapping="Wrap" Margin="552,34,102,9" />
+        <Label x:Name="label" Content="Recieved" HorizontalAlignment="Left" Margin="376,8,0,0" VerticalAlignment="Top" Width="88"/>
+        <Label x:Name="label_Copy" Content="Sent" HorizontalAlignment="Left" Margin="552,8,0,0" VerticalAlignment="Top" Width="88"/>
+        <Label x:Name="label_Copy1" Content="Button State" HorizontalAlignment="Left" Margin="698,8,0,0" VerticalAlignment="Top" Width="88"/>
+        <Label x:Name="buttonStateValue" Content="0" HorizontalAlignment="Left" Margin="698,34,0,0" VerticalAlignment="Top" RenderTransformOrigin="3.566,1.468" FontSize="10"/>
+        <CheckBox x:Name="debugMode" Content="Debug mode" HorizontalAlignment="Left" Margin="10,39,0,0" VerticalAlignment="Top" IsChecked="{Binding Path=IsDebugEnabled}" Click="debugMode_Click"/>
+        <CheckBox x:Name="automaticTouchPanelPositioning" HorizontalAlignment="Left" Margin="10,59,0,0" VerticalAlignment="Top" Height="17" Width="224" Content="Automatic sensor window positioning" IsChecked="{Binding Path=IsAutomaticPositioningEnabled}" Click="automaticTouchPanelPositioning_Click"/>
+        <CheckBox x:Name="automaticPortConnecting" HorizontalAlignment="Left" Margin="10,81,0,0" VerticalAlignment="Top" Height="17" Width="224" Content="Automatic port connecting" IsChecked="{Binding Path=IsAutomaticPortConnectingEnabled}" Click="automaticPortConnecting_Click"/>
+        <Label x:Name="label1" Content="Connection state" HorizontalAlignment="Left" Margin="238,8,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="connectionStateLabel" Content="Not connected" HorizontalAlignment="Left" Margin="238,31,0,0" VerticalAlignment="Top" FontSize="10"/>
+        <CheckBox x:Name="exitWithSinmai" HorizontalAlignment="Left" Margin="10,103,0,0" VerticalAlignment="Top" Height="17" Width="224" Content="Automatic port connecting" IsChecked="{Binding IsExitWithSinmaiEnabled}" Click="exitWithSinmai_Click"/>
 
     </Grid>
 

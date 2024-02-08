@@ -5,28 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfMaiTouchEmulator"
         mc:Ignorable="d"
-        Title="TouchPanel" Height="820" Width="800"
+        Title="TouchPanel" Height="800" Width="800"
         AllowsTransparency="True" WindowStyle="None" Background="Transparent"
 >
     <Border Background="#01000000">
         <StackPanel>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="0"/>
-                </Grid.ColumnDefinitions>
-                <Border HorizontalAlignment="Left" VerticalAlignment="Top"
-                Height="20" Background="Gray" MouseLeftButtonDown="DragBar_MouseLeftButtonDown"
-                Cursor="SizeAll">
-                    <Border Width="200" HorizontalAlignment="Right" Background="Transparent"/>
-                </Border>
-
-                <!-- Resize handle in the top right corner -->
-
-            </Grid>
-
             <Viewbox Stretch="Uniform" Opacity="1">
                 <Canvas Width="502" Height="502">
+                    <Border HorizontalAlignment="Left" VerticalAlignment="Center"
+                        Height="30" Background="White" MouseLeftButtonDown="DragBar_MouseLeftButtonDown"
+                        Cursor="SizeAll" Width="38">
+                        <Label Content="Drag" />
+                    </Border>
                     <Image Source="C:\Dev\WpfMaiTouchEmulator\assets\A1.png" Canvas.Left="276" HorizontalAlignment="Left" VerticalAlignment="Center" PreviewTouchDown="Element_TouchDown" PreviewTouchMove="Element_TouchMove" PreviewTouchUp="Element_TouchUp" Tag="{x:Static local:TouchValue.A1}" Canvas.Top="3"/>
                     <Image Source="C:\Dev\WpfMaiTouchEmulator\assets\A2.png" Canvas.Left="382" HorizontalAlignment="Left" VerticalAlignment="Top" PreviewTouchDown="Element_TouchDown" PreviewTouchMove="Element_TouchMove" PreviewTouchUp="Element_TouchUp" Tag="{x:Static local:TouchValue.A2}" Canvas.Top="102"/>
                     <Image Source="C:\Dev\WpfMaiTouchEmulator\assets\A3.png" Canvas.Left="382" HorizontalAlignment="Left" VerticalAlignment="Center" PreviewTouchDown="Element_TouchDown" PreviewTouchMove="Element_TouchMove" PreviewTouchUp="Element_TouchUp" Tag="{x:Static local:TouchValue.A3}" Canvas.Top="276"/>
@@ -62,8 +52,10 @@
                     <Image Source="C:\Dev\WpfMaiTouchEmulator\assets\E7.png" Canvas.Left="73" HorizontalAlignment="Left" VerticalAlignment="Top" PreviewTouchDown="Element_TouchDown" PreviewTouchMove="Element_TouchMove" PreviewTouchUp="Element_TouchUp" Tag="{x:Static local:TouchValue.E7}" Canvas.Top="217"/>
                     <Image Source="C:\Dev\WpfMaiTouchEmulator\assets\E8.png" Canvas.Left="125" HorizontalAlignment="Left" VerticalAlignment="Top" PreviewTouchDown="Element_TouchDown" PreviewTouchMove="Element_TouchMove" PreviewTouchUp="Element_TouchUp" Tag="{x:Static local:TouchValue.E8}" Canvas.Top="125"/>
                     <Border x:Name="ResizeGrip"
-                Width="20" Height="20" Background="White"
-                MouseDown="ResizeGrip_MouseDown" RenderTransformOrigin="19.05,-0.7" Canvas.Left="482" Canvas.Top="482"/>
+                Width="42" Height="26" Background="White"
+                MouseDown="ResizeGrip_MouseDown" RenderTransformOrigin="19.05,-0.7" Canvas.Left="460" Canvas.Top="476" HorizontalAlignment="Center" VerticalAlignment="Top">
+                        <Label Content="Resize" />
+                    </Border>
 
                 </Canvas>
             </Viewbox>

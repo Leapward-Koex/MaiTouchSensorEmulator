@@ -29,8 +29,6 @@ public partial class TouchPanel : Window
 {
     internal Action<TouchValue> onTouch;
     internal Action<TouchValue> onRelease;
-    private bool isResizing = false;
-    private System.Windows.Point clickPosition;
 
     [DllImport("user32.dll")]
     public static extern int SetWindowLong(IntPtr window, int index, int value);
@@ -46,24 +44,20 @@ public partial class TouchPanel : Window
     {
         InitializeComponent();
         this.Topmost = true;
-        var positionManager = new TouchPanelPositionManager();
-        var position = positionManager.GetTouchPanelPosition();
-        if (position != null )
+        _positionManager = new TouchPanelPositionManager();
+
+    }
+
+    public void PositionTouchPanel()
+    {
+        var position = _positionManager.GetSinMaiWindowPosition();
+        if (position != null)
         {
             Top = position.Value.Top;
             Left = position.Value.Left;
             Width = position.Value.Width;
             Height = position.Value.Height;
         }
-
-        this.Loaded += new RoutedEventHandler(Window_Loaded);
-    }
-
-    private void Window_Loaded(object sender, RoutedEventArgs e)
-    {
-        // Make the window transparent to input
-        var hwnd = new WindowInteropHelper(this).Handle;
-        //SetWindowLong(hwnd, GWL_EXSTYLE, GetWindowLong(hwnd, GWL_EXSTYLE) | WS_EX_TRANSPARENT | WS_EX_LAYERED);
     }
 
     private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -107,7 +101,7 @@ public partial class TouchPanel : Window
     }
 
     private Dictionary<int, System.Windows.Controls.Image> activeTouches = new Dictionary<int, System.Windows.Controls.Image>();
-
+    private TouchPanelPositionManager _positionManager;
 
     private void Element_TouchDown(object sender, TouchEventArgs e)
     {

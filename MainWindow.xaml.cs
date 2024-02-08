@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Diagnostics;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -17,6 +18,7 @@ public partial class MainWindow : Window
 {
     private MaiTouchSensorButtonStateManager buttonState;
     private MaiTouchComConnector connector;
+    private readonly TouchPanel _touchPanel;
 
     public MainWindow()
     {
@@ -42,11 +44,50 @@ public partial class MainWindow : Window
             });
         };
 
-        var touchPanel = new TouchPanel();
-        touchPanel.onTouch = (value) => { buttonState.PressButton(value); };
-        touchPanel.onRelease = (value) => { buttonState.ReleaseButton(value); };
-        touchPanel.Show();
-        touchPanel.SetDebugMode(true);
+        _touchPanel = new TouchPanel();
+        _touchPanel.onTouch = (value) => { buttonState.PressButton(value); };
+        _touchPanel.onRelease = (value) => { buttonState.ReleaseButton(value); };
+        _touchPanel.Show();
+        _touchPanel.SetDebugMode(true);
+        DataContext = new MainWindowViewModel() { IsDebugEnabled = true, IsAutomaticPortConnectingEnabled = true, IsAutomaticPositioningEnabled = true, IsExitWithSinmaiEnabled = true };
+        AutomaticTouchPanelPositioningLoop();
+        ExitWithSinmaiLoop();
+    }
+
+    private async void ExitWithSinmaiLoop()
+    {
+        Process? sinamiProcess = null;
+        while (sinamiProcess == null)
+        {
+            var processes = Process.GetProcessesByName("Sinmai");
+            if (processes.Length > 0)
+            {
+                sinamiProcess = processes[0];
+            }
+            else
+            {
+                await Task.Delay(1000);
+            }
+        }
+        await sinamiProcess.WaitForExitAsync();
+        var dataContext = (MainWindowViewModel)DataContext;
+        if (dataContext.IsExitWithSinmaiEnabled)
+        {
+            Application.Current.Shutdown();
+        }
+    }
+
+    private async void AutomaticTouchPanelPositioningLoop()
+    {
+        var dataContext = (MainWindowViewModel)DataContext;
+        while (true)
+        {
+            if (dataContext.IsAutomaticPositioningEnabled)
+            {
+                _touchPanel.PositionTouchPanel();
+            }
+            await Task.Delay(1000);
+        }
     }
 
     private async void ConnectToPortButton_Click(object sender, RoutedEventArgs e)
@@ -54,26 +95,32 @@ public partial class MainWindow : Window
         await connector.startLoopAsync();
     }
 
-    private void Touch_A1_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+    private void debugMode_Click(object sender, RoutedEventArgs e)
     {
-        buttonState.PressButton(TouchValue.A1);
+        var dataContext = (MainWindowViewModel)DataContext;
+        var enabled = !dataContext.IsDebugEnabled;
+        dataContext.IsDebugEnabled = !enabled;
+        _touchPanel.SetDebugMode(dataContext.IsDebugEnabled);
     }
 
-    private void Touch_A1_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+    private void automaticTouchPanelPositioning_Click(object sender, RoutedEventArgs e)
     {
-        buttonState.ReleaseButton(TouchValue.A1);
+        var dataContext = (MainWindowViewModel)DataContext;
+        var enabled = !dataContext.IsAutomaticPositioningEnabled;
+        dataContext.IsAutomaticPositioningEnabled = !enabled;
     }
 
-    private void Touch_A2_C1_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+    private void automaticPortConnecting_Click(object sender, RoutedEventArgs e)
     {
-        buttonState.PressButton(TouchValue.A2);
-        buttonState.PressButton(TouchValue.C1);
-
+        var dataContext = (MainWindowViewModel)DataContext;
+        var enabled = !dataContext.IsAutomaticPortConnectingEnabled;
+        dataContext.IsAutomaticPortConnectingEnabled = !enabled;
     }
 
-    private void Touch_A2_C1_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+    private void exitWithSinmai_Click(object sender, RoutedEventArgs e)
     {
-        buttonState.ReleaseButton(TouchValue.A2);
-        buttonState.ReleaseButton(TouchValue.C1);
+        var dataContext = (MainWindowViewModel)DataContext;
+        var enabled = !dataContext.IsExitWithSinmaiEnabled;
+        dataContext.IsExitWithSinmaiEnabled = !enabled;
     }
 }
