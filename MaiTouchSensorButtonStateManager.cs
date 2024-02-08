@@ -23,6 +23,7 @@ enum TouchValue: long
     B8 = 1 << 15, // 2^15
     C1 = 1 << 16, // 2^16
     C2 = 1 << 17, // 2^17
+    C3 = C1 | C2, // A special sensor used because center notes are hard to press using a windows touchscreen
     D1 = 1 << 18, // 2^18
     D2 = 1 << 19, // 2^19
     D3 = 1 << 20, // 2^20
