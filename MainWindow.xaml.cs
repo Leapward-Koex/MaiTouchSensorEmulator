@@ -16,7 +16,7 @@ namespace WpfMaiTouchEmulator;
 /// </summary>
 public partial class MainWindow : Window
 {
-    private MaiTouchSensorButtonStateManager buttonState;
+    private readonly MaiTouchSensorButtonStateManager buttonState;
     private MaiTouchComConnector connector;
     private readonly TouchPanel _touchPanel;
 
@@ -48,8 +48,16 @@ public partial class MainWindow : Window
         _touchPanel.onTouch = (value) => { buttonState.PressButton(value); };
         _touchPanel.onRelease = (value) => { buttonState.ReleaseButton(value); };
         _touchPanel.Show();
-        _touchPanel.SetDebugMode(true);
-        DataContext = new MainWindowViewModel() { IsDebugEnabled = true, IsAutomaticPortConnectingEnabled = true, IsAutomaticPositioningEnabled = true, IsExitWithSinmaiEnabled = true };
+        DataContext = new MainWindowViewModel()
+        {
+            IsDebugEnabled = Properties.Settings.Default.IsDebugEnabled,
+            IsAutomaticPortConnectingEnabled = Properties.Settings.Default.IsAutomaticPortConnectingEnabled,
+            IsAutomaticPositioningEnabled = Properties.Settings.Default.IsAutomaticPositioningEnabled,
+            IsExitWithSinmaiEnabled = Properties.Settings.Default.IsExitWithSinmaiEnabled
+        };
+
+        var dataContext = (MainWindowViewModel)DataContext;
+        _touchPanel.SetDebugMode(dataContext.IsDebugEnabled);
         AutomaticTouchPanelPositioningLoop();
         ExitWithSinmaiLoop();
     }
@@ -100,6 +108,8 @@ public partial class MainWindow : Window
         var dataContext = (MainWindowViewModel)DataContext;
         var enabled = !dataContext.IsDebugEnabled;
         dataContext.IsDebugEnabled = !enabled;
+        Properties.Settings.Default.IsDebugEnabled = dataContext.IsDebugEnabled;
+        Properties.Settings.Default.Save();
         _touchPanel.SetDebugMode(dataContext.IsDebugEnabled);
     }
 
@@ -108,6 +118,8 @@ public partial class MainWindow : Window
         var dataContext = (MainWindowViewModel)DataContext;
         var enabled = !dataContext.IsAutomaticPositioningEnabled;
         dataContext.IsAutomaticPositioningEnabled = !enabled;
+        Properties.Settings.Default.IsAutomaticPositioningEnabled = enabled;
+        Properties.Settings.Default.Save();
     }
 
     private void automaticPortConnecting_Click(object sender, RoutedEventArgs e)
@@ -115,6 +127,8 @@ public partial class MainWindow : Window
         var dataContext = (MainWindowViewModel)DataContext;
         var enabled = !dataContext.IsAutomaticPortConnectingEnabled;
         dataContext.IsAutomaticPortConnectingEnabled = !enabled;
+        Properties.Settings.Default.IsAutomaticPortConnectingEnabled = dataContext.IsAutomaticPortConnectingEnabled;
+        Properties.Settings.Default.Save();
     }
 
     private void exitWithSinmai_Click(object sender, RoutedEventArgs e)
@@ -122,5 +136,7 @@ public partial class MainWindow : Window
         var dataContext = (MainWindowViewModel)DataContext;
         var enabled = !dataContext.IsExitWithSinmaiEnabled;
         dataContext.IsExitWithSinmaiEnabled = !enabled;
+        Properties.Settings.Default.IsExitWithSinmaiEnabled = dataContext.IsExitWithSinmaiEnabled;
+        Properties.Settings.Default.Save();
     }
 }
