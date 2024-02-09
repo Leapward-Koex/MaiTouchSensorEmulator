@@ -1,61 +1,96 @@
 ﻿using System.Diagnostics;
-using System.Text;
+using System.IO.Ports;
+using System.Windows;
 
 namespace WpfMaiTouchEmulator;
 
 internal class VirtualComPortManager
 {
-    public Task<string> CheckInstalledPortsAsync()
+    public IEnumerable<string> GetInstalledPorts()
     {
-        return ExecuteCommandAsync("thirdparty programs\\com0com\\setupc.exe", $"list");
+        return SerialPort.GetPortNames();
     }
 
-    public Task<string> InstallComPort()
+    public async Task<bool> CheckIfPortInstalled(string port, bool expectToExist)
     {
-        return ExecuteCommandAsync("thirdparty programs\\com0com\\setupc.exe", $"install PortName=COM3 PortName=COM23");
+        var installed = false;
+        for (var i = 0; i< 3; i++)
+        {
+            installed = GetInstalledPorts().Any(x => x == port);
+            if (installed && expectToExist)
+            {
+                return true;
+            }
+            await Task.Delay(500);
+        }
+        return false;
     }
 
-    public Task<string> UninstallVirtualPorts()
+    public async Task InstallComPort()
     {
-        return ExecuteCommandAsync("thirdparty programs\\com0com\\setupc.exe", $"uninstall");
+        if (await CheckIfPortInstalled("COM3", false))
+        {
+            MessageBox.Show("Port COM3 already registered. Either remove it via Device Manager or uninstall the virutal port.");
+            return;
+        }
+        try
+        {
+            await ExecuteCommandAsync("setupc.exe", $"install PortName=COM3 PortName=COM23");
+            if (await CheckIfPortInstalled("COM3", true))
+            {
+                MessageBox.Show("Port COM3 successfully installed.");
+            }
+            else
+            {
+                MessageBox.Show($"Port COM3 failed to install", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"Port COM3 failed to install. {ex}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
     }
 
-    private async Task<string> ExecuteCommandAsync(string command, string arguments)
+    public async Task UninstallVirtualPorts()
+    {
+
+        if (!await CheckIfPortInstalled("COM3", true))
+        {
+            MessageBox.Show("Port COM3 not found. No need to uninstall.");
+            return;
+        }
+        try
+        {
+            await ExecuteCommandAsync("setupc.exe", $"uninstall");
+            if (!await CheckIfPortInstalled("COM3", false))
+            {
+                MessageBox.Show("Port COM3 successfully uninstalled.");
+            }
+            else
+            {
+                MessageBox.Show($"Port COM3 failed to uninstall. It may be a real device, uninstall it from Device Manager", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"Port COM3 failed to uninstall. {ex}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    private async Task ExecuteCommandAsync(string command, string arguments)
     {
         var processStartInfo = new ProcessStartInfo
         {
             FileName = command,
             Arguments = arguments,
-            UseShellExecute = false,
-            RedirectStandardOutput = true,
-            RedirectStandardError = true,
-            CreateNoWindow = true,
-            WorkingDirectory = "thirdparty programs\\com0com"
+            UseShellExecute = true, // Necessary for 'runas'
+            Verb = "runas", // Request elevation
+            WorkingDirectory = @"thirdparty programs\com0com"
         };
-
-        var outputBuilder = new StringBuilder();
         using var process = new Process { StartInfo = processStartInfo };
-        process.OutputDataReceived += (sender, args) =>
-        {
-            if (args.Data != null)
-            {
-                outputBuilder.AppendLine(args.Data);
-            }
-        };
-        process.ErrorDataReceived += (sender, args) =>
-        {
-            if (args.Data != null)
-            {
-                outputBuilder.AppendLine(args.Data);
-            }
-        };
 
         process.Start();
-        process.BeginOutputReadLine();
-        process.BeginErrorReadLine();
 
         await process.WaitForExitAsync();
-
-        return outputBuilder.ToString();
     }
 }

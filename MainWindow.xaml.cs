@@ -39,6 +39,13 @@ public partial class MainWindow : Window
             });
         };
 
+        if (Properties.Settings.Default.FirstOpen)
+        {
+            MessageBox.Show("Please remove any COM devices using the COM3 port before installing the virtual COM port. In Device Manager click \"View\" then enabled \"Show hidden devices\" and uninstall any devices that are using the COM3 port.\n\nAfter ensuring COM3 is free please use the install COM port button in the app to register the app.\n\nThe app needs to connect to the port prior to Sinmai.exe being opened.", "First time setup", MessageBoxButton.OK, MessageBoxImage.Information);
+            Properties.Settings.Default.FirstOpen = false;
+            Properties.Settings.Default.Save();
+        }
+
         Loaded += (s, e) => {
             _touchPanel = new TouchPanel();
             _touchPanel.onTouch = (value) => { buttonState.PressButton(value); };
@@ -163,19 +170,17 @@ public partial class MainWindow : Window
 
     private async void buttonInstallComPort_Click(object sender, RoutedEventArgs e)
     {
-        var output = await comPortManager.InstallComPort();
-        MessageBox.Show(output);
+        await comPortManager.InstallComPort();
     }
 
     private async void buttonUninstallComPorts_Click(object sender, RoutedEventArgs e)
     {
-        var output = await comPortManager.UninstallVirtualPorts();
-        MessageBox.Show(output);
+        await comPortManager.UninstallVirtualPorts();
     }
 
-    private async void buttonListComPorts_Click(object sender, RoutedEventArgs e)
+    private void buttonListComPorts_Click(object sender, RoutedEventArgs e)
     {
-        var output = await comPortManager.CheckInstalledPortsAsync();
-        MessageBox.Show(output);
+        var output = comPortManager.GetInstalledPorts();
+        MessageBox.Show(string.Join("\n", output), "Installed ports");
     }
 }

@@ -49,7 +49,7 @@ namespace WpfMaiTouchEmulator.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool IsAutomaticPortConnectingEnabled {
             get {
                 return ((bool)(this["IsAutomaticPortConnectingEnabled"]));
@@ -68,6 +68,18 @@ namespace WpfMaiTouchEmulator.Properties {
             }
             set {
                 this["IsExitWithSinmaiEnabled"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool FirstOpen {
+            get {
+                return ((bool)(this["FirstOpen"]));
+            }
+            set {
+                this["FirstOpen"] = value;
             }
         }
     }
