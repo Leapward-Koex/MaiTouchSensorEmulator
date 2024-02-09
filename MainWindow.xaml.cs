@@ -22,6 +22,14 @@ public partial class MainWindow : Window
             connectionStateLabel.Content = status;
         };
 
+        connector.OnConnectError = () =>
+        {
+            var dataContext = (MainWindowViewModel)DataContext;
+            dataContext.IsAutomaticPortConnectingEnabled = false;
+            Properties.Settings.Default.IsAutomaticPortConnectingEnabled = false;
+            Properties.Settings.Default.Save();
+        };
+
         connector.OnDataSent = (data) =>
         {
             Application.Current.Dispatcher.Invoke(() =>

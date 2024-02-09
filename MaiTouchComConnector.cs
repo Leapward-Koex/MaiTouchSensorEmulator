@@ -14,6 +14,11 @@ internal class MaiTouchComConnector
         get;
         internal set;
     }
+    public Action OnConnectError
+    {
+        get;
+        internal set;
+    }
     public Action<string> OnDataSent
     {
         get;
@@ -61,7 +66,7 @@ internal class MaiTouchComConnector
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error opening serial port: {ex.Message}");
+                OnConnectError();
                 Application.Current.Dispatcher.Invoke(() =>
                 {
                     MessageBox.Show(ex.Message, "Error connecting to COM port", MessageBoxButton.OK, MessageBoxImage.Error);
