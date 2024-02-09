@@ -62,7 +62,7 @@ internal class MaiTouchSensorButtonStateManager
             {
                 buttonStateValue.Content = buttonState.ToString();
             });
-            await Task.Delay(1);
+            await Task.Delay(16);
         }
     }
 
