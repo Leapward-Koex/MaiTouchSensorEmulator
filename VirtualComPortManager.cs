@@ -7,17 +7,17 @@ internal class VirtualComPortManager
 {
     public Task<string> CheckInstalledPortsAsync()
     {
-        return ExecuteCommandAsync("C:\\Program Files (x86)\\com0com\\setupc.exe", $"list");
+        return ExecuteCommandAsync("thirdparty programs\\com0com\\setupc.exe", $"list");
     }
 
     public Task<string> InstallComPort()
     {
-        return ExecuteCommandAsync("C:\\Program Files (x86)\\com0com\\setupc.exe", $"install PortName=COM3 PortName=COM23");
+        return ExecuteCommandAsync("thirdparty programs\\com0com\\setupc.exe", $"install PortName=COM3 PortName=COM23");
     }
 
     public Task<string> UninstallVirtualPorts()
     {
-        return ExecuteCommandAsync("C:\\Program Files (x86)\\com0com\\setupc.exe", $"uninstall");
+        return ExecuteCommandAsync("thirdparty programs\\com0com\\setupc.exe", $"uninstall");
     }
 
     private async Task<string> ExecuteCommandAsync(string command, string arguments)
@@ -30,7 +30,7 @@ internal class VirtualComPortManager
             RedirectStandardOutput = true,
             RedirectStandardError = true,
             CreateNoWindow = true,
-            WorkingDirectory = "C:\\Program Files (x86)\\com0com"
+            WorkingDirectory = "thirdparty programs\\com0com"
         };
 
         var outputBuilder = new StringBuilder();

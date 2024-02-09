@@ -1,5 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 
@@ -14,6 +15,7 @@ public partial class TouchPanel : Window
 
     private readonly Dictionary<int, System.Windows.Controls.Image> activeTouches = [];
     private readonly TouchPanelPositionManager _positionManager;
+    private List<Image> buttons = [];
 
     private enum ResizeDirection
     {
@@ -32,7 +34,12 @@ public partial class TouchPanel : Window
         InitializeComponent();
         Topmost = true;
         _positionManager = new TouchPanelPositionManager();
+        Loaded += Window_Loaded;
+    }
 
+    private void Window_Loaded(object sender, RoutedEventArgs e)
+    {
+        buttons = VisualTreeHelperExtensions.FindVisualChildren<System.Windows.Controls.Image>(this);
     }
 
     public void PositionTouchPanel()
@@ -93,8 +100,16 @@ public partial class TouchPanel : Window
             // If this touch point is already tracking another element, unhighlight the previous one.
             if (activeTouches.TryGetValue(e.TouchDevice.Id, out var previousElement) && previousElement != newElement)
             {
-                HighlightElement(previousElement, false);
-                onRelease((TouchValue)previousElement.Tag);
+                Task.Delay(50)
+                    .ContinueWith(t =>
+                    {
+                        HighlightElement(previousElement, false);
+                        Application.Current.Dispatcher.Invoke(() =>
+                        {
+                            onRelease((TouchValue)previousElement.Tag);
+                        });
+                    });
+
             }
 
             // Highlight the new element and update the tracking.
@@ -146,7 +161,6 @@ public partial class TouchPanel : Window
 
     public void SetDebugMode(bool enabled)
     {
-        var buttons = VisualTreeHelperExtensions.FindVisualChildren<System.Windows.Controls.Image>(this);
         buttons.ForEach(button =>
         {
             button.Opacity = enabled ? 0.3 : 0;
@@ -157,8 +171,10 @@ public partial class TouchPanel : Window
     {
         if (Properties.Settings.Default.IsDebugEnabled)
         {
-            element.Opacity = highlight ? 0.8 : 0.3;
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                element.Opacity = highlight ? 0.8 : 0.3;
+            });
         }
     }
-
 }
