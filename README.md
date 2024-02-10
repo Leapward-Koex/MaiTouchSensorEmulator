@@ -17,6 +17,7 @@ https://github.com/Leapward-Koex/MaiTouchSensorEmulator/assets/30615050/e45ca02f
 
 
 # Setup
+Disable Three- and four-finger touch gestures in windows (on W11 Settings -> Bluetooth & devices -> Touch)
 COM3 needs to be free for this app to work as that is the port used by SDEZ. By default most people will find that COM3 is already in use by a USB Serial device. This will need to be uninstalled via Device Manager,
 1. Open Device Manager
 2. Show hidden devices. "View" -> "Show Hidden Devices" -> "Ports (COM & LPT)" -> Right click the COM3 device and uninstall.
