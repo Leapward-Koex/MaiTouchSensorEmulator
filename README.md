@@ -23,6 +23,8 @@ COM3 needs to be free for this app to work as that is the port used by SDEZ. By 
 1. Open Device Manager
 2. Show hidden devices. "View" -> "Show Hidden Devices" -> "Ports (COM & LPT)" -> Right click the COM3 device and uninstall.
 
+Set `DummyTouchPanel=0` in the [AM] section of your maimai .ini file.
+
 Open the WpfMaiTouchEmulator.exe app, Install the virtual port via the "Install COM port" button, either tick the "Automatic port connecting" for the app to connect to the COM23 port on start up or press the "Connect to port" button.
 
 If you have issues where the app can't bind to COM23 after installing the virtual port I find that restarting my PC normally fixes it.
