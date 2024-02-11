@@ -101,7 +101,7 @@ public partial class MainWindow : Window
         var dataContext = (MainWindowViewModel)DataContext;
         if (dataContext.IsExitWithSinmaiEnabled)
         {
-            connector.Disconnect();
+            await connector.Disconnect();
             Application.Current.Shutdown();
         }
     }
@@ -154,7 +154,7 @@ public partial class MainWindow : Window
         var dataContext = (MainWindowViewModel)DataContext;
         var enabled = !dataContext.IsAutomaticPositioningEnabled;
         dataContext.IsAutomaticPositioningEnabled = !enabled;
-        Properties.Settings.Default.IsAutomaticPositioningEnabled = enabled;
+        Properties.Settings.Default.IsAutomaticPositioningEnabled = dataContext.IsAutomaticPositioningEnabled;
         Properties.Settings.Default.Save();
     }
 

@@ -45,6 +45,7 @@ internal class MaiTouchComConnector
             {
                 OnConnectStatusChange("Conecting...");
                 serialPort = new SerialPort(virtualPort, 9600, Parity.None, 8, StopBits.One);
+                serialPort.WriteTimeout = 100;
                 serialPort.DataReceived += SerialPort_DataReceived;
                 serialPort.Open();
                 Console.WriteLine("Serial port opened successfully.");
@@ -65,6 +66,7 @@ internal class MaiTouchComConnector
                 }
 
             }
+            catch (TimeoutException) { }
             catch (Exception ex)
             {
                 OnConnectError();
@@ -86,15 +88,27 @@ internal class MaiTouchComConnector
         }
     }
 
-    public async void Disconnect()
+    public async Task Disconnect()
     {
         _shouldReconnect = false;
-        if (serialPort?.IsOpen == true)
-        {
-            serialPort.Close();
-            serialPort.Dispose();
-        }
         _connected = false;
+        try
+        {
+            serialPort.DtrEnable = false;
+            serialPort.RtsEnable = false;
+            serialPort.DataReceived -= SerialPort_DataReceived;
+            await Task.Delay(200);
+            if (serialPort.IsOpen == true)
+            {
+                serialPort.DiscardInBuffer();
+                serialPort.DiscardOutBuffer();
+                serialPort.Close();
+            }
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(ex.Message);
+        }
     }
 
     void SerialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
@@ -138,7 +152,10 @@ internal class MaiTouchComConnector
 
     void SendTouchscreenState()
     {
-        var currentState = _buttonState.GetCurrentState();
-        serialPort?.Write(currentState, 0, currentState.Length);
+        if (_connected)
+        {
+            var currentState = _buttonState.GetCurrentState();
+            serialPort?.Write(currentState, 0, currentState.Length);
+        }
     }
 }
