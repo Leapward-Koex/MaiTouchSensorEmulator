@@ -26,8 +26,6 @@ public partial class MainWindow : Window
         {
             var dataContext = (MainWindowViewModel)DataContext;
             dataContext.IsAutomaticPortConnectingEnabled = false;
-            Properties.Settings.Default.IsAutomaticPortConnectingEnabled = false;
-            Properties.Settings.Default.Save();
         };
 
         connector.OnDataSent = (data) =>
@@ -71,7 +69,7 @@ public partial class MainWindow : Window
             var dataContext = (MainWindowViewModel)DataContext;
             _touchPanel.SetDebugMode(dataContext.IsDebugEnabled);
             AutomaticTouchPanelPositioningLoop();
-            AutomaticcPortConnectingLoop();
+            AutomaticPortConnectingLoop();
             ExitWithSinmaiLoop();
         };
     }
@@ -103,6 +101,7 @@ public partial class MainWindow : Window
         var dataContext = (MainWindowViewModel)DataContext;
         if (dataContext.IsExitWithSinmaiEnabled)
         {
+            connector.Disconnect();
             Application.Current.Shutdown();
         }
     }
@@ -116,11 +115,12 @@ public partial class MainWindow : Window
             {
                 _touchPanel.PositionTouchPanel();
             }
+        
             await Task.Delay(1000);
         }
     }
 
-    private async void AutomaticcPortConnectingLoop()
+    private async void AutomaticPortConnectingLoop()
     {
         var dataContext = (MainWindowViewModel)DataContext;
         while (true)

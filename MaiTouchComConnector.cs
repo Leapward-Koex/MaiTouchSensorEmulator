@@ -7,6 +7,7 @@ internal class MaiTouchComConnector
     private static SerialPort? serialPort;
     private bool isActiveMode;
     private bool _connected;
+    private bool _shouldReconnect = true;
     private readonly MaiTouchSensorButtonStateManager _buttonState;
 
     public Action<string> OnConnectStatusChange
@@ -37,7 +38,7 @@ internal class MaiTouchComConnector
 
     public async Task StartTouchSensorPolling()
     {
-        if (!_connected)
+        if (!_connected && _shouldReconnect)
         {
             var virtualPort = "COM23"; // Adjust as needed
             try
@@ -83,6 +84,17 @@ internal class MaiTouchComConnector
                 }
             }
         }
+    }
+
+    public async void Disconnect()
+    {
+        _shouldReconnect = false;
+        if (serialPort?.IsOpen == true)
+        {
+            serialPort.Close();
+            serialPort.Dispose();
+        }
+        _connected = false;
     }
 
     void SerialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)

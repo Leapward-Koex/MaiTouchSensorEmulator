@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace WpfMaiTouchEmulator;
 /// <summary>
@@ -35,6 +36,24 @@ public partial class TouchPanel : Window
         Topmost = true;
         _positionManager = new TouchPanelPositionManager();
         Loaded += Window_Loaded;
+
+        StateCheckLoop();
+    }
+
+    private async void StateCheckLoop()
+    {
+        while (true)
+        {
+            if (activeTouches.Any() && !TouchesOver.Any())
+            {
+                await Task.Delay(100);
+                if (activeTouches.Any() && !TouchesOver.Any())
+                {
+                    DeselectAllItems();
+                }
+            }
+            await Task.Delay(100);
+        }
     }
 
     private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -118,12 +137,6 @@ public partial class TouchPanel : Window
             activeTouches[e.TouchDevice.Id] = newElement;
         }
 
-        if (!IsTouchInsideWindow(touchPoint))
-        {
-            // Touch is outside the window, act accordingly
-            DeselectAllItems();
-        }
-
         e.Handled = true;
     }
 
@@ -155,6 +168,7 @@ public partial class TouchPanel : Window
         foreach (var element in activeTouches.Values)
         {
             HighlightElement(element, false);
+            onRelease((TouchValue)element.Tag);
         }
         activeTouches.Clear();
     }
