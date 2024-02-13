@@ -23,20 +23,28 @@ class TouchPanelPositionManager
 
     public Rect? GetSinMaiWindowPosition()
     {
-        var hWnd = FindWindow(null, "Sinmai");
-        if (hWnd != IntPtr.Zero)
+        try
         {
-            RECT rect;
-            if (GetWindowRect(hWnd, out rect))
+            var hWnd = FindWindow(null, "Sinmai");
+            if (hWnd != IntPtr.Zero)
             {
-                // Calculate the desired size and position based on the other application's window
-                var width = Convert.ToInt32((rect.Right - rect.Left));
-                var height = width;
-                var left = rect.Left + ((rect.Right - rect.Left) - width) / 2; // Center horizontally
-                var top = rect.Bottom - height;
-                return new Rect(left, top, width, height);
+                RECT rect;
+                if (GetWindowRect(hWnd, out rect))
+                {
+                    // Calculate the desired size and position based on the other application's window
+                    var width = rect.Right - rect.Left;
+                    var height = width;
+                    var left = rect.Left + ((rect.Right - rect.Left) - width) / 2; // Center horizontally
+                    var top = rect.Bottom - height;
+                    return new Rect(left, top, width, height);
+                }
             }
         }
+        catch (Exception ex)
+        {
+            Logger.Error("Failed top get sinmai window position", ex);
+        }
+
         return null;
     }
 }

@@ -11,10 +11,10 @@ namespace WpfMaiTouchEmulator;
 /// </summary>
 public partial class TouchPanel : Window
 {
-    internal Action<TouchValue> onTouch;
-    internal Action<TouchValue> onRelease;
+    internal Action<TouchValue>? onTouch;
+    internal Action<TouchValue>? onRelease;
 
-    private readonly Dictionary<int, System.Windows.Controls.Image> activeTouches = [];
+    private readonly Dictionary<int, Image> activeTouches = [];
     private readonly TouchPanelPositionManager _positionManager;
     private List<Image> buttons = [];
 
@@ -44,10 +44,10 @@ public partial class TouchPanel : Window
     {
         while (true)
         {
-            if (activeTouches.Any() && !TouchesOver.Any())
+            if (activeTouches.Count != 0 && !TouchesOver.Any())
             {
                 await Task.Delay(100);
-                if (activeTouches.Any() && !TouchesOver.Any())
+                if (activeTouches.Count != 0 && !TouchesOver.Any())
                 {
                     DeselectAllItems();
                 }
@@ -64,8 +64,11 @@ public partial class TouchPanel : Window
     public void PositionTouchPanel()
     {
         var position = _positionManager.GetSinMaiWindowPosition();
-        if (position != null)
+        if (position != null &&
+            (Top != position.Value.Top || Left != position.Value.Left || Width != position.Value.Width || Height != position.Value.Height)
+            )
         {
+            Logger.Info("Touch panel not over sinmai window, repositioning");
             Top = position.Value.Top;
             Left = position.Value.Left;
             Width = position.Value.Width;
@@ -103,7 +106,7 @@ public partial class TouchPanel : Window
         {
             // Highlight the element and add it to the active touches tracking.
             HighlightElement(element, true);
-            onTouch((TouchValue)element.Tag);
+            onTouch?.Invoke((TouchValue)element.Tag);
             activeTouches[e.TouchDevice.Id] = element;
         }
         e.Handled = true;
@@ -125,7 +128,7 @@ public partial class TouchPanel : Window
                         HighlightElement(previousElement, false);
                         Application.Current.Dispatcher.Invoke(() =>
                         {
-                            onRelease((TouchValue)previousElement.Tag);
+                            onRelease?.Invoke((TouchValue)previousElement.Tag);
                         });
                     });
 
@@ -133,7 +136,7 @@ public partial class TouchPanel : Window
 
             // Highlight the new element and update the tracking.
             HighlightElement(newElement, true);
-            onTouch((TouchValue)newElement.Tag);
+            onTouch?.Invoke((TouchValue)newElement.Tag);
             activeTouches[e.TouchDevice.Id] = newElement;
         }
 
@@ -146,20 +149,11 @@ public partial class TouchPanel : Window
         if (activeTouches.TryGetValue(e.TouchDevice.Id, out var element))
         {
             HighlightElement(element, false);
-            onRelease((TouchValue)element.Tag);
+            onRelease?.Invoke((TouchValue)element.Tag);
             activeTouches.Remove(e.TouchDevice.Id);
         }
 
         e.Handled = true;
-    }
-
-    private bool IsTouchInsideWindow(Point touchPoint)
-    {
-        // Define the window's bounds
-        var windowBounds = new Rect(0, 0, ActualWidth, ActualHeight);
-
-        // Check if the touch point is within the window's bounds
-        return windowBounds.Contains(touchPoint);
     }
 
     private void DeselectAllItems()
@@ -168,7 +162,7 @@ public partial class TouchPanel : Window
         foreach (var element in activeTouches.Values)
         {
             HighlightElement(element, false);
-            onRelease((TouchValue)element.Tag);
+            onRelease?.Invoke((TouchValue)element.Tag);
         }
         activeTouches.Clear();
     }
@@ -181,7 +175,7 @@ public partial class TouchPanel : Window
         });
     }
 
-    private void HighlightElement(System.Windows.Controls.Image element, bool highlight)
+    private void HighlightElement(Image element, bool highlight)
     {
         if (Properties.Settings.Default.IsDebugEnabled)
         {

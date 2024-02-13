@@ -47,12 +47,14 @@ public partial class MainWindow : Window
 
         if (Properties.Settings.Default.FirstOpen)
         {
+            Logger.Info("First open occurred");
             MessageBox.Show("Please remove any COM devices using the COM3 port before installing the virtual COM port. In Device Manager click \"View\" then enabled \"Show hidden devices\" and uninstall any devices that are using the COM3 port.\n\nAfter ensuring COM3 is free please use the install COM port button in the app to register the app.\n\nThe app needs to connect to the port prior to Sinmai.exe being opened.", "First time setup", MessageBoxButton.OK, MessageBoxImage.Information);
             Properties.Settings.Default.FirstOpen = false;
             Properties.Settings.Default.Save();
         }
 
         Loaded += (s, e) => {
+            Logger.Info("Main window loaded, creating touch panel");
             _touchPanel = new TouchPanel();
             _touchPanel.onTouch = (value) => { buttonState.PressButton(value); };
             _touchPanel.onRelease = (value) => { buttonState.ReleaseButton(value); };
@@ -90,6 +92,7 @@ public partial class MainWindow : Window
             var processes = Process.GetProcessesByName("Sinmai");
             if (processes.Length > 0)
             {
+                Logger.Info("Found sinmai process to exit alongside with");
                 sinamiProcess = processes[0];
             }
             else
@@ -98,10 +101,13 @@ public partial class MainWindow : Window
             }
         }
         await sinamiProcess.WaitForExitAsync();
+        Logger.Info("Sinmai exited");
         var dataContext = (MainWindowViewModel)DataContext;
         if (dataContext.IsExitWithSinmaiEnabled)
         {
+            Logger.Info("Disconnecting from COM port before shutting down");
             await connector.Disconnect();
+            Logger.Info("Shutting down...");
             Application.Current.Shutdown();
         }
     }
@@ -178,6 +184,8 @@ public partial class MainWindow : Window
 
     private async void buttonInstallComPort_Click(object sender, RoutedEventArgs e)
     {
+        throw new Exception("Test exception for crash dump generation");
+
         await comPortManager.InstallComPort();
     }
 
