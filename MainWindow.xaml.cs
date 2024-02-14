@@ -76,12 +76,16 @@ public partial class MainWindow : Window
         };
     }
 
-    private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+    private async void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
     {
+        e.Cancel = true;
+        await connector.Disconnect();
         foreach (Window childWindow in OwnedWindows)
         {
             childWindow.Close();
         }
+        Closing -= MainWindow_Closing;
+        Close();
     }
 
     private async void ExitWithSinmaiLoop()
@@ -100,15 +104,30 @@ public partial class MainWindow : Window
                 await Task.Delay(1000);
             }
         }
-        await sinamiProcess.WaitForExitAsync();
-        Logger.Info("Sinmai exited");
         var dataContext = (MainWindowViewModel)DataContext;
+
         if (dataContext.IsExitWithSinmaiEnabled)
         {
-            Logger.Info("Disconnecting from COM port before shutting down");
-            await connector.Disconnect();
-            Logger.Info("Shutting down...");
-            Application.Current.Shutdown();
+            try
+            {
+                await sinamiProcess.WaitForExitAsync();
+                Logger.Info("Sinmai exited");
+                if (dataContext.IsExitWithSinmaiEnabled)
+                {
+                    Logger.Info("Disconnecting from COM port before shutting down");
+                    await connector.Disconnect();
+                    Logger.Info("Shutting down...");
+                    Application.Current.Shutdown();
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Failed to wait for sinmai to exit", ex);
+                dataContext.IsExitWithSinmaiEnabled = false;
+                Properties.Settings.Default.IsExitWithSinmaiEnabled = dataContext.IsExitWithSinmaiEnabled;
+                Properties.Settings.Default.Save();
+                MessageBox.Show("Failed to listen for Sinmai exit signal, is it running as admin?\n\nAutomatic exiting disabled.", "Failed to listen for Sinmai exit", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
         }
     }
 
