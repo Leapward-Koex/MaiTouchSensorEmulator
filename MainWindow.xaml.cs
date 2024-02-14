@@ -203,8 +203,6 @@ public partial class MainWindow : Window
 
     private async void buttonInstallComPort_Click(object sender, RoutedEventArgs e)
     {
-        throw new Exception("Test exception for crash dump generation");
-
         await comPortManager.InstallComPort();
     }
 
