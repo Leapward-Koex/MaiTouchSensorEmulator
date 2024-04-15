@@ -31,6 +31,10 @@ If you have issues where the app can't bind to COM23 after installing the virtua
 
 Start SDEZ and use your touchscreen as normal.
 
+[Optional] To avoid having to manually open the application each time, you can enable "Automatic port connecting" and add this line after `@echo off` in your MaiMai's start.bat file. `start "" "<your path to WpfMaiTouchEmulator.exe>"`
+
+[Optional] If you're on W11 and find that left swipes sometimes open the "widgets" pane you can remove the pane by running this command as administrator `winget uninstall "windows web experience pack"` and following the onscreen instructions.
+
 # Installing the virtual COM ports without using the included com0com program
 If you don't want to use the included install/remove virtual com actions in the app because you don't want to give admin access to this unknown app then you can achieve the same outcome by manually downloading Null-modem com0com online (version 2.2.2.0 required!) and then running this command.
 `cd "C:\Program Files (x86)\com0com" && setupc.exe install Portname=COM3 Portname=COM23` to install the virtual port and
