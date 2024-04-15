@@ -1,9 +1,8 @@
 ﻿using System.Runtime.InteropServices;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 
 namespace WpfMaiTouchEmulator;
 /// <summary>
@@ -14,9 +13,9 @@ public partial class TouchPanel : Window
     internal Action<TouchValue>? onTouch;
     internal Action<TouchValue>? onRelease;
 
-    private readonly Dictionary<int, Image> activeTouches = [];
+    private readonly Dictionary<int, Polygon> activeTouches = [];
     private readonly TouchPanelPositionManager _positionManager;
-    private List<Image> buttons = [];
+    private List<Polygon> buttons = [];
 
     private enum ResizeDirection
     {
@@ -58,7 +57,7 @@ public partial class TouchPanel : Window
 
     private void Window_Loaded(object sender, RoutedEventArgs e)
     {
-        buttons = VisualTreeHelperExtensions.FindVisualChildren<System.Windows.Controls.Image>(this);
+        buttons = VisualTreeHelperExtensions.FindVisualChildren<Polygon>(this);
     }
 
     public void PositionTouchPanel()
@@ -102,7 +101,7 @@ public partial class TouchPanel : Window
     private void Element_TouchDown(object sender, TouchEventArgs e)
     {
         // Cast the sender to a Border to ensure it's the correct element type.
-        if (sender is System.Windows.Controls.Image element)
+        if (sender is Polygon element)
         {
             // Highlight the element and add it to the active touches tracking.
             HighlightElement(element, true);
@@ -117,7 +116,7 @@ public partial class TouchPanel : Window
         // Attempt to find the element under the current touch point.
         var touchPoint = e.GetTouchPoint(this).Position;
         var hitTestResult = VisualTreeHelper.HitTest(this, touchPoint);
-        if (hitTestResult != null && hitTestResult.VisualHit is System.Windows.Controls.Image newElement)
+        if (hitTestResult != null && hitTestResult.VisualHit is Polygon newElement)
         {
             // If this touch point is already tracking another element, unhighlight the previous one.
             if (activeTouches.TryGetValue(e.TouchDevice.Id, out var previousElement) && previousElement != newElement)
@@ -175,7 +174,7 @@ public partial class TouchPanel : Window
         });
     }
 
-    private void HighlightElement(Image element, bool highlight)
+    private void HighlightElement(Polygon element, bool highlight)
     {
         if (Properties.Settings.Default.IsDebugEnabled)
         {
