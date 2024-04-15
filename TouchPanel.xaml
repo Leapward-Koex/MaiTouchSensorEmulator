@@ -12,7 +12,7 @@
         <StackPanel>
             <Viewbox Stretch="Uniform" Opacity="1">
                 <Canvas x:Name="TouchCanvas" Width="502" Height="502">
-                    <Border HorizontalAlignment="Left" VerticalAlignment="Center"
+                    <Border x:Name="DragWindowHandle" HorizontalAlignment="Left" VerticalAlignment="Center"
                         Height="30" Background="White" MouseLeftButtonDown="DragBar_MouseLeftButtonDown"
                         Cursor="SizeAll" Width="38">
                         <Label Content="Drag" />

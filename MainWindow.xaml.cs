@@ -70,6 +70,11 @@ public partial class MainWindow : Window
 
             var dataContext = (MainWindowViewModel)DataContext;
             _touchPanel.SetDebugMode(dataContext.IsDebugEnabled);
+            if (Properties.Settings.Default.IsAutomaticPositioningEnabled)
+            {
+                _touchPanel.DragWindowHandle.Visibility = Visibility.Hidden;
+                _touchPanel.ResizeGrip.Visibility = Visibility.Hidden;
+            }
             AutomaticTouchPanelPositioningLoop();
             AutomaticPortConnectingLoop();
             ExitWithSinmaiLoop();
@@ -179,6 +184,10 @@ public partial class MainWindow : Window
         var dataContext = (MainWindowViewModel)DataContext;
         var enabled = !dataContext.IsAutomaticPositioningEnabled;
         dataContext.IsAutomaticPositioningEnabled = !enabled;
+
+        _touchPanel.DragWindowHandle.Visibility = dataContext.IsAutomaticPositioningEnabled ? Visibility.Hidden : Visibility.Visible;
+        _touchPanel.ResizeGrip.Visibility = dataContext.IsAutomaticPositioningEnabled ? Visibility.Hidden : Visibility.Visible;
+
         Properties.Settings.Default.IsAutomaticPositioningEnabled = dataContext.IsAutomaticPositioningEnabled;
         Properties.Settings.Default.Save();
     }
