@@ -19,6 +19,9 @@ class TouchPanelPositionManager
         public int Top;
         public int Right;
         public int Bottom;
+
+        public readonly int Width => Right - Left;
+        public readonly int Height => Bottom - Top;
     }
 
     public Rect? GetSinMaiWindowPosition()
@@ -32,11 +35,11 @@ class TouchPanelPositionManager
                 if (GetWindowRect(hWnd, out rect))
                 {
                     // Calculate the desired size and position based on the other application's window
-                    var width = rect.Right - rect.Left;
-                    var height = width;
-                    var left = rect.Left + ((rect.Right - rect.Left) - width) / 2; // Center horizontally
+                    var renderRect = GetLargest916Rect(rect);
+                    var height = renderRect.Width;
+                    var left = rect.Left + ((rect.Right - rect.Left) - renderRect.Width) / 2; // Center horizontally
                     var top = rect.Bottom - height;
-                    return new Rect(left, top, width, height);
+                    return new Rect(left, top, renderRect.Width, height);
                 }
             }
         }
@@ -46,5 +49,37 @@ class TouchPanelPositionManager
         }
 
         return null;
+    }
+
+    private static RECT GetLargest916Rect(RECT original)
+    {
+        var originalWidth = original.Width;
+        var originalHeight = original.Height;
+
+        var widthBasedHeight = (originalWidth * 16) / 9;
+        var heightBasedWidth = (originalHeight * 9) / 16;
+
+        if (widthBasedHeight <= originalHeight)
+        {
+            // Width-based rectangle fits
+            return new RECT
+            {
+                Left = original.Left,
+                Top = original.Top + (originalHeight - widthBasedHeight) / 2,
+                Right = original.Right,
+                Bottom = original.Top + (originalHeight + widthBasedHeight) / 2
+            };
+        }
+        else
+        {
+            // Height-based rectangle fits
+            return new RECT
+            {
+                Left = original.Left + (originalWidth - heightBasedWidth) / 2,
+                Top = original.Top,
+                Right = original.Left + (originalWidth + heightBasedWidth) / 2,
+                Bottom = original.Bottom
+            };
+        }
     }
 }
