@@ -16,6 +16,7 @@ public partial class TouchPanel : Window
     private readonly Dictionary<int, Polygon> activeTouches = [];
     private readonly TouchPanelPositionManager _positionManager;
     private List<Polygon> buttons = [];
+    private bool isDebugEnabled = Properties.Settings.Default.IsDebugEnabled;
 
     private enum ResizeDirection
     {
@@ -168,6 +169,7 @@ public partial class TouchPanel : Window
 
     public void SetDebugMode(bool enabled)
     {
+        isDebugEnabled = enabled;
         buttons.ForEach(button =>
         {
             button.Opacity = enabled ? 0.3 : 0;
@@ -176,7 +178,7 @@ public partial class TouchPanel : Window
 
     private void HighlightElement(Polygon element, bool highlight)
     {
-        if (Properties.Settings.Default.IsDebugEnabled)
+        if (isDebugEnabled)
         {
             Application.Current.Dispatcher.Invoke(() =>
             {
