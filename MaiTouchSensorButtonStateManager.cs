@@ -51,17 +51,21 @@ internal class MaiTouchSensorButtonStateManager
     {
         this.buttonStateValue = buttonStateValue;
         SetupUpdateLoop();
-
     }
 
-    private async void SetupUpdateLoop()
+    private async Task SetupUpdateLoop()
     {
+        string? lastButtonState = null;
         while (true)
         {
-            Application.Current.Dispatcher.Invoke(() =>
+            if (lastButtonState != buttonState.ToString())
             {
-                buttonStateValue.Content = buttonState.ToString();
-            });
+                lastButtonState = buttonState.ToString();
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    buttonStateValue.Content = lastButtonState;
+                });
+            }
             await Task.Delay(16);
         }
     }
@@ -83,12 +87,6 @@ internal class MaiTouchSensorButtonStateManager
 
     public byte[] GetCurrentState()
     {
-        Application.Current.Dispatcher.Invoke(() =>
-        {
-            buttonStateValue.Content = buttonState.ToString();
-        });
-
-
         return
         [
             0x28,

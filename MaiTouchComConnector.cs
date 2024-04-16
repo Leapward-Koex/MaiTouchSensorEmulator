@@ -7,6 +7,8 @@ internal class MaiTouchComConnector(MaiTouchSensorButtonStateManager buttonState
     private static SerialPort? serialPort;
     private bool isActiveMode;
     private bool _connected;
+    private CancellationTokenSource? _tokenSource;
+    private Thread? _pollThread;
     private bool _shouldReconnect = true;
     private readonly MaiTouchSensorButtonStateManager _buttonState = buttonState;
 
@@ -50,18 +52,10 @@ internal class MaiTouchComConnector(MaiTouchSensorButtonStateManager buttonState
                 OnConnectStatusChange?.Invoke("Connected to port");
                 _connected = true;
 
-                while (true)
-                {
-                    if (isActiveMode)
-                    {
-                        SendTouchscreenState();
-                        await Task.Delay(1);
-                    }
-                    else
-                    {
-                        await Task.Delay(100);
-                    }
-                }
+                _tokenSource = new CancellationTokenSource(); // Create a token source.
+                _pollThread = new Thread(() => PollingThread(_tokenSource.Token)); // Pass the token to the thread you want to stop.
+                _pollThread.Priority = ThreadPriority.Highest;
+                _pollThread.Start();
 
             }
             catch (TimeoutException) { }
@@ -73,9 +67,6 @@ internal class MaiTouchComConnector(MaiTouchSensorButtonStateManager buttonState
                     MessageBox.Show(ex.Message, "Error connecting to COM port", MessageBoxButton.OK, MessageBoxImage.Error);
                 });
 
-            }
-            finally
-            {
                 Logger.Info("Disconnecting from COM port");
                 _connected = false;
                 OnConnectStatusChange?.Invoke("Not Connected");
@@ -85,6 +76,23 @@ internal class MaiTouchComConnector(MaiTouchSensorButtonStateManager buttonState
                     serialPort.DiscardOutBuffer();
                     serialPort.Close();
                 }
+
+            }
+        }
+    }
+
+    private void PollingThread(CancellationToken token)
+    {
+        while (!token.IsCancellationRequested)
+        {
+            if (isActiveMode)
+            {
+                SendTouchscreenState();
+                Thread.Sleep(1);
+            }
+            else
+            {
+                Thread.Sleep(100);
             }
         }
     }
@@ -96,13 +104,22 @@ internal class MaiTouchComConnector(MaiTouchSensorButtonStateManager buttonState
         _connected = false;
         try
         {
+            if (_tokenSource != null && !_tokenSource.IsCancellationRequested)
+            {
+                _tokenSource.Cancel();
+                _pollThread?.Join();
+                _tokenSource.Dispose();
+                _tokenSource = null;
+            }
+
+
             if (serialPort != null)
             {
                 serialPort.DtrEnable = false;
                 serialPort.RtsEnable = false;
                 serialPort.DataReceived -= SerialPort_DataReceived;
                 await Task.Delay(200);
-                if (serialPort.IsOpen == true)
+                if (serialPort.IsOpen)
                 {
                     serialPort.DiscardInBuffer();
                     serialPort.DiscardOutBuffer();
@@ -165,7 +182,16 @@ internal class MaiTouchComConnector(MaiTouchSensorButtonStateManager buttonState
         if (_connected)
         {
             var currentState = _buttonState.GetCurrentState();
-            serialPort?.Write(currentState, 0, currentState.Length);
+            try
+            {
+                serialPort?.Write(currentState, 0, currentState.Length);
+            }
+            catch (Exception ex) {
+                if (Properties.Settings.Default.IsDebugEnabled)
+                {
+                    Logger.Error("Error when writing to serial port on button update", ex);
+                }
+            }
         }
     }
 }
