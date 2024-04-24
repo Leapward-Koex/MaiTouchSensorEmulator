@@ -69,7 +69,111 @@ public class MainWindowViewModel : INotifyPropertyChanged
     {
         get; set;
     }
-
+    public string? LbMenuCategoryHelp
+    {
+        get;
+        private set;
+    }
+    public string? LbMenuItemSetup
+    {
+        get;
+        private set;
+    }
+    public string? TxtSetupInstructions
+    {
+        get;
+        private set;
+    }
+    public string? TxtSetupInstructionsHeader
+    {
+        get;
+        private set;
+    }
+    public string? TxtFailedToSetupSinmaiExitHeader
+    {
+        get;
+        private set;
+    }
+    public string? TxtFailedToSetupSinmaiExit
+    {
+        get;
+        private set;
+    }
+    public string? TxtCurrentlyInstalledPorts
+    {
+        get;
+        private set;
+    }
+    public string? TxtErrorConnectingToPortHeader
+    {
+        get;
+        private set;
+    }
+    public string? TxtComPortConnected
+    {
+        get;
+        private set;
+    }
+    public string? TxtComPortConnecting
+    {
+        get;
+        private set;
+    }
+    public string? TxtCom3AlreadyInstalled
+    {
+        get;
+        private set;
+    }
+    public string? TxtCom3InstalledSuccessfully
+    {
+        get;
+        private set;
+    }
+    public string? TxtCom3InstallFailed
+    {
+        get;
+        private set;
+    }
+    public string? TxtCom3UninstallNotRequired
+    {
+        get;
+        private set;
+    }
+    public string? TxtCom3UninstalledSuccessfully
+    {
+        get;
+        private set;
+    }
+    public string? TxtCom3UninstallFailed
+    {
+        get;
+        private set;
+    }
+    public string? LbTouchPanelResize
+    {
+        get;
+        private set;
+    }
+    public string? LbTouchPanelDrag
+    {
+        get;
+        private set;
+    }
+    public string? LbAutoPortConnectingTT
+    {
+        get;
+        private set;
+    }
+    public string? LbAutoSensorPositioningTT
+    {
+        get;
+        private set;
+    }
+    public string? LbExitWithSinmaiTT
+    {
+        get;
+        private set;
+    }
 
     private bool _isAutomaticPortConnectingEnabled;
     private bool _isDebugEnabled;
@@ -184,6 +288,32 @@ public class MainWindowViewModel : INotifyPropertyChanged
         LbRecievedData = resourceManager.GetString("lbRecievedData");
         LbSentData = resourceManager.GetString("lbSentData");
         LbUninstallComPort = resourceManager.GetString("lbUninstallComPort");
+        LbMenuCategoryHelp = resourceManager.GetString("lbMenuCategoryHelp");
+        LbMenuItemSetup = resourceManager.GetString("lbMenuItemSetup");
+        LbAutoPortConnectingTT = resourceManager.GetString("lbAutoPortConnectingTT");
+        LbAutoSensorPositioningTT = resourceManager.GetString("lbAutoSensorPositioningTT");
+        LbExitWithSinmaiTT = resourceManager.GetString("lbExitWithSinmaiTT");
+        LbMenuCategoryHelp = resourceManager.GetString("lbMenuCategoryHelp");
+        LbMenuItemSetup = resourceManager.GetString("lbMenuItemSetup");
+
+        TxtSetupInstructions = resourceManager.GetString("TxtSetupInstructions");
+        TxtSetupInstructionsHeader = resourceManager.GetString("TxtSetupInstructionsHeader");
+        TxtFailedToSetupSinmaiExitHeader = resourceManager.GetString("TxtFailedToSetupSinmaiExitHeader");
+        TxtFailedToSetupSinmaiExit = resourceManager.GetString("TxtFailedToSetupSinmaiExit");
+        TxtCurrentlyInstalledPorts = resourceManager.GetString("TxtCurrentlyInstalledPorts");
+        TxtErrorConnectingToPortHeader = resourceManager.GetString("TxtErrorConnectingToPortHeader");
+        TxtComPortConnected = resourceManager.GetString("TxtComPortConnected");
+        TxtComPortConnecting = resourceManager.GetString("TxtComPortConnecting");
+
+        TxtCom3AlreadyInstalled = resourceManager.GetString("TxtCom3AlreadyInstalled");
+        TxtCom3InstalledSuccessfully = resourceManager.GetString("TxtCom3InstalledSuccessfully");
+        TxtCom3InstallFailed = resourceManager.GetString("TxtCom3InstallFailed");
+        TxtCom3UninstallNotRequired = resourceManager.GetString("TxtCom3UninstallNotRequired");
+        TxtCom3UninstalledSuccessfully = resourceManager.GetString("TxtCom3UninstalledSuccessfully");
+        TxtCom3UninstallFailed = resourceManager.GetString("TxtCom3UninstallFailed");
+
+        LbTouchPanelResize = resourceManager.GetString("LbTouchPanelResize");
+        LbTouchPanelDrag = resourceManager.GetString("LbTouchPanelDrag");
 
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(null));
     }

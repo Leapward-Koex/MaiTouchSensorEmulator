@@ -6,6 +6,13 @@ namespace WpfMaiTouchEmulator;
 
 internal class VirtualComPortManager
 {
+    private readonly MainWindowViewModel _viewModel;
+
+    public VirtualComPortManager(MainWindowViewModel viewModel)
+    {
+        _viewModel = viewModel;
+    }
+
     public IEnumerable<string> GetInstalledPorts()
     {
         return SerialPort.GetPortNames();
@@ -32,7 +39,7 @@ internal class VirtualComPortManager
         if (await CheckIfPortInstalled("COM3", false))
         {
             Logger.Warn("Port COM3 already registered.");
-            MessageBox.Show("Port COM3 already registered. Either remove it via Device Manager or uninstall the virutal port.");
+            MessageBox.Show(_viewModel.TxtCom3AlreadyInstalled);
             return;
         }
         try
@@ -42,18 +49,18 @@ internal class VirtualComPortManager
             if (await CheckIfPortInstalled("COM3", true))
             {
                 Logger.Info("Port COM3 successfully installed.");
-                MessageBox.Show("Port COM3 successfully installed.");
+                MessageBox.Show(_viewModel.TxtCom3InstalledSuccessfully);
             }
             else
             {
                 Logger.Error("Port COM3 failed to install");
-                MessageBox.Show($"Port COM3 failed to install", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(_viewModel.TxtCom3InstallFailed, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         catch (Exception ex)
         {
             Logger.Error("Port COM3 failed to install", ex);
-            MessageBox.Show($"Port COM3 failed to install. {ex}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show($"{_viewModel.TxtCom3InstallFailed} {ex}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 
@@ -63,7 +70,7 @@ internal class VirtualComPortManager
         if (!await CheckIfPortInstalled("COM3", true))
         {
             Logger.Warn("Port COM3 not found. No need to uninstall.");
-            MessageBox.Show("Port COM3 not found. No need to uninstall.");
+            MessageBox.Show(_viewModel.TxtCom3UninstallNotRequired);
             return;
         }
         try
@@ -73,18 +80,18 @@ internal class VirtualComPortManager
             if (!await CheckIfPortInstalled("COM3", false))
             {
                 Logger.Info("Port COM3 successfully uninstalled.");
-                MessageBox.Show("Port COM3 successfully uninstalled.");
+                MessageBox.Show(_viewModel.TxtCom3UninstalledSuccessfully);
             }
             else
             {
                 Logger.Error("Port COM3 failed to uninstall");
-                MessageBox.Show($"Port COM3 failed to uninstall. It may be a real device, uninstall it from Device Manager", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(_viewModel.TxtCom3UninstallFailed, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         catch (Exception ex)
         {
             Logger.Error("Port COM3 failed to uninstall", ex);
-            MessageBox.Show($"Port COM3 failed to uninstall. {ex}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show($"{_viewModel.TxtCom3UninstallFailed} {ex}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 

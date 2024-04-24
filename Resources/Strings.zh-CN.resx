@@ -118,10 +118,16 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="lbAutoPortConnecting" xml:space="preserve">
-    <value>自动端口连接</value>
+    <value>自动连接端口</value>
+  </data>
+  <data name="lbAutoPortConnectingTT" xml:space="preserve">
+    <value>尝试在应用启动时自动连接到COM23以发送触摸传感器更新</value>
   </data>
   <data name="lbAutoSensorPositioning" xml:space="preserve">
     <value>自动传感器窗口定位</value>
+  </data>
+  <data name="lbAutoSensorPositioningTT" xml:space="preserve">
+    <value>尝试自动移动触摸传感器窗口到Sinmai.exe上方的正确位置</value>
   </data>
   <data name="lbButtonState" xml:space="preserve">
     <value>按钮状态</value>
@@ -141,14 +147,23 @@
   <data name="lbExitWithSinmai" xml:space="preserve">
     <value>随Sinmai退出</value>
   </data>
+  <data name="lbExitWithSinmaiTT" xml:space="preserve">
+    <value>尝试检测Sinmai.exe何时退出，并与之同时退出此应用</value>
+  </data>
   <data name="lbInstallComPort" xml:space="preserve">
-    <value>安装串行端口</value>
+    <value>安装COM端口</value>
   </data>
   <data name="lbLanguageDropdown" xml:space="preserve">
     <value>语言</value>
   </data>
   <data name="lbListComPorts" xml:space="preserve">
-    <value>列出已安装的串行端口</value>
+    <value>列出已安装的COM端口</value>
+  </data>
+  <data name="lbMenuCategoryHelp" xml:space="preserve">
+    <value>_帮助</value>
+  </data>
+  <data name="lbMenuItemSetup" xml:space="preserve">
+    <value>显示设置说明</value>
   </data>
   <data name="lbRecievedData" xml:space="preserve">
     <value>已接收数据</value>
@@ -156,7 +171,59 @@
   <data name="lbSentData" xml:space="preserve">
     <value>已发送数据</value>
   </data>
+  <data name="LbTouchPanelDrag" xml:space="preserve">
+    <value>拖动</value>
+  </data>
+  <data name="LbTouchPanelResize" xml:space="preserve">
+    <value>调整大小</value>
+  </data>
   <data name="lbUninstallComPort" xml:space="preserve">
-    <value>卸载串行端口</value>
+    <value>卸载COM端口</value>
+  </data>
+  <data name="TxtCom3AlreadyInstalled" xml:space="preserve">
+    <value>COM3端口已注册。可通过设备管理器移除，或卸载虚拟端口。</value>
+  </data>
+  <data name="TxtCom3InstalledSuccessfully" xml:space="preserve">
+    <value>COM3端口成功安装。</value>
+  </data>
+  <data name="TxtCom3InstallFailed" xml:space="preserve">
+    <value>COM3端口安装失败</value>
+  </data>
+  <data name="TxtCom3UninstalledSuccessfully" xml:space="preserve">
+    <value>COM3端口成功卸载。</value>
+  </data>
+  <data name="TxtCom3UninstallFailed" xml:space="preserve">
+    <value>COM3端口卸载失败。可能是真实设备，请从设备管理器中卸载</value>
+  </data>
+  <data name="TxtCom3UninstallNotRequired" xml:space="preserve">
+    <value>未找到COM3端口，无需卸载。</value>
+  </data>
+  <data name="TxtComPortConnected" xml:space="preserve">
+    <value>已连接到端口</value>
+  </data>
+  <data name="TxtComPortConnecting" xml:space="preserve">
+    <value>正在连接...</value>
+  </data>
+  <data name="TxtCurrentlyInstalledPorts" xml:space="preserve">
+    <value>已安装端口</value>
+  </data>
+  <data name="TxtErrorConnectingToPortHeader" xml:space="preserve">
+    <value>连接COM端口错误</value>
+  </data>
+  <data name="TxtFailedToSetupSinmaiExit" xml:space="preserve">
+    <value>无法监听Sinmai退出信号，这可能是因为Sinmai.exe以管理员身份运行。\n\n自动退出功能已禁用。</value>
+  </data>
+  <data name="TxtFailedToSetupSinmaiExitHeader" xml:space="preserve">
+    <value>监听Sinmai退出失败</value>
+  </data>
+  <data name="TxtSetupInstructions" xml:space="preserve">
+    <value>请在安装虚拟COM端口之前，移除使用COM3端口的任何COM设备。在设备管理器中点击“查看”，然后启用“显示隐藏的设备”，并卸载任何使用COM3端口的设备。
+
+确保COM3端口空闲后，请使用应用中的安装COM端口按钮来注册应用。
+
+应用需要在打开Sinmai.exe之前连接到端口。</value>
+  </data>
+  <data name="TxtSetupInstructionsHeader" xml:space="preserve">
+    <value>首次设置</value>
   </data>
 </root>

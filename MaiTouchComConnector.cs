@@ -2,7 +2,7 @@
 using System.Windows;
 
 namespace WpfMaiTouchEmulator;
-internal class MaiTouchComConnector(MaiTouchSensorButtonStateManager buttonState)
+internal class MaiTouchComConnector(MaiTouchSensorButtonStateManager buttonState, MainWindowViewModel viewModel)
 {
     private static SerialPort? serialPort;
     private bool isActiveMode;
@@ -11,6 +11,7 @@ internal class MaiTouchComConnector(MaiTouchSensorButtonStateManager buttonState
     private Thread? _pollThread;
     private bool _shouldReconnect = true;
     private readonly MaiTouchSensorButtonStateManager _buttonState = buttonState;
+    private readonly MainWindowViewModel _viewModel = viewModel;
 
     public Action<string>? OnConnectStatusChange
     {
@@ -41,7 +42,7 @@ internal class MaiTouchComConnector(MaiTouchSensorButtonStateManager buttonState
             var virtualPort = "COM23"; // Adjust as needed
             try
             {
-                OnConnectStatusChange?.Invoke("Conecting...");
+                OnConnectStatusChange?.Invoke(_viewModel.TxtComPortConnecting);
                 serialPort = new SerialPort(virtualPort, 9600, Parity.None, 8, StopBits.One)
                 {
                     WriteTimeout = 100
@@ -49,7 +50,7 @@ internal class MaiTouchComConnector(MaiTouchSensorButtonStateManager buttonState
                 serialPort.DataReceived += SerialPort_DataReceived;
                 serialPort.Open();
                 Logger.Info("Serial port opened successfully.");
-                OnConnectStatusChange?.Invoke("Connected to port");
+                OnConnectStatusChange?.Invoke(_viewModel.TxtComPortConnected);
                 _connected = true;
 
                 _tokenSource = new CancellationTokenSource(); // Create a token source.
@@ -64,12 +65,12 @@ internal class MaiTouchComConnector(MaiTouchSensorButtonStateManager buttonState
                 OnConnectError?.Invoke();
                 Application.Current.Dispatcher.Invoke(() =>
                 {
-                    MessageBox.Show(ex.Message, "Error connecting to COM port", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(ex.Message, _viewModel.TxtErrorConnectingToPortHeader, MessageBoxButton.OK, MessageBoxImage.Error);
                 });
-
+                Logger.Error("Error on starting polling", ex);
                 Logger.Info("Disconnecting from COM port");
                 _connected = false;
-                OnConnectStatusChange?.Invoke("Not Connected");
+                OnConnectStatusChange?.Invoke(_viewModel.LbConnectionStateNotConnected);
                 if (serialPort?.IsOpen == true)
                 {
                     serialPort.DiscardInBuffer();

@@ -120,8 +120,14 @@
   <data name="lbAutoPortConnecting" xml:space="preserve">
     <value>Automatic port connecting</value>
   </data>
+  <data name="lbAutoPortConnectingTT" xml:space="preserve">
+    <value>Try to automatically connect to COM23 to send touch sensor updates on app start</value>
+  </data>
   <data name="lbAutoSensorPositioning" xml:space="preserve">
     <value>Automatic sensor window positioning</value>
+  </data>
+  <data name="lbAutoSensorPositioningTT" xml:space="preserve">
+    <value>Try and automatically move the touch sensor window into the correct position on top of Sinmai.exe</value>
   </data>
   <data name="lbButtonState" xml:space="preserve">
     <value>Button State</value>
@@ -141,6 +147,9 @@
   <data name="lbExitWithSinmai" xml:space="preserve">
     <value>Exit when Sinmai exits</value>
   </data>
+  <data name="lbExitWithSinmaiTT" xml:space="preserve">
+    <value>Try and detect when Sinmai.exe exits and exit this app alongside it</value>
+  </data>
   <data name="lbInstallComPort" xml:space="preserve">
     <value>Install com port</value>
   </data>
@@ -150,13 +159,71 @@
   <data name="lbListComPorts" xml:space="preserve">
     <value>List installed com ports</value>
   </data>
+  <data name="lbMenuCategoryHelp" xml:space="preserve">
+    <value>_Help</value>
+  </data>
+  <data name="lbMenuItemSetup" xml:space="preserve">
+    <value>Show setup instructions</value>
+  </data>
   <data name="lbRecievedData" xml:space="preserve">
     <value>Recieved</value>
   </data>
   <data name="lbSentData" xml:space="preserve">
     <value>Sent</value>
   </data>
+  <data name="LbTouchPanelDrag" xml:space="preserve">
+    <value>Drag</value>
+  </data>
+  <data name="LbTouchPanelResize" xml:space="preserve">
+    <value>Resize</value>
+  </data>
   <data name="lbUninstallComPort" xml:space="preserve">
     <value>Uninstall com port</value>
+  </data>
+  <data name="TxtCom3AlreadyInstalled" xml:space="preserve">
+    <value>Port COM3 already registered. Either remove it via Device Manager or uninstall the virtual port.</value>
+  </data>
+  <data name="TxtCom3InstalledSuccessfully" xml:space="preserve">
+    <value>Port COM3 successfully installed.</value>
+  </data>
+  <data name="TxtCom3InstallFailed" xml:space="preserve">
+    <value>Port COM3 failed to install</value>
+  </data>
+  <data name="TxtCom3UninstalledSuccessfully" xml:space="preserve">
+    <value>Port COM3 successfully uninstalled.</value>
+  </data>
+  <data name="TxtCom3UninstallFailed" xml:space="preserve">
+    <value>Port COM3 failed to uninstall. It may be a real device, uninstall it from Device Manager</value>
+  </data>
+  <data name="TxtCom3UninstallNotRequired" xml:space="preserve">
+    <value>Port COM3 not found. No need to uninstall.</value>
+  </data>
+  <data name="TxtComPortConnected" xml:space="preserve">
+    <value>Connected to port</value>
+  </data>
+  <data name="TxtComPortConnecting" xml:space="preserve">
+    <value>Conecting...</value>
+  </data>
+  <data name="TxtCurrentlyInstalledPorts" xml:space="preserve">
+    <value>Installed ports</value>
+  </data>
+  <data name="TxtErrorConnectingToPortHeader" xml:space="preserve">
+    <value>Error connecting to COM port</value>
+  </data>
+  <data name="TxtFailedToSetupSinmaiExit" xml:space="preserve">
+    <value>Failed to listen for Sinmai exit signal, this can happen when Sinmai.exe is being run as admin.\n\nAutomatic exiting disabled.</value>
+  </data>
+  <data name="TxtFailedToSetupSinmaiExitHeader" xml:space="preserve">
+    <value>Failed to listen for Sinmai exit</value>
+  </data>
+  <data name="TxtSetupInstructions" xml:space="preserve">
+    <value>Please remove any COM devices using the COM3 port before installing the virtual COM port. In Device Manager click "View" then enabled "Show hidden devices" and uninstall any devices that are using the COM3 port.
+
+After ensuring COM3 is free please use the install COM port button in the app to register the app.
+
+The app needs to connect to the port prior to Sinmai.exe being opened.</value>
+  </data>
+  <data name="TxtSetupInstructionsHeader" xml:space="preserve">
+    <value>First time setup</value>
   </data>
 </root>

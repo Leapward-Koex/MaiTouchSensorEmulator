@@ -23,8 +23,8 @@ public partial class MainWindow : Window
 
         Title = "Mai Touch Emulator";
         buttonState = new MaiTouchSensorButtonStateManager(buttonStateValue);
-        connector = new MaiTouchComConnector(buttonState);
-        comPortManager = new VirtualComPortManager();
+        connector = new MaiTouchComConnector(buttonState, (MainWindowViewModel)DataContext);
+        comPortManager = new VirtualComPortManager((MainWindowViewModel)DataContext);
         connector.OnConnectStatusChange = (status) =>
         {
             connectionStateLabel.Content = status;
@@ -56,7 +56,7 @@ public partial class MainWindow : Window
         if (Properties.Settings.Default.FirstOpen)
         {
             Logger.Info("First open occurred");
-            MessageBox.Show("Please remove any COM devices using the COM3 port before installing the virtual COM port. In Device Manager click \"View\" then enabled \"Show hidden devices\" and uninstall any devices that are using the COM3 port.\n\nAfter ensuring COM3 is free please use the install COM port button in the app to register the app.\n\nThe app needs to connect to the port prior to Sinmai.exe being opened.", "First time setup", MessageBoxButton.OK, MessageBoxImage.Information);
+            ShowSetupInstructionsDialog();
             Properties.Settings.Default.FirstOpen = false;
             Properties.Settings.Default.Save();
         }
@@ -71,6 +71,7 @@ public partial class MainWindow : Window
             _touchPanel.Owner = this;
 
             var dataContext = (MainWindowViewModel)DataContext;
+            _touchPanel.DataContext = dataContext;
 
             _touchPanel.SetDebugMode(dataContext.IsDebugEnabled);
             if (Properties.Settings.Default.IsAutomaticPositioningEnabled)
@@ -134,9 +135,15 @@ public partial class MainWindow : Window
                 dataContext.IsExitWithSinmaiEnabled = false;
                 Properties.Settings.Default.IsExitWithSinmaiEnabled = dataContext.IsExitWithSinmaiEnabled;
                 Properties.Settings.Default.Save();
-                MessageBox.Show("Failed to listen for Sinmai exit signal, is it running as admin?\n\nAutomatic exiting disabled.", "Failed to listen for Sinmai exit", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show(dataContext.TxtFailedToSetupSinmaiExit, dataContext.TxtFailedToSetupSinmaiExitHeader, MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
+    }
+
+    private void ShowSetupInstructionsDialog()
+    {
+        var dataContext = (MainWindowViewModel)DataContext;
+        MessageBox.Show(dataContext.TxtSetupInstructions, dataContext.TxtSetupInstructionsHeader, MessageBoxButton.OK, MessageBoxImage.Information);
     }
 
     private async void AutomaticTouchPanelPositioningLoop()
@@ -226,6 +233,12 @@ public partial class MainWindow : Window
     private void buttonListComPorts_Click(object sender, RoutedEventArgs e)
     {
         var output = comPortManager.GetInstalledPorts();
-        MessageBox.Show(string.Join("\n", output), "Installed ports");
+        var dataContext = (MainWindowViewModel)DataContext;
+        MessageBox.Show(string.Join("\n", output), dataContext.TxtCurrentlyInstalledPorts);
+    }
+
+    private void instructionsLabel_Click(object sender, RoutedEventArgs e)
+    {
+        ShowSetupInstructionsDialog();
     }
 }
