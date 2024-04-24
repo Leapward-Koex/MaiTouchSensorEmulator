@@ -189,7 +189,8 @@ public class MainWindowViewModel : INotifyPropertyChanged
     } =
     [
         new CultureInfo("en-US"),  // English
-        new CultureInfo("zh-CN")   // Chinese (Simplified)
+        new CultureInfo("zh-CN"),   // Chinese (Simplified)
+        new CultureInfo("ja-JP")   // Japanese
     ];
 
 

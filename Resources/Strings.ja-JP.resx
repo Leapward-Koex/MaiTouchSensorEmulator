@@ -1,0 +1,229 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="lbAutoPortConnecting" xml:space="preserve">
+    <value>自動ポート接続</value>
+  </data>
+  <data name="lbAutoPortConnectingTT" xml:space="preserve">
+    <value>アプリ起動時にCOM23に自動的に接続してタッチセンサーの更新を送信しようとする</value>
+  </data>
+  <data name="lbAutoSensorPositioning" xml:space="preserve">
+    <value>自動センサーウィンドウ配置</value>
+  </data>
+  <data name="lbAutoSensorPositioningTT" xml:space="preserve">
+    <value>Sinmai.exeの上に正しい位置にタッチセンサーウィンドウを自動的に移動しようとする</value>
+  </data>
+  <data name="lbButtonState" xml:space="preserve">
+    <value>ボタン状態</value>
+  </data>
+  <data name="lbConnectionState" xml:space="preserve">
+    <value>接続状態</value>
+  </data>
+  <data name="lbConnectionStateNotConnected" xml:space="preserve">
+    <value>未接続</value>
+  </data>
+  <data name="lbConnectToPort" xml:space="preserve">
+    <value>ポートに接続</value>
+  </data>
+  <data name="lbDebugMode" xml:space="preserve">
+    <value>デバッグモード</value>
+  </data>
+  <data name="lbExitWithSinmai" xml:space="preserve">
+    <value>Sinmai終了時に終了</value>
+  </data>
+  <data name="lbExitWithSinmaiTT" xml:space="preserve">
+    <value>Sinmai.exeが終了するのを検出し、このアプリも同時に終了しようとする</value>
+  </data>
+  <data name="lbInstallComPort" xml:space="preserve">
+    <value>COMポートをインストール</value>
+  </data>
+  <data name="lbLanguageDropdown" xml:space="preserve">
+    <value>言語</value>
+  </data>
+  <data name="lbListComPorts" xml:space="preserve">
+    <value>インストールされたCOMポートをリストアップ</value>
+  </data>
+  <data name="lbMenuCategoryHelp" xml:space="preserve">
+    <value>_ヘルプ</value>
+  </data>
+  <data name="lbMenuItemSetup" xml:space="preserve">
+    <value>セットアップ指示を表示</value>
+  </data>
+  <data name="lbRecievedData" xml:space="preserve">
+    <value>受信データ</value>
+  </data>
+  <data name="lbSentData" xml:space="preserve">
+    <value>送信データ</value>
+  </data>
+  <data name="LbTouchPanelDrag" xml:space="preserve">
+    <value>ドラッグ</value>
+  </data>
+  <data name="LbTouchPanelResize" xml:space="preserve">
+    <value>サイズ変更</value>
+  </data>
+  <data name="lbUninstallComPort" xml:space="preserve">
+    <value>COMポートをアンインストール</value>
+  </data>
+  <data name="TxtCom3AlreadyInstalled" xml:space="preserve">
+    <value>ポートCOM3はすでに登録されています。デバイスマネージャを通じてそれを取り除くか、仮想ポートをアンインストールしてください。</value>
+  </data>
+  <data name="TxtCom3InstalledSuccessfully" xml:space="preserve">
+    <value>COM3ポートが正常にインストールされました。</value>
+  </data>
+  <data name="TxtCom3InstallFailed" xml:space="preserve">
+    <value>COM3ポートのインストールに失敗しました</value>
+  </data>
+  <data name="TxtCom3UninstalledSuccessfully" xml:space="preserve">
+    <value>COM3ポートが正常にアンインストールされました。</value>
+  </data>
+  <data name="TxtCom3UninstallFailed" xml:space="preserve">
+    <value>COM3ポートのアンインストールに失敗しました。実際のデバイスである可能性があります、デバイスマネージャーからアンインストールしてください</value>
+  </data>
+  <data name="TxtCom3UninstallNotRequired" xml:space="preserve">
+    <value>COM3ポートが見つかりませんでした。アンインストールの必要はありません。</value>
+  </data>
+  <data name="TxtComPortConnected" xml:space="preserve">
+    <value>ポートに接続されました</value>
+  </data>
+  <data name="TxtComPortConnecting" xml:space="preserve">
+    <value>接続中...</value>
+  </data>
+  <data name="TxtCurrentlyInstalledPorts" xml:space="preserve">
+    <value>インストールされたポート</value>
+  </data>
+  <data name="TxtErrorConnectingToPortHeader" xml:space="preserve">
+    <value>COMポートへの接続エラー</value>
+  </data>
+  <data name="TxtFailedToSetupSinmaiExit" xml:space="preserve">
+    <value>Sinmaiの終了信号を聞くことができなかったため、これはSinmai.exeが管理者として実行されているときに起こり得ます。\n\n自動終了が無効になりました。</value>
+  </data>
+  <data name="TxtFailedToSetupSinmaiExitHeader" xml:space="preserve">
+    <value>Sinmaiの終了を検出できなかった</value>
+  </data>
+  <data name="TxtSetupInstructions" xml:space="preserve">
+    <value>COM3ポートを使用している任意のCOMデバイスを仮想COMポートをインストールする前に取り除いてください。デバイスマネージャで「表示」をクリックし、「隠れたデバイスを表示」を有効にして、COM3ポートを使用しているデバイスをアンインストールしてください。
+
+COM3が空いていることを確認した後、アプリ内のCOMポートインストールボタンを使用してアプリを登録してください
+
+アプリはSinmai.exeを開く前にポートに接続する必要があります。</value>
+  </data>
+  <data name="TxtSetupInstructionsHeader" xml:space="preserve">
+    <value>初回セットアップ</value>
+  </data>
+</root>
