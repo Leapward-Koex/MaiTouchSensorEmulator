@@ -6,13 +6,21 @@ namespace WpfMaiTouchEmulator;
 public partial class MainWindow : Window
 {
     private readonly MaiTouchSensorButtonStateManager buttonState;
-    private MaiTouchComConnector connector;
+    private readonly MaiTouchComConnector connector;
     private readonly VirtualComPortManager comPortManager;
     private TouchPanel _touchPanel;
 
     public MainWindow()
     {
         InitializeComponent();
+        DataContext = new MainWindowViewModel()
+        {
+            IsDebugEnabled = Properties.Settings.Default.IsDebugEnabled,
+            IsAutomaticPortConnectingEnabled = Properties.Settings.Default.IsAutomaticPortConnectingEnabled,
+            IsAutomaticPositioningEnabled = Properties.Settings.Default.IsAutomaticPositioningEnabled,
+            IsExitWithSinmaiEnabled = Properties.Settings.Default.IsExitWithSinmaiEnabled,
+        };
+
         Title = "Mai Touch Emulator";
         buttonState = new MaiTouchSensorButtonStateManager(buttonStateValue);
         connector = new MaiTouchComConnector(buttonState);
@@ -53,6 +61,7 @@ public partial class MainWindow : Window
             Properties.Settings.Default.Save();
         }
 
+
         Loaded += (s, e) => {
             Logger.Info("Main window loaded, creating touch panel");
             _touchPanel = new TouchPanel();
@@ -60,15 +69,9 @@ public partial class MainWindow : Window
             _touchPanel.onRelease = (value) => { buttonState.ReleaseButton(value); };
             _touchPanel.Show();
             _touchPanel.Owner = this;
-            DataContext = new MainWindowViewModel()
-            {
-                IsDebugEnabled = Properties.Settings.Default.IsDebugEnabled,
-                IsAutomaticPortConnectingEnabled = Properties.Settings.Default.IsAutomaticPortConnectingEnabled,
-                IsAutomaticPositioningEnabled = Properties.Settings.Default.IsAutomaticPositioningEnabled,
-                IsExitWithSinmaiEnabled = Properties.Settings.Default.IsExitWithSinmaiEnabled
-            };
 
             var dataContext = (MainWindowViewModel)DataContext;
+
             _touchPanel.SetDebugMode(dataContext.IsDebugEnabled);
             if (Properties.Settings.Default.IsAutomaticPositioningEnabled)
             {
@@ -81,7 +84,7 @@ public partial class MainWindow : Window
         };
     }
 
-    private async void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+    private async void MainWindow_Closing(object? sender, System.ComponentModel.CancelEventArgs e)
     {
         e.Cancel = true;
         await connector.Disconnect();
@@ -90,7 +93,7 @@ public partial class MainWindow : Window
             childWindow.Close();
         }
         Closing -= MainWindow_Closing;
-        Close();
+        e.Cancel = false;
     }
 
     private async void ExitWithSinmaiLoop()

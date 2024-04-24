@@ -3,38 +3,44 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfMaiTouchEmulator"
         mc:Ignorable="d"
         Closing="MainWindow_Closing"
-        Title="MainWindow" Height="282" Width="800">
-    <Grid Background="Transparent">
-        <Button x:Name="ConnectToPortButton" Content="Connect to port" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Click="ConnectToPortButton_Click" Width="105"/>
+        Title="MainWindow" Height="360" Width="500" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Grid Background="Transparent" Height="317" VerticalAlignment="Top" >
+        <Button x:Name="ConnectToPortButton" Content="{Binding LbConnectToPort}" HorizontalAlignment="Left" Margin="10,95,0,0" VerticalAlignment="Top" Click="ConnectToPortButton_Click" />
         <TextBox x:Name="RecievedLogBox"
              IsReadOnly="True"
              HorizontalScrollBarVisibility="Disabled"
              VerticalScrollBarVisibility="Auto"
              AcceptsReturn="True"
              AcceptsTab="True"
-             TextWrapping="Wrap" Margin="376,34,278,9" />
+             TextWrapping="Wrap" Margin="376,34,0,219" HorizontalAlignment="Left" Width="88" />
         <TextBox x:Name="SentLogBox"
             IsReadOnly="True"
             HorizontalScrollBarVisibility="Disabled"
             VerticalScrollBarVisibility="Auto"
             AcceptsReturn="True"
             AcceptsTab="True"
-            TextWrapping="Wrap" Margin="552,34,102,9" />
-        <Label x:Name="label" Content="Recieved" HorizontalAlignment="Left" Margin="376,8,0,0" VerticalAlignment="Top" Width="88"/>
-        <Label x:Name="label_Copy" Content="Sent" HorizontalAlignment="Left" Margin="552,8,0,0" VerticalAlignment="Top" Width="88"/>
-        <Label x:Name="label_Copy1" Content="Button State" HorizontalAlignment="Left" Margin="698,8,0,0" VerticalAlignment="Top" Width="88"/>
-        <Label x:Name="buttonStateValue" Content="0" HorizontalAlignment="Left" Margin="698,34,0,0" VerticalAlignment="Top" RenderTransformOrigin="3.566,1.468" FontSize="10"/>
-        <CheckBox x:Name="debugMode" Content="Debug mode" HorizontalAlignment="Left" Margin="10,39,0,0" VerticalAlignment="Top" IsChecked="{Binding Path=IsDebugEnabled}" Click="debugMode_Click" Cursor="" Focusable="False" ToolTip="Show the touchpad with translucency and show inputs highlighted"/>
-        <CheckBox x:Name="automaticTouchPanelPositioning" HorizontalAlignment="Left" Margin="10,59,0,0" VerticalAlignment="Top" Height="17" Width="224" Content="Automatic sensor window positioning" IsChecked="{Binding Path=IsAutomaticPositioningEnabled}" Click="automaticTouchPanelPositioning_Click" ToolTip="Try and automatically move the touch sensor window into the correct position on top of Sinma.exe"/>
-        <CheckBox x:Name="automaticPortConnecting" HorizontalAlignment="Left" Margin="10,81,0,0" VerticalAlignment="Top" Height="17" Width="224" Content="Automatic port connecting" IsChecked="{Binding Path=IsAutomaticPortConnectingEnabled}" Click="automaticPortConnecting_Click" ToolTip="Try to automatically connect to COM23 to send touchsensor updates on app start"/>
-        <Label x:Name="label1" Content="Connection state" HorizontalAlignment="Left" Margin="238,8,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="connectionStateLabel" Content="Not connected" HorizontalAlignment="Left" Margin="238,31,0,0" VerticalAlignment="Top" FontSize="10"/>
-        <CheckBox x:Name="exitWithSinmai" HorizontalAlignment="Left" Margin="10,103,0,0" VerticalAlignment="Top" Height="17" Width="224" Content="Exit when Sinmai exits" IsChecked="{Binding IsExitWithSinmaiEnabled}" Click="exitWithSinmai_Click" ToolTip="Try and detect when Sinmai.exe exits and exit this app alongside it"/>
-        <Button x:Name="buttonInstallComPort" Content="Install com port" HorizontalAlignment="Left" Margin="10,147,0,0" VerticalAlignment="Top" Click="buttonInstallComPort_Click"/>
-        <Button x:Name="buttonUninstallComPorts" Content="Uninstall com port" HorizontalAlignment="Left" Margin="10,172,0,0" VerticalAlignment="Top" Click="buttonUninstallComPorts_Click"/>
-        <Button x:Name="buttonListComPorts" Content="List installed com ports" HorizontalAlignment="Left" Margin="10,197,0,0" VerticalAlignment="Top" Click="buttonListComPorts_Click"/>
+            TextWrapping="Wrap" Margin="376,121,0,129" HorizontalAlignment="Left" Width="88" />
+        <Label x:Name="label" Content="{Binding LbRecievedData}" d:Content="Recieved Data" HorizontalAlignment="Left" Margin="376,8,0,0" VerticalAlignment="Top" Width="88"/>
+        <Label x:Name="label_Copy" Content="{Binding LbSentData}" d:Content="Sent Data" HorizontalAlignment="Left" Margin="376,95,0,0" VerticalAlignment="Top" Width="88"/>
+        <Label x:Name="label_Copy1" Content="{Binding LbButtonState}" d:Content="Button state" HorizontalAlignment="Left" Margin="238,56,0,0" VerticalAlignment="Top" Width="88"/>
+        <Label x:Name="buttonStateValue" Content="0" HorizontalAlignment="Left" Margin="238,82,0,0" VerticalAlignment="Top" RenderTransformOrigin="3.566,1.468" FontSize="10"/>
+        <CheckBox x:Name="debugMode" Content="{Binding LbDebugMode}" d:Content="Debug mode" HorizontalAlignment="Left" Margin="10,213,0,0" VerticalAlignment="Top" IsChecked="{Binding Path=IsDebugEnabled}" Click="debugMode_Click" Cursor="" Focusable="False" ToolTip="Show the touchpad with translucency and show inputs highlighted" Width="224"/>
+        <CheckBox x:Name="automaticTouchPanelPositioning" d:Content="Automatic touch panel positioning" HorizontalAlignment="Left" Margin="10,233,0,0" VerticalAlignment="Top" Height="17" Width="224" Content="{Binding LbAutoSensorPositioning}" IsChecked="{Binding Path=IsAutomaticPositioningEnabled}" Click="automaticTouchPanelPositioning_Click" ToolTip="Try and automatically move the touch sensor window into the correct position on top of Sinma.exe"/>
+        <CheckBox x:Name="automaticPortConnecting" d:Content="Automatic port connecting" HorizontalAlignment="Left" Margin="10,255,0,0" VerticalAlignment="Top" Height="17" Width="224" Content="{Binding LbAutoPortConnecting}" IsChecked="{Binding Path=IsAutomaticPortConnectingEnabled}" Click="automaticPortConnecting_Click" ToolTip="Try to automatically connect to COM23 to send touchsensor updates on app start"/>
+        <Label x:Name="label1" Content="{Binding LbConnectionState}" d:Content="Connection state" HorizontalAlignment="Left" Margin="238,8,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="connectionStateLabel" Content="{Binding LbConnectionStateNotConnected}" d:Content="Not connected" HorizontalAlignment="Left" Margin="238,31,0,0" VerticalAlignment="Top" FontSize="10"/>
+        <CheckBox x:Name="exitWithSinmai" Content="{Binding LbExitWithSinmai}" d:Content="Exit with Sinmai" HorizontalAlignment="Left" Margin="10,277,0,0" VerticalAlignment="Top" Height="17" Width="224" IsChecked="{Binding IsExitWithSinmaiEnabled}" Click="exitWithSinmai_Click" ToolTip="Try and detect when Sinmai.exe exits and exit this app alongside it"/>
+        <Button x:Name="buttonInstallComPort" Content="{Binding LbInstallComPort}" d:Content="Install COM port" HorizontalAlignment="Left" Margin="10,9,0,0" VerticalAlignment="Top" Click="buttonInstallComPort_Click" Width="126"/>
+        <Button x:Name="buttonUninstallComPorts" Content="{Binding LbUninstallComPort}" d:Content="Uninstall COM port" HorizontalAlignment="Left" Margin="10,34,0,0" VerticalAlignment="Top" Click="buttonUninstallComPorts_Click" Width="126"/>
+        <Button x:Name="buttonListComPorts" Content="{Binding LbListComPorts}" d:Content="List installed COM ports" HorizontalAlignment="Left" Margin="10,59,0,0" VerticalAlignment="Top" Click="buttonListComPorts_Click"/>
+        <Separator HorizontalAlignment="Left" Margin="10,84,0,0" VerticalAlignment="Top" Height="6" Width="126"/>
+        <ComboBox x:Name="languageSelector" HorizontalAlignment="Left" Margin="10,186,0,0" VerticalAlignment="Top" Width="149" ItemsSource="{Binding SupportedLanguages}"
+                  DisplayMemberPath="NativeName"
+                  SelectedItem="{Binding SelectedLanguage, Mode=TwoWay}"/>
+        <Label x:Name="lagnuageLabel" Content="{Binding LbLanguageDropdown}" d:Content="Language" HorizontalAlignment="Left" Margin="10,155,0,0" VerticalAlignment="Top" Width="126"/>
 
     </Grid>
 
