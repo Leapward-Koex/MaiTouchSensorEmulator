@@ -1,6 +1,11 @@
-
+﻿
 # WpfMaiTouchEmulator
 A WPF C# app meant to emulate the touch sensor hardware for SDEZ MaiMai using software on a touchscreen.
+
+## README in Other Languages
+
+- [简体中文](README.zh.md)
+- [日本語](README.jp.md)
 
 # How it works
 The app uses com0com to install a virtual COM port pairing of COM3 - COM23. The app then connects to COM23 and emulates how the hardware touch sensor works, sending data over this port.
