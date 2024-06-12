@@ -97,7 +97,7 @@ namespace WpfMaiTouchEmulator.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool IsRingButtonEmulationEnabled {
             get {
                 return ((bool)(this["IsRingButtonEmulationEnabled"]));

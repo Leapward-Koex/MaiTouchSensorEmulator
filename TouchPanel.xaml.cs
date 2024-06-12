@@ -60,6 +60,7 @@ public partial class TouchPanel : Window
     private void Window_Loaded(object sender, RoutedEventArgs e)
     {
         buttons = VisualTreeHelperExtensions.FindVisualChildren<Polygon>(this);
+        DeselectAllItems();
     }
 
     public void PositionTouchPanel()
