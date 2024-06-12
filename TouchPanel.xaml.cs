@@ -17,6 +17,7 @@ public partial class TouchPanel : Window
     private readonly TouchPanelPositionManager _positionManager;
     private List<Polygon> buttons = [];
     private bool isDebugEnabled = Properties.Settings.Default.IsDebugEnabled;
+    private bool isRingButtonEmulationEnabled = Properties.Settings.Default.IsRingButtonEmulationEnabled;
 
     private enum ResizeDirection
     {
@@ -106,7 +107,15 @@ public partial class TouchPanel : Window
         {
             // Highlight the element and add it to the active touches tracking.
             HighlightElement(element, true);
-            onTouch?.Invoke((TouchValue)element.Tag);
+            var touchValue = (TouchValue)element.Tag;
+            if (isRingButtonEmulationEnabled && RingButtonEmulator.HasRingButtonMapping((TouchValue)element.Tag))
+            {
+                RingButtonEmulator.PressButton((TouchValue)element.Tag);
+            }
+            else
+            {
+                onTouch?.Invoke((TouchValue)element.Tag);
+            }
             activeTouches[e.TouchDevice.Id] = element;
         }
         e.Handled = true;
@@ -149,6 +158,7 @@ public partial class TouchPanel : Window
         if (activeTouches.TryGetValue(e.TouchDevice.Id, out var element))
         {
             HighlightElement(element, false);
+            RingButtonEmulator.ReleaseButton((TouchValue)element.Tag);
             onRelease?.Invoke((TouchValue)element.Tag);
             activeTouches.Remove(e.TouchDevice.Id);
         }
@@ -165,6 +175,7 @@ public partial class TouchPanel : Window
             onRelease?.Invoke((TouchValue)element.Tag);
         }
         activeTouches.Clear();
+        RingButtonEmulator.ReleaseAllButtons();
     }
 
     public void SetDebugMode(bool enabled)
@@ -174,6 +185,11 @@ public partial class TouchPanel : Window
         {
             button.Opacity = enabled ? 0.3 : 0;
         });
+    }
+
+    public void SetEmulateRingButton(bool enabled)
+    {
+        isRingButtonEmulationEnabled = enabled;
     }
 
     private void HighlightElement(Polygon element, bool highlight)

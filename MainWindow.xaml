@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Closing="MainWindow_Closing"
-        Title="MainWindow" Height="360" Width="500" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="MainWindow" Height="384" Width="500" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <StackPanel VerticalAlignment="Top">
         <Menu Width="Auto" Height="20">
             <MenuItem Header="{Binding LbMenuCategoryHelp}" d:Header="_Help">
@@ -38,6 +38,7 @@
             <Label x:Name="label1" Content="{Binding LbConnectionState}" d:Content="Connection state" HorizontalAlignment="Left" Margin="238,8,0,0" VerticalAlignment="Top"/>
             <Label x:Name="connectionStateLabel" Content="{Binding LbConnectionStateNotConnected}" d:Content="Not connected" HorizontalAlignment="Left" Margin="238,31,0,0" VerticalAlignment="Top" FontSize="10"/>
             <CheckBox x:Name="exitWithSinmai" Content="{Binding LbExitWithSinmai}" d:Content="Exit with Sinmai" HorizontalAlignment="Left" Margin="10,277,0,0" VerticalAlignment="Top" Height="17" Width="224" IsChecked="{Binding IsExitWithSinmaiEnabled}" Click="exitWithSinmai_Click" ToolTip="{Binding LbExitWithSinmaiTT}"/>
+            <CheckBox x:Name="emulateRingButtons" Content="{Binding LbEmulateRingButtons}" d:Content="Emulate ring buttons" HorizontalAlignment="Left" Margin="10,299,0,0" VerticalAlignment="Top" Height="17" Width="224" IsChecked="{Binding IsRingButtonEmulationEnabled}" ToolTip="{Binding LbEmulateRingButtonsTT}" Click="emulateRingButtons_Click"/>
             <Button x:Name="buttonInstallComPort" Content="{Binding LbInstallComPort}" d:Content="Install COM port" HorizontalAlignment="Left" Margin="10,9,0,0" VerticalAlignment="Top" Click="buttonInstallComPort_Click" Width="130"/>
             <Button x:Name="buttonUninstallComPorts" Content="{Binding LbUninstallComPort}" d:Content="Uninstall COM port" HorizontalAlignment="Left" Margin="10,34,0,0" VerticalAlignment="Top" Click="buttonUninstallComPorts_Click" Width="130"/>
             <Button x:Name="buttonListComPorts" Content="{Binding LbListComPorts}" d:Content="List installed COM ports" HorizontalAlignment="Left" Margin="10,59,0,0" VerticalAlignment="Top" Click="buttonListComPorts_Click" Width="130"/>
@@ -49,6 +50,6 @@
 
         </Grid>
     </StackPanel>
-    
+
 
 </Window>

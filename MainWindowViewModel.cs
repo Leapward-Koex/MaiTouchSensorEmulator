@@ -40,6 +40,10 @@ public class MainWindowViewModel : INotifyPropertyChanged
     {
         get; set;
     }
+    public string LbEmulateRingButtons
+    {
+        get; set;
+    }
     public string LbInstallComPort
     {
         get; set;
@@ -174,12 +178,18 @@ public class MainWindowViewModel : INotifyPropertyChanged
         get;
         private set;
     }
+    public string? LbEmulateRingButtonsTT
+    {
+        get;
+        private set;
+    }
 
     private bool _isAutomaticPortConnectingEnabled;
     private bool _isDebugEnabled;
     private bool _isAutomaticPositioningEnabled;
     private bool _isExitWithSinmaiEnabled;
     private CultureInfo _selectedLanguage;
+    private bool _isRingButtonEmulationEnabled;
     private readonly ResourceManager resourceManager;
     private readonly CultureInfo cultureInfo;
 
@@ -248,6 +258,17 @@ public class MainWindowViewModel : INotifyPropertyChanged
         }
     }
 
+    public bool IsRingButtonEmulationEnabled
+    {
+        get => _isRingButtonEmulationEnabled;
+        set
+        {
+            _isRingButtonEmulationEnabled = value;
+            OnPropertyChanged();
+        }
+    }
+    
+
     public CultureInfo SelectedLanguage
     {
         get => _selectedLanguage;
@@ -282,6 +303,7 @@ public class MainWindowViewModel : INotifyPropertyChanged
         LbConnectToPort = resourceManager.GetString("lbConnectToPort");
         LbDebugMode = resourceManager.GetString("lbDebugMode");
         LbExitWithSinmai = resourceManager.GetString("lbExitWithSinmai");
+        LbEmulateRingButtons = resourceManager.GetString("lbEmulateRingButtons");
         LbInstallComPort = resourceManager.GetString("lbInstallComPort");
         LbLanguageDropdown = resourceManager.GetString("lbLanguageDropdown");
         LbListComPorts = resourceManager.GetString("lbListComPorts");
@@ -294,6 +316,7 @@ public class MainWindowViewModel : INotifyPropertyChanged
         LbAutoPortConnectingTT = resourceManager.GetString("lbAutoPortConnectingTT");
         LbAutoSensorPositioningTT = resourceManager.GetString("lbAutoSensorPositioningTT");
         LbExitWithSinmaiTT = resourceManager.GetString("lbExitWithSinmaiTT");
+        LbEmulateRingButtonsTT = resourceManager.GetString("lbEmulateRingButtonsTT");
         LbMenuCategoryHelp = resourceManager.GetString("lbMenuCategoryHelp");
         LbMenuItemSetup = resourceManager.GetString("lbMenuItemSetup");
 

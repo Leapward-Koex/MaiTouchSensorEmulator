@@ -144,6 +144,12 @@
   <data name="lbDebugMode" xml:space="preserve">
     <value>Debug mode</value>
   </data>
+  <data name="lbEmulateRingButtons" xml:space="preserve">
+    <value>Emulate ring buttons</value>
+  </data>
+  <data name="lbEmulateRingButtonsTT" xml:space="preserve">
+    <value>Useful when navigating the menus without a keyboard</value>
+  </data>
   <data name="lbExitWithSinmai" xml:space="preserve">
     <value>Exit when Sinmai exits</value>
   </data>

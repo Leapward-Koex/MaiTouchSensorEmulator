@@ -3,7 +3,7 @@ using System.Windows.Controls;
 
 namespace WpfMaiTouchEmulator;
 
-enum TouchValue: long
+public enum TouchValue: long
 {
     A1 = 1 << 0,  // 2^0
     A2 = 1 << 1,  // 2^1

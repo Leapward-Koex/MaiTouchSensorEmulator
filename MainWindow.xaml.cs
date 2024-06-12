@@ -19,6 +19,7 @@ public partial class MainWindow : Window
             IsAutomaticPortConnectingEnabled = Properties.Settings.Default.IsAutomaticPortConnectingEnabled,
             IsAutomaticPositioningEnabled = Properties.Settings.Default.IsAutomaticPositioningEnabled,
             IsExitWithSinmaiEnabled = Properties.Settings.Default.IsExitWithSinmaiEnabled,
+            IsRingButtonEmulationEnabled = Properties.Settings.Default.IsRingButtonEmulationEnabled
         };
 
         Title = "Mai Touch Emulator";
@@ -240,5 +241,15 @@ public partial class MainWindow : Window
     private void instructionsLabel_Click(object sender, RoutedEventArgs e)
     {
         ShowSetupInstructionsDialog();
+    }
+
+    private void emulateRingButtons_Click(object sender, RoutedEventArgs e)
+    {
+        var dataContext = (MainWindowViewModel)DataContext;
+        var enabled = !dataContext.IsRingButtonEmulationEnabled;
+        dataContext.IsRingButtonEmulationEnabled = !enabled;
+        Properties.Settings.Default.IsRingButtonEmulationEnabled = dataContext.IsRingButtonEmulationEnabled;
+        Properties.Settings.Default.Save();
+        _touchPanel.SetEmulateRingButton(dataContext.IsRingButtonEmulationEnabled);
     }
 }

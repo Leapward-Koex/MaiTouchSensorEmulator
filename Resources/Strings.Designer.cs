@@ -142,6 +142,24 @@ namespace WpfMaiTouchEmulator.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Emulate ring buttons.
+        /// </summary>
+        internal static string lbEmulateRingButtons {
+            get {
+                return ResourceManager.GetString("lbEmulateRingButtons", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Useful when navigating the menus without a keyboard.
+        /// </summary>
+        internal static string lbEmulateRingButtonsTT {
+            get {
+                return ResourceManager.GetString("lbEmulateRingButtonsTT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Exit when Sinmai exits.
         /// </summary>
         internal static string lbExitWithSinmai {
