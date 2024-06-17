@@ -223,7 +223,7 @@ namespace WpfMaiTouchEmulator.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Recieved.
+        ///   Looks up a localized string similar to Received.
         /// </summary>
         internal static string lbRecievedData {
             get {

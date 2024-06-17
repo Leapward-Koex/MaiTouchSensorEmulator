@@ -172,7 +172,7 @@
     <value>Show setup instructions</value>
   </data>
   <data name="lbRecievedData" xml:space="preserve">
-    <value>Recieved</value>
+    <value>Received</value>
   </data>
   <data name="lbSentData" xml:space="preserve">
     <value>Sent</value>
