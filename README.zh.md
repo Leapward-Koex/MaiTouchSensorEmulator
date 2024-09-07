@@ -7,11 +7,11 @@
 # 演示
 
 
-https://github.com/Leapward-Koex/MaiTouchSensorEmulator/assets/30615050/eea21285-fec5-4393-a75d-74274b39789f
+https://github.com/user-attachments/assets/fd0d8f08-586b-416e-8e49-7e389a08d02b
 
 
 
-https://github.com/Leapward-Koex/MaiTouchSensorEmulator/assets/30615050/e45ca02f-8d82-4ad4-a610-ef08abcb5087
+https://github.com/user-attachments/assets/1862e59b-520c-4cd5-adf4-37389a75815d
 
 
 
