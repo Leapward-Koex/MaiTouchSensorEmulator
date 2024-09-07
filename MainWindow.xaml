@@ -46,7 +46,7 @@
             <ComboBox x:Name="languageSelector" HorizontalAlignment="Left" Margin="10,186,0,0" VerticalAlignment="Top" Width="149" ItemsSource="{Binding SupportedLanguages}"
               DisplayMemberPath="NativeName"
               SelectedItem="{Binding SelectedLanguage, Mode=TwoWay}"/>
-            <Label x:Name="lagnuageLabel" Content="{Binding LbLanguageDropdown}" d:Content="Language" HorizontalAlignment="Left" Margin="10,155,0,0" VerticalAlignment="Top" Width="126"/>
+            <Label x:Name="languageLabel" Content="{Binding LbLanguageDropdown}" d:Content="Language" HorizontalAlignment="Left" Margin="10,155,0,0" VerticalAlignment="Top" Width="126"/>
 
         </Grid>
     </StackPanel>
