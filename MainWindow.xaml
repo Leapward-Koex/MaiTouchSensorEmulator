@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Closing="MainWindow_Closing"
-        Title="MainWindow" Height="384" Width="500" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="MainWindow" Height="384" Width="500" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
     <StackPanel VerticalAlignment="Top">
         <Menu Width="Auto" Height="20">
             <MenuItem Header="{Binding LbMenuCategoryHelp}" d:Header="_Help">
