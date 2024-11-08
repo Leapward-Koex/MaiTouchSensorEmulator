@@ -68,8 +68,8 @@ public partial class MainWindow : Window
             _touchPanel = new TouchPanel();
             _touchPanel.onTouch = (value) => { buttonState.PressButton(value); };
             _touchPanel.onRelease = (value) => { buttonState.ReleaseButton(value); };
+            _touchPanel.onInitialReposition = () => { WindowState = WindowState.Minimized; };
             _touchPanel.Show();
-            _touchPanel.Owner = this;
 
             var dataContext = (MainWindowViewModel)DataContext;
             _touchPanel.DataContext = dataContext;
@@ -90,12 +90,10 @@ public partial class MainWindow : Window
     {
         e.Cancel = true;
         await connector.Disconnect();
-        foreach (Window childWindow in OwnedWindows)
-        {
-            childWindow.Close();
-        }
+        _touchPanel.Close();
         Closing -= MainWindow_Closing;
         e.Cancel = false;
+        Application.Current.Shutdown();
     }
 
     private async void ExitWithSinmaiLoop()
@@ -168,16 +166,16 @@ public partial class MainWindow : Window
         {
             if (dataContext.IsAutomaticPortConnectingEnabled)
             {
-                await connector.StartTouchSensorPolling();
+                connector.StartTouchSensorPolling();
             }
             await Task.Delay(1000);
         }
     }
     
 
-    private async void ConnectToPortButton_Click(object sender, RoutedEventArgs e)
+    private void ConnectToPortButton_Click(object sender, RoutedEventArgs e)
     {
-        await connector.StartTouchSensorPolling();
+        connector.StartTouchSensorPolling();
     }
 
     private void debugMode_Click(object sender, RoutedEventArgs e)

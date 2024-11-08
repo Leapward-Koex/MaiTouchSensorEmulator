@@ -12,12 +12,14 @@ public partial class TouchPanel : Window
 {
     internal Action<TouchValue>? onTouch;
     internal Action<TouchValue>? onRelease;
+    internal Action? onInitialReposition;
 
     private readonly Dictionary<int, Polygon> activeTouches = [];
     private readonly TouchPanelPositionManager _positionManager;
     private List<Polygon> buttons = [];
     private bool isDebugEnabled = Properties.Settings.Default.IsDebugEnabled;
     private bool isRingButtonEmulationEnabled = Properties.Settings.Default.IsRingButtonEmulationEnabled;
+    private bool hasRepositioned = false;
 
     private enum ResizeDirection
     {
@@ -75,6 +77,12 @@ public partial class TouchPanel : Window
             Left = position.Value.Left;
             Width = position.Value.Width;
             Height = position.Value.Height;
+
+            if (!hasRepositioned)
+            {
+                hasRepositioned = true;
+                onInitialReposition?.Invoke();
+            }
         }
     }
 

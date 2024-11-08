@@ -34,7 +34,7 @@ internal class MaiTouchComConnector(MaiTouchSensorButtonStateManager buttonState
         internal set;
     }
 
-    public async Task StartTouchSensorPolling()
+    public void StartTouchSensorPolling()
     {
         if (!_connected && _shouldReconnect)
         {
