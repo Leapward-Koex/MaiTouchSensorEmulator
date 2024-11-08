@@ -1,7 +1,7 @@
 ﻿using System.IO.Ports;
 using System.Windows;
 
-namespace WpfMaiTouchEmulator;
+namespace WpfMaiTouchEmulator.Managers;
 internal class MaiTouchComConnector(MaiTouchSensorButtonStateManager buttonState, MainWindowViewModel viewModel)
 {
     private static SerialPort? serialPort;
@@ -187,7 +187,8 @@ internal class MaiTouchComConnector(MaiTouchSensorButtonStateManager buttonState
             {
                 serialPort?.Write(currentState, 0, currentState.Length);
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 if (Properties.Settings.Default.IsDebugEnabled)
                 {
                     Logger.Error("Error when writing to serial port on button update", ex);

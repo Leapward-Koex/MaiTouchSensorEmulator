@@ -1,16 +1,16 @@
 ﻿using System.Runtime.InteropServices;
 using System.Windows;
 
-namespace WpfMaiTouchEmulator;
+namespace WpfMaiTouchEmulator.Managers;
 
 class TouchPanelPositionManager
 {
     [DllImport("user32.dll", SetLastError = true)]
-    static extern IntPtr FindWindow(string? lpClassName, string lpWindowName);
+    static extern nint FindWindow(string? lpClassName, string lpWindowName);
 
     [DllImport("user32.dll", SetLastError = true)]
     [return: MarshalAs(UnmanagedType.Bool)]
-    static extern bool GetWindowRect(IntPtr hWnd, out RECT lpRect);
+    static extern bool GetWindowRect(nint hWnd, out RECT lpRect);
 
     [StructLayout(LayoutKind.Sequential)]
     public struct RECT
@@ -29,7 +29,7 @@ class TouchPanelPositionManager
         try
         {
             var hWnd = FindWindow(null, "Sinmai");
-            if (hWnd != IntPtr.Zero)
+            if (hWnd != nint.Zero)
             {
                 RECT rect;
                 if (GetWindowRect(hWnd, out rect))
@@ -37,7 +37,7 @@ class TouchPanelPositionManager
                     // Calculate the desired size and position based on the other application's window
                     var renderRect = GetLargest916Rect(rect);
                     var height = renderRect.Width;
-                    var left = rect.Left + ((rect.Right - rect.Left) - renderRect.Width) / 2; // Center horizontally
+                    var left = rect.Left + (rect.Right - rect.Left - renderRect.Width) / 2; // Center horizontally
                     var top = rect.Bottom - height;
                     return new Rect(left, top, renderRect.Width, height);
                 }
@@ -56,8 +56,8 @@ class TouchPanelPositionManager
         var originalWidth = original.Width;
         var originalHeight = original.Height;
 
-        var widthBasedHeight = (originalWidth * 16) / 9;
-        var heightBasedWidth = (originalHeight * 9) / 16;
+        var widthBasedHeight = originalWidth * 16 / 9;
+        var heightBasedWidth = originalHeight * 9 / 16;
 
         if (widthBasedHeight <= originalHeight)
         {

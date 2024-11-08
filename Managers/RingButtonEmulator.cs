@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WpfMaiTouchEmulator;
+namespace WpfMaiTouchEmulator.Managers;
 public partial class RingButtonEmulator
 {
 
     [DllImport("user32.dll")]
-    static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, UIntPtr dwExtraInfo);
+    static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, nuint dwExtraInfo);
 
     private static readonly IDictionary<TouchValue, byte> touchRingMapping = new Dictionary<TouchValue, byte>()
     {
@@ -34,7 +34,7 @@ public partial class RingButtonEmulator
     {
         if (touchRingMapping.TryGetValue(touchValue, out var vk))
         {
-            keybd_event(vk, 0, 0, UIntPtr.Zero);
+            keybd_event(vk, 0, 0, nuint.Zero);
         }
     }
 
@@ -42,7 +42,7 @@ public partial class RingButtonEmulator
     {
         if (touchRingMapping.TryGetValue(touchValue, out var vk))
         {
-            keybd_event(vk, 0, KEYEVENTF_KEYUP, UIntPtr.Zero);
+            keybd_event(vk, 0, KEYEVENTF_KEYUP, nuint.Zero);
         }
     }
 
@@ -50,7 +50,7 @@ public partial class RingButtonEmulator
     {
         foreach (var vk in touchRingMapping.Values)
         {
-            keybd_event(vk, 0, KEYEVENTF_KEYUP, UIntPtr.Zero);
+            keybd_event(vk, 0, KEYEVENTF_KEYUP, nuint.Zero);
         }
     }
 }

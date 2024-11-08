@@ -2,7 +2,7 @@
 using System.IO.Ports;
 using System.Windows;
 
-namespace WpfMaiTouchEmulator;
+namespace WpfMaiTouchEmulator.Managers;
 
 internal class VirtualComPortManager
 {
@@ -21,7 +21,7 @@ internal class VirtualComPortManager
     public async Task<bool> CheckIfPortInstalled(string port, bool expectToExist)
     {
         var installed = false;
-        for (var i = 0; i< 3; i++)
+        for (var i = 0; i < 3; i++)
         {
             installed = GetInstalledPorts().Any(x => x == port);
             if (installed && expectToExist)

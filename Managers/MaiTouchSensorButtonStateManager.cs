@@ -1,9 +1,9 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 
-namespace WpfMaiTouchEmulator;
+namespace WpfMaiTouchEmulator.Managers;
 
-public enum TouchValue: long
+public enum TouchValue : long
 {
     A1 = 1 << 0,  // 2^0
     A2 = 1 << 1,  // 2^1
@@ -77,12 +77,12 @@ internal class MaiTouchSensorButtonStateManager
 
     public void PressButton(TouchValue button)
     {
-        buttonState |= ((long)button);
+        buttonState |= (long)button;
     }
 
     public void ReleaseButton(TouchValue button)
     {
-        buttonState &= ~((long)button);
+        buttonState &= ~(long)button;
     }
 
     public byte[] GetCurrentState()

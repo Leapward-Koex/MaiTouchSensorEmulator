@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Windows;
+using WpfMaiTouchEmulator.Managers;
 
 namespace WpfMaiTouchEmulator;
 
