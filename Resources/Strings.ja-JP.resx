@@ -129,6 +129,18 @@
   <data name="lbAutoSensorPositioningTT" xml:space="preserve">
     <value>Sinmai.exeの上に正しい位置にタッチセンサーウィンドウを自動的に移動しようとする</value>
   </data>
+  <data name="LbBorderDisabled" xml:space="preserve">
+    <value>無効</value>
+  </data>
+  <data name="LbBorderRainbow" xml:space="preserve">
+    <value>レインボー</value>
+  </data>
+  <data name="LbBorderSettings" xml:space="preserve">
+    <value>境界線設定</value>
+  </data>
+  <data name="LbBorderSolid" xml:space="preserve">
+    <value>単色（#AARRGGBB）</value>
+  </data>
   <data name="lbButtonState" xml:space="preserve">
     <value>ボタン状態</value>
   </data>

@@ -4,12 +4,19 @@ using WpfMaiTouchEmulator.Managers;
 
 namespace WpfMaiTouchEmulator;
 
+public enum BorderSetting
+{
+    Disabled,
+    Solid,
+    Rainbow
+}
+
 public partial class MainWindow : Window
 {
     private readonly MaiTouchSensorButtonStateManager buttonState;
     private readonly MaiTouchComConnector connector;
     private readonly VirtualComPortManager comPortManager;
-    private TouchPanel _touchPanel;
+    private TouchPanel? _touchPanel;
 
     public MainWindow()
     {
@@ -20,8 +27,11 @@ public partial class MainWindow : Window
             IsAutomaticPortConnectingEnabled = Properties.Settings.Default.IsAutomaticPortConnectingEnabled,
             IsAutomaticPositioningEnabled = Properties.Settings.Default.IsAutomaticPositioningEnabled,
             IsExitWithSinmaiEnabled = Properties.Settings.Default.IsExitWithSinmaiEnabled,
-            IsRingButtonEmulationEnabled = Properties.Settings.Default.IsRingButtonEmulationEnabled
+            IsRingButtonEmulationEnabled = Properties.Settings.Default.IsRingButtonEmulationEnabled,
+            BorderColour = Properties.Settings.Default.BorderColour,
         };
+
+        LoadBorderRadioButtonSetting();
 
         Title = "Mai Touch Emulator";
         buttonState = new MaiTouchSensorButtonStateManager(buttonStateValue);
@@ -65,14 +75,16 @@ public partial class MainWindow : Window
 
 
         Loaded += (s, e) => {
+            var dataContext = (MainWindowViewModel)DataContext;
+
             Logger.Info("Main window loaded, creating touch panel");
             _touchPanel = new TouchPanel();
             _touchPanel.onTouch = (value) => { buttonState.PressButton(value); };
             _touchPanel.onRelease = (value) => { buttonState.ReleaseButton(value); };
             _touchPanel.onInitialReposition = () => { WindowState = WindowState.Minimized; };
+            _touchPanel.SetBorderMode((BorderSetting)Properties.Settings.Default.BorderSetting, dataContext.BorderColour);
             _touchPanel.Show();
 
-            var dataContext = (MainWindowViewModel)DataContext;
             _touchPanel.DataContext = dataContext;
 
             _touchPanel.SetDebugMode(dataContext.IsDebugEnabled);
@@ -91,7 +103,7 @@ public partial class MainWindow : Window
     {
         e.Cancel = true;
         await connector.Disconnect();
-        _touchPanel.Close();
+        _touchPanel?.Close();
         Closing -= MainWindow_Closing;
         e.Cancel = false;
         Application.Current.Shutdown();
@@ -153,7 +165,7 @@ public partial class MainWindow : Window
         {
             if (dataContext.IsAutomaticPositioningEnabled)
             {
-                _touchPanel.PositionTouchPanel();
+                _touchPanel?.PositionTouchPanel();
             }
         
             await Task.Delay(1000);
@@ -186,7 +198,7 @@ public partial class MainWindow : Window
         dataContext.IsDebugEnabled = !enabled;
         Properties.Settings.Default.IsDebugEnabled = dataContext.IsDebugEnabled;
         Properties.Settings.Default.Save();
-        _touchPanel.SetDebugMode(dataContext.IsDebugEnabled);
+        _touchPanel?.SetDebugMode(dataContext.IsDebugEnabled);
     }
 
     private void automaticTouchPanelPositioning_Click(object sender, RoutedEventArgs e)
@@ -249,6 +261,55 @@ public partial class MainWindow : Window
         dataContext.IsRingButtonEmulationEnabled = !enabled;
         Properties.Settings.Default.IsRingButtonEmulationEnabled = dataContext.IsRingButtonEmulationEnabled;
         Properties.Settings.Default.Save();
-        _touchPanel.SetEmulateRingButton(dataContext.IsRingButtonEmulationEnabled);
+        _touchPanel?.SetEmulateRingButton(dataContext.IsRingButtonEmulationEnabled);
+    }
+
+    private void LoadBorderRadioButtonSetting()
+    {
+        rbBorderDisabled.IsChecked = Properties.Settings.Default.BorderSetting == (int)BorderSetting.Disabled;
+        txtBorderHexColor.IsEnabled = Properties.Settings.Default.BorderSetting == (int)BorderSetting.Solid;
+        rbBorderSolidColour.IsChecked = Properties.Settings.Default.BorderSetting == (int)BorderSetting.Solid;
+        rbBorderRainbow.IsChecked = Properties.Settings.Default.BorderSetting == (int)BorderSetting.Rainbow;
+    }
+
+    private void RadioButton1_Checked(object sender, RoutedEventArgs e)
+    {
+        txtBorderHexColor.IsEnabled = false;
+        Properties.Settings.Default.BorderSetting = (int)BorderSetting.Disabled;
+        Properties.Settings.Default.Save();
+
+        _touchPanel?.SetBorderMode(BorderSetting.Disabled, "");
+    }
+
+    private void RadioButton2_Checked(object sender, RoutedEventArgs e)
+    {
+        txtBorderHexColor.IsEnabled = true;
+        Properties.Settings.Default.BorderSetting = (int)BorderSetting.Solid;
+
+        Properties.Settings.Default.Save();
+
+        _touchPanel?.SetBorderMode(BorderSetting.Solid, Properties.Settings.Default.BorderColour);
+    }
+
+    private void RadioButton3_Checked(object sender, RoutedEventArgs e)
+    {
+        txtBorderHexColor.IsEnabled = false;
+        Properties.Settings.Default.BorderSetting = (int)BorderSetting.Rainbow;
+
+        Properties.Settings.Default.Save();
+
+        _touchPanel?.SetBorderMode(BorderSetting.Rainbow, "");
+    }
+
+    private void txtBorderHexColor_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+    {
+        var textWithoutHash = txtBorderHexColor.Text.TrimStart('#') ?? "";
+        if (textWithoutHash.Length == 6 || textWithoutHash.Length == 8)
+        {
+            var textWithHash = "#" + textWithoutHash;
+            Properties.Settings.Default.BorderColour = textWithHash;
+            Properties.Settings.Default.Save();
+            _touchPanel?.SetBorderMode(BorderSetting.Solid, textWithHash);
+        }
     }
 }

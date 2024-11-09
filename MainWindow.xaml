@@ -5,31 +5,31 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Closing="MainWindow_Closing"
-        Title="MainWindow" Height="384" Width="500" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
-    <StackPanel VerticalAlignment="Top">
+        Title="MainWindow" Height="400" Width="587" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
+    <StackPanel Margin="0,0,0,0">
         <Menu Width="Auto" Height="20">
             <MenuItem Header="{Binding LbMenuCategoryHelp}" d:Header="_Help">
                 <MenuItem x:Name="instructionsLabel" Header="{Binding LbMenuItemSetup}" HorizontalAlignment="Left" Width="220" Click="instructionsLabel_Click"/>
             </MenuItem>
         </Menu>
-        <Grid Background="Transparent" Height="317" VerticalAlignment="Top" >
+        <Grid Background="Transparent" >
             <Button x:Name="ConnectToPortButton" Content="{Binding LbConnectToPort}" d:Content="Connect to port" HorizontalAlignment="Left" Margin="10,95,0,0" VerticalAlignment="Top" Click="ConnectToPortButton_Click" Width="130" />
             <TextBox x:Name="RecievedLogBox"
-         IsReadOnly="True"
-         HorizontalScrollBarVisibility="Disabled"
-         VerticalScrollBarVisibility="Auto"
-         AcceptsReturn="True"
-         AcceptsTab="True"
-         TextWrapping="Wrap" Margin="376,34,0,219" HorizontalAlignment="Left" Width="88" />
+                 IsReadOnly="True"
+                 HorizontalScrollBarVisibility="Disabled"
+                 VerticalScrollBarVisibility="Auto"
+                 AcceptsReturn="True"
+                 AcceptsTab="True"
+                 TextWrapping="Wrap" Margin="376,34,0,0" HorizontalAlignment="Left" Width="88" Height="80" VerticalAlignment="Top" />
             <TextBox x:Name="SentLogBox"
-        IsReadOnly="True"
-        HorizontalScrollBarVisibility="Disabled"
-        VerticalScrollBarVisibility="Auto"
-        AcceptsReturn="True"
-        AcceptsTab="True"
-        TextWrapping="Wrap" Margin="376,121,0,129" HorizontalAlignment="Left" Width="88" />
+                IsReadOnly="True"
+                HorizontalScrollBarVisibility="Disabled"
+                VerticalScrollBarVisibility="Auto"
+                AcceptsReturn="True"
+                AcceptsTab="True"
+                TextWrapping="Wrap" Margin="480,34,0,0" HorizontalAlignment="Left" Width="88" Height="80" VerticalAlignment="Top" />
             <Label x:Name="label" Content="{Binding LbRecievedData}" d:Content="Recieved Data" HorizontalAlignment="Left" Margin="376,8,0,0" VerticalAlignment="Top" Width="88"/>
-            <Label x:Name="label_Copy" Content="{Binding LbSentData}" d:Content="Sent Data" HorizontalAlignment="Left" Margin="376,95,0,0" VerticalAlignment="Top" Width="88"/>
+            <Label x:Name="label_Copy" Content="{Binding LbSentData}" d:Content="Sent Data" HorizontalAlignment="Left" Margin="480,8,0,0" VerticalAlignment="Top" Width="88"/>
             <Label x:Name="label_Copy1" Content="{Binding LbButtonState}" d:Content="Button state" HorizontalAlignment="Left" Margin="238,56,0,0" VerticalAlignment="Top" Width="88"/>
             <Label x:Name="buttonStateValue" Content="0" HorizontalAlignment="Left" Margin="238,82,0,0" VerticalAlignment="Top" RenderTransformOrigin="3.566,1.468" FontSize="10"/>
             <CheckBox x:Name="debugMode" Content="{Binding LbDebugMode}" d:Content="Debug mode" HorizontalAlignment="Left" Margin="10,213,0,0" VerticalAlignment="Top" IsChecked="{Binding Path=IsDebugEnabled}" Click="debugMode_Click" Cursor="" Focusable="False" ToolTip="Show the touchpad with translucency and show inputs highlighted" Width="224"/>
@@ -47,6 +47,14 @@
               DisplayMemberPath="NativeName"
               SelectedItem="{Binding SelectedLanguage, Mode=TwoWay}"/>
             <Label x:Name="languageLabel" Content="{Binding LbLanguageDropdown}" d:Content="Language" HorizontalAlignment="Left" Margin="10,155,0,0" VerticalAlignment="Top" Width="126"/>
+            <Label x:Name="borderSettingLabel" Content="{Binding LbBorderSettings}" d:Content="Border Settings" HorizontalAlignment="Left" Margin="238,155,0,0" VerticalAlignment="Top" Width="126"/>
+            <StackPanel Margin="238,185,0,0" HorizontalAlignment="Left" Width="200" Height="91" VerticalAlignment="Top">
+                <RadioButton x:Name="rbBorderDisabled" Content="{Binding LbBorderDisabled}" d:Content="Disabled" GroupName="ColorOptions" Checked="RadioButton1_Checked"/>
+                <RadioButton x:Name="rbBorderSolidColour" Content="{Binding LbBorderSolid}" d:Content="Solid Colour (#AARRGGBB)" GroupName="ColorOptions" Checked="RadioButton2_Checked"/>
+                <TextBox x:Name="txtBorderHexColor" Text="{Binding Path=BorderColour}" IsEnabled="False" Margin="10,10,0,10" Width="127" Height="25" TextChanged="txtBorderHexColor_TextChanged"/>
+
+                <RadioButton Name="rbBorderRainbow" Content="{Binding LbBorderRainbow}" d:Content="Rainbow" GroupName="ColorOptions" Checked="RadioButton3_Checked"/>
+            </StackPanel>
 
         </Grid>
     </StackPanel>

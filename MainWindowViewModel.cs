@@ -52,6 +52,22 @@ public class MainWindowViewModel : INotifyPropertyChanged
     {
         get; set;
     }
+    public string LbBorderSettings
+    {
+        get; set;
+    }
+    public string LbBorderDisabled
+    {
+        get; set;
+    }
+    public string LbBorderSolid
+    {
+        get; set;
+    }
+    public string LbBorderRainbow
+    {
+        get; set;
+    }
     public string LbListComPorts
     {
         get; set;
@@ -190,6 +206,7 @@ public class MainWindowViewModel : INotifyPropertyChanged
     private bool _isExitWithSinmaiEnabled;
     private CultureInfo _selectedLanguage;
     private bool _isRingButtonEmulationEnabled;
+    private string _borderColour;
     private readonly ResourceManager resourceManager;
     private readonly CultureInfo cultureInfo;
 
@@ -267,7 +284,17 @@ public class MainWindowViewModel : INotifyPropertyChanged
             OnPropertyChanged();
         }
     }
-    
+
+    public string BorderColour
+    {
+        get => _borderColour;
+        set
+        {
+            _borderColour = value;
+            OnPropertyChanged();
+        }
+    }
+
 
     public CultureInfo SelectedLanguage
     {
@@ -306,6 +333,12 @@ public class MainWindowViewModel : INotifyPropertyChanged
         LbEmulateRingButtons = resourceManager.GetString("lbEmulateRingButtons");
         LbInstallComPort = resourceManager.GetString("lbInstallComPort");
         LbLanguageDropdown = resourceManager.GetString("lbLanguageDropdown");
+
+        LbBorderSettings = resourceManager.GetString("LbBorderSettings");
+        LbBorderDisabled = resourceManager.GetString("LbBorderDisabled");
+        LbBorderSolid = resourceManager.GetString("LbBorderSolid");
+        LbBorderRainbow = resourceManager.GetString("LbBorderRainbow");
+
         LbListComPorts = resourceManager.GetString("lbListComPorts");
         LbReceivedData = resourceManager.GetString("lbReceivedData");
         LbRecievedData = resourceManager.GetString("lbRecievedData");

@@ -106,5 +106,29 @@ namespace WpfMaiTouchEmulator.Properties {
                 this["IsRingButtonEmulationEnabled"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int BorderSetting {
+            get {
+                return ((int)(this["BorderSetting"]));
+            }
+            set {
+                this["BorderSetting"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string BorderColour {
+            get {
+                return ((string)(this["BorderColour"]));
+            }
+            set {
+                this["BorderColour"] = value;
+            }
+        }
     }
 }

@@ -97,6 +97,42 @@ namespace WpfMaiTouchEmulator.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Disabled.
+        /// </summary>
+        internal static string LbBorderDisabled {
+            get {
+                return ResourceManager.GetString("LbBorderDisabled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rainbow.
+        /// </summary>
+        internal static string LbBorderRainbow {
+            get {
+                return ResourceManager.GetString("LbBorderRainbow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Border Settings.
+        /// </summary>
+        internal static string LbBorderSettings {
+            get {
+                return ResourceManager.GetString("LbBorderSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Solid (#AARRGGBB).
+        /// </summary>
+        internal static string LbBorderSolid {
+            get {
+                return ResourceManager.GetString("LbBorderSolid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Button State.
         /// </summary>
         internal static string lbButtonState {

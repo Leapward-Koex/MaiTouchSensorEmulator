@@ -2,6 +2,8 @@
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
+using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using WpfMaiTouchEmulator.Managers;
 
@@ -195,6 +197,47 @@ public partial class TouchPanel : Window
         {
             button.Opacity = enabled ? 0.3 : 0;
         });
+    }
+
+    public void SetBorderMode(BorderSetting borderSetting, string borderColour)
+    {
+        if (borderSetting == BorderSetting.Rainbow)
+        {
+            var rotateTransform = new RotateTransform { CenterX = 0.5, CenterY = 0.5 };
+            touchPanelBorder.BorderBrush = new ImageBrush {
+                ImageSource = new BitmapImage(new Uri(@"pack://application:,,,/Assets/conicalGradient.png")),
+                ViewportUnits = BrushMappingMode.RelativeToBoundingBox,
+                Viewport = new Rect(0, 0, 1, 1),
+                TileMode = TileMode.Tile,
+                RelativeTransform = rotateTransform,
+            };
+
+            var animation = new DoubleAnimation
+            {
+                From = 0,
+                To = 360,
+                Duration = new Duration(TimeSpan.FromSeconds(10)),
+                RepeatBehavior = RepeatBehavior.Forever
+            };
+
+            rotateTransform.BeginAnimation(RotateTransform.AngleProperty, animation);
+            return;
+        }
+        else if (borderSetting == BorderSetting.Solid)
+        {
+            try
+            {
+                var colour = (Color)ColorConverter.ConvertFromString(borderColour);
+                touchPanelBorder.BorderBrush = new SolidColorBrush { Color = colour };
+                return;
+
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Failed to parse solid colour", ex);
+            }
+        }
+        touchPanelBorder.BorderBrush = null;
     }
 
     public void SetEmulateRingButton(bool enabled)
