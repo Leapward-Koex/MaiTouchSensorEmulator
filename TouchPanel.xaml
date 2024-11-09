@@ -5,18 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfMaiTouchEmulator.Managers"
         mc:Ignorable="d"
-        Title="TouchPanel" Height="800" Width="800"
+        Title="TouchPanel" Height="1280" Width="720"
+        ResizeMode="NoResize"
         AllowsTransparency="True" WindowStyle="None" Background="Transparent"
 >
     <Border Background="#01000000">
-        <StackPanel>
-            <Viewbox Stretch="Uniform" Opacity="1">
+
+        <StackPanel HorizontalAlignment="Left">
+            <Border x:Name="DragWindowHandle" HorizontalAlignment="Left" VerticalAlignment="Top"
+                        Height="50" Background="White" MouseLeftButtonDown="DragBar_MouseLeftButtonDown"
+                        Cursor="SizeAll" Width="70">
+                <Label FontSize="24" Content="{Binding LbTouchPanelDrag}" d:Content="Drag" />
+            </Border>
+            <Viewbox Stretch="Uniform" Opacity="1" Height="1230" VerticalAlignment="Bottom">
                 <Canvas x:Name="TouchCanvas" Width="1440" Height="1440">
-                    <Border x:Name="DragWindowHandle" HorizontalAlignment="Center" VerticalAlignment="Top"
-                        Height="95" Background="White" MouseLeftButtonDown="DragBar_MouseLeftButtonDown"
-                        Cursor="SizeAll" Width="130">
-                        <Label FontSize="50" Content="{Binding LbTouchPanelDrag}" d:Content="Drag" />
-                    </Border>
+
                     <Polygon Canvas.Left="699" Canvas.Top="6" Points="0,0 39,0 111,5 113,6 111,24 80,243 77,243 63,229 56,221 23,188 16,194 -34,244 -36,244 -70,4 -70,3 0,0" PreviewTouchDown="Element_TouchDown" PreviewTouchMove="Element_TouchMove" PreviewTouchUp="Element_TouchUp" Tag="{x:Static local:TouchValue.D1}" Fill="White" />
                     <Polygon Canvas.Left="825" Canvas.Top="13" Points="0,0 10,1 95,19 145,37 179,50 207,64 230,75 254,87 297,116 318,130 316,135 300,156 286,175 270,196 256,215 240,236 226,255 210,276 197,294 181,315 168,333 101,333 66,318 21,299 9,293 -35,249 -34,237 -1,4 0,0" PreviewTouchDown="Element_TouchDown" PreviewTouchMove="Element_TouchMove" PreviewTouchUp="Element_TouchUp" Tag="{x:Static local:TouchValue.A1}" Fill="White" />
                     <Polygon Canvas.Left="1156" Canvas.Top="154" Points="0,0 8,6 21,18 32,27 45,39 56,48 69,60 77,67 86,77 93,85 105,99 116,111 125,122 130,128 118,138 102,150 85,163 68,176 47,192 30,205 13,218 -8,234 -25,247 -42,260 -62,275 -63,275 -63,255 -62,207 -61,193 -143,193 -141,189 -127,170 -111,149 -97,130 -81,109 -68,91 -52,70 -38,51 -22,30 -8,11 0,0" PreviewTouchDown="Element_TouchDown" PreviewTouchMove="Element_TouchMove" PreviewTouchUp="Element_TouchUp" Tag="{x:Static local:TouchValue.D2}" Fill="White" />
