@@ -36,9 +36,9 @@ class TouchPanelPositionManager
                 {
                     // Calculate the desired size and position based on the other application's window
                     var renderRect = GetLargest916Rect(rect);
-                    var height = renderRect.Width;
+                    var height = renderRect.Height;
                     var left = rect.Left + (rect.Right - rect.Left - renderRect.Width) / 2; // Center horizontally
-                    var top = rect.Bottom - height;
+                    var top = renderRect.Top;
                     return new Rect(left, top, renderRect.Width, height);
                 }
             }
