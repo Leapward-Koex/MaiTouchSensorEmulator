@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 using System.IO;
 using System.Diagnostics;
 
-class DumpCreator
+public class DumpCreator
 {
     [Flags]
     public enum Typ : uint

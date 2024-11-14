@@ -7,12 +7,22 @@ public static class Logger
     private static readonly object lockObj = new();
     private static string? logFilePath;
 
+    public static string GetLogPath()
+    {
+        var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "WpfMaiTouchEmulator");
+        if (!Directory.Exists(path))
+        {
+            Directory.CreateDirectory(path);
+        }
+        return path;
+    }
+
     private static string GetLogFilePath()
     {
         if (logFilePath == null)
         {
             var fileName = $"app_{DateTime.Now:yyyy-MM-dd}.log";
-            logFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, fileName);
+            logFilePath = Path.Combine(GetLogPath(), fileName);
         }
         return logFilePath;
     }
@@ -21,7 +31,7 @@ public static class Logger
     public static void CleanupOldLogFiles()
     {
         var directory = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory);
-        var oldFiles = directory.GetFiles("app_*.log")
+        var oldFiles = new DirectoryInfo(GetLogPath()).GetFiles("app_*.log")
                                  .Where(f => f.CreationTime < DateTime.Now.AddDays(-7))
                                  .ToList();
 

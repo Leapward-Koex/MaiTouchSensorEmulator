@@ -28,7 +28,7 @@ public partial class App : Application
 
     private void CreateDump(Exception exception)
     {
-        var dumpFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "CrashDump.dmp");
+        var dumpFilePath = Path.Combine(Logger.GetLogPath(), "CrashDump.dmp");
 
         using (var fs = new FileStream(dumpFilePath, FileMode.Create))
         {
