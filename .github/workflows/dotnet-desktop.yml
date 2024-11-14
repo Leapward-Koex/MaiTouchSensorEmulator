@@ -99,13 +99,31 @@ jobs:
         Appx_Package_Build_Mode: StoreUpload
         Configuration: ${{ matrix.configuration }}
 
+    - name: Build AIP
+      uses: caphyon/advinst-github-action@v2.0
+      with:
+        advinst-version: '22.2'
+        advinst-enable-automation: 'true'
+        aip-path: ./Installer/Mai Touch Emulator.aip
+        aip-build-name: DefaultBuild
+        aip-package-name: installMaiTouchEmulator.msi
+        aip-output-dir:  ./setup
+        aip-commands: |
+          SetProperty FOO="foo"
+          SetVersion 1.4.0.${{ github.run_number }}
+
     # Remove the pfx
     - name: Remove the pfx
       run: Remove-Item -path $env:Wap_Project_Directory\GitHubActionsWorkflow.pfx
 
-    # Upload the MSIX package: https://github.com/marketplace/actions/upload-a-build-artifact
     - name: Upload build artifacts
       uses: actions/upload-artifact@v3
       with:
         name: Emulator package
         path: ./bin/Release/net8.0-windows10.0.17763.0/
+
+    - name: Publish setup artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: setup
+        path: ./setup/installMaiTouchEmulator.msi
