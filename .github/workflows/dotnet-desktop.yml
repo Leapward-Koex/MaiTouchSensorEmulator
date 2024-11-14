@@ -104,10 +104,10 @@ jobs:
       with:
         advinst-version: '22.2'
         advinst-enable-automation: 'true'
-        aip-path: ./Installer/Mai Touch Emulator.aip
+        aip-path: ${{ github.workspace }}\Installer\Mai Touch Emulator.aip
         aip-build-name: DefaultBuild
         aip-package-name: installMaiTouchEmulator.msi
-        aip-output-dir:  ./setup
+        aip-output-dir:  ${{ github.workspace }}\setup
         aip-commands: |
           SetProperty FOO="foo"
           SetVersion 1.4.0.${{ github.run_number }}
