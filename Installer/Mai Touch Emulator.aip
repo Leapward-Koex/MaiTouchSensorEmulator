@@ -35,15 +35,16 @@
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiDirsComponent">
     <ROW Directory="APPDIR" Directory_Parent="TARGETDIR" DefaultDir="APPDIR:." IsPseudoRoot="1"/>
-    <ROW Directory="DesktopFolder" Directory_Parent="TARGETDIR" DefaultDir="DESKTO~1|DesktopFolder" IsPseudoRoot="1"/>
     <ROW Directory="ProgramMenuFolder" Directory_Parent="TARGETDIR" DefaultDir="PROGRA~1|ProgramMenuFolder" IsPseudoRoot="1"/>
     <ROW Directory="TARGETDIR" DefaultDir="SourceDir"/>
     <ROW Directory="com0com_Dir" Directory_Parent="thirdpartyprograms_Dir" DefaultDir="com0com"/>
+    <ROW Directory="jaJP_Dir" Directory_Parent="APPDIR" DefaultDir="ja-JP"/>
     <ROW Directory="lib_1_Dir" Directory_Parent="win_Dir" DefaultDir="lib"/>
     <ROW Directory="net8.0_1_Dir" Directory_Parent="lib_1_Dir" DefaultDir="net8.0"/>
     <ROW Directory="runtimes_Dir" Directory_Parent="APPDIR" DefaultDir="runtimes"/>
     <ROW Directory="thirdpartyprograms_Dir" Directory_Parent="APPDIR" DefaultDir="THIRDP~1|thirdparty programs"/>
     <ROW Directory="win_Dir" Directory_Parent="runtimes_Dir" DefaultDir="win"/>
+    <ROW Directory="zhCN_Dir" Directory_Parent="APPDIR" DefaultDir="zh-CN"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.SideBySideGuidComponent">
     <ROW Component="APPDIR" Value="{E9523757-B9AF-4FE4-8034-0CA60B965037}"/>
@@ -53,12 +54,19 @@
     <ROW Component="AI_INSTALLPERUSER" ComponentId="{8DE0F484-4802-477C-8708-40D881BE6323}" Directory_="APPDIR" Attributes="260" KeyPath="AI_INSTALLPERUSER" Options="1"/>
     <ROW Component="APPDIR" ComponentId="{E9523757-B9AF-4FE4-8034-0CA60B965037}" Directory_="APPDIR" Attributes="0"/>
     <ROW Component="Microsoft.Win32.SystemEvents.dll" ComponentId="{1CD260D3-BC38-4E6F-87B3-F243BF6FB3E5}" Directory_="net8.0_1_Dir" Attributes="0" KeyPath="Microsoft.Win32.SystemEvents.dll"/>
+    <ROW Component="Microsoft.Win32.SystemEvents.dll_1" ComponentId="{4FF055E5-90A5-4D0B-869D-81D87D9F5D4C}" Directory_="APPDIR" Attributes="0" KeyPath="Microsoft.Win32.SystemEvents.dll_1"/>
+    <ROW Component="Microsoft.Windows.SDK.NET.dll" ComponentId="{FD3FCBF4-F9D9-4DD6-BDB1-2E462A39154E}" Directory_="APPDIR" Attributes="0" KeyPath="Microsoft.Windows.SDK.NET.dll"/>
     <ROW Component="ProductInformation" ComponentId="{69562BAB-9822-4EC6-BB86-EA5953730D68}" Directory_="APPDIR" Attributes="260" KeyPath="Version"/>
-    <ROW Component="System.Drawing.Common.dll" ComponentId="{961188A6-043C-4BA7-8843-D9CF32984CDE}" Directory_="APPDIR" Attributes="0" KeyPath="System.Drawing.Common.dll"/>
+    <ROW Component="System.Drawing.Common.dll" ComponentId="{27EDF0B3-615B-49A8-B181-7339D01DC5BD}" Directory_="APPDIR" Attributes="0" KeyPath="System.Drawing.Common.dll"/>
+    <ROW Component="System.IO.Ports.dll" ComponentId="{D776A384-99ED-49DE-8047-4C06A5141960}" Directory_="APPDIR" Attributes="0" KeyPath="System.IO.Ports.dll"/>
     <ROW Component="System.IO.Ports.dll_1" ComponentId="{767812B6-6569-4A50-917D-F7FAB0DEA8FB}" Directory_="net8.0_1_Dir" Attributes="0" KeyPath="System.IO.Ports.dll_1"/>
-    <ROW Component="WpfMaiTouchEmulator.deps.json" ComponentId="{7C33CCE2-5B16-4C38-9A31-CB678DCD0305}" Directory_="APPDIR" Attributes="0" KeyPath="WpfMaiTouchEmulator.deps.json" Type="0"/>
-    <ROW Component="WpfMaiTouchEmulator.dll" ComponentId="{33DECB4E-39A0-4AD4-A60D-D8787CFD869A}" Directory_="APPDIR" Attributes="0" KeyPath="WpfMaiTouchEmulator.dll"/>
-    <ROW Component="WpfMaiTouchEmulator.exe_1" ComponentId="{FC7D6C85-0152-4A4B-B548-32A554B6DF74}" Directory_="APPDIR" Attributes="256" KeyPath="WpfMaiTouchEmulator.exe"/>
+    <ROW Component="System.Private.Windows.Core.dll" ComponentId="{55D5CCEF-9774-4702-950A-F564146D2473}" Directory_="APPDIR" Attributes="0" KeyPath="System.Private.Windows.Core.dll"/>
+    <ROW Component="WinRT.Runtime.dll" ComponentId="{8BEB0AE9-88A8-409E-9129-0A1F2CBE0850}" Directory_="APPDIR" Attributes="0" KeyPath="WinRT.Runtime.dll"/>
+    <ROW Component="WpfMaiTouchEmulator.deps.json" ComponentId="{CD8C5345-8556-4C3E-AAE9-1E7D90E1DD5A}" Directory_="APPDIR" Attributes="0" KeyPath="WpfMaiTouchEmulator.deps.json" Type="0"/>
+    <ROW Component="WpfMaiTouchEmulator.dll" ComponentId="{B289ACCE-2BAF-436F-814B-D39E91524B89}" Directory_="APPDIR" Attributes="256" KeyPath="WpfMaiTouchEmulator.dll"/>
+    <ROW Component="WpfMaiTouchEmulator.exe" ComponentId="{AA079BFA-401B-4AFA-A56A-92F2A65DB096}" Directory_="APPDIR" Attributes="256" KeyPath="WpfMaiTouchEmulator.exe"/>
+    <ROW Component="WpfMaiTouchEmulator.resources.dll" ComponentId="{01F7375B-D27D-407C-AD17-EE73D183740C}" Directory_="zhCN_Dir" Attributes="256" KeyPath="WpfMaiTouchEmulator.resources.dll"/>
+    <ROW Component="WpfMaiTouchEmulator.resources.dll_1" ComponentId="{27FEB25A-02E1-4D0B-9357-FE31FC757C34}" Directory_="jaJP_Dir" Attributes="256" KeyPath="WpfMaiTouchEmulator.resources.dll_1"/>
     <ROW Component="com0com.cat" ComponentId="{DE7A59B3-AA91-441B-8E80-99E5B7B56F07}" Directory_="com0com_Dir" Attributes="0" KeyPath="com0com.cat" Type="0"/>
     <ROW Component="setup.dll" ComponentId="{6DB50EDF-6F89-4A1D-A709-584F83A0B5CF}" Directory_="com0com_Dir" Attributes="256" KeyPath="setup.dll"/>
     <ROW Component="setupc.exe" ComponentId="{EEA73D45-D23D-4F40-A657-F93D96427FDF}" Directory_="com0com_Dir" Attributes="256" KeyPath="setupc.exe"/>
@@ -70,12 +78,6 @@
     <ATTRIBUTE name="CurrentFeature" value="MainFeature"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiFilesComponent">
-    <ROW File="System.Drawing.Common.dll" Component_="System.Drawing.Common.dll" FileName="SYSTEM~1.DLL|System.Drawing.Common.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows10.0.17763.0\System.Drawing.Common.dll" SelfReg="false"/>
-    <ROW File="WpfMaiTouchEmulator.deps.json" Component_="WpfMaiTouchEmulator.deps.json" FileName="WPFMAI~1.JSO|WpfMaiTouchEmulator.deps.json" Attributes="0" SourcePath="..\bin\Release\net8.0-windows10.0.17763.0\WpfMaiTouchEmulator.deps.json" SelfReg="false"/>
-    <ROW File="WpfMaiTouchEmulator.dll" Component_="WpfMaiTouchEmulator.dll" FileName="WPFMAI~1.DLL|WpfMaiTouchEmulator.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows10.0.17763.0\WpfMaiTouchEmulator.dll" SelfReg="false"/>
-    <ROW File="WpfMaiTouchEmulator.dll.config" Component_="WpfMaiTouchEmulator.deps.json" FileName="WPFMAI~1.CON|WpfMaiTouchEmulator.dll.config" Attributes="0" SourcePath="..\bin\Release\net8.0-windows10.0.17763.0\WpfMaiTouchEmulator.dll.config" SelfReg="false"/>
-    <ROW File="WpfMaiTouchEmulator.exe" Component_="WpfMaiTouchEmulator.exe_1" FileName="WPFMAI~1.EXE|WpfMaiTouchEmulator.exe" Attributes="0" SourcePath="..\bin\Release\net8.0-windows10.0.17763.0\WpfMaiTouchEmulator.exe" SelfReg="false" DigSign="true"/>
-    <ROW File="WpfMaiTouchEmulator.runtimeconfig.json" Component_="WpfMaiTouchEmulator.deps.json" FileName="WPFMAI~2.JSO|WpfMaiTouchEmulator.runtimeconfig.json" Attributes="0" SourcePath="..\bin\Release\net8.0-windows10.0.17763.0\WpfMaiTouchEmulator.runtimeconfig.json" SelfReg="false"/>
     <ROW File="com0com.cat" Component_="com0com.cat" FileName="com0com.cat" Attributes="0" SourcePath="..\bin\Release\net8.0-windows10.0.17763.0\thirdparty programs\com0com\com0com.cat" SelfReg="false"/>
     <ROW File="com0com.inf" Component_="com0com.cat" FileName="com0com.inf" Attributes="0" SourcePath="..\bin\Release\net8.0-windows10.0.17763.0\thirdparty programs\com0com\com0com.inf" SelfReg="false"/>
     <ROW File="com0com.sys" Component_="com0com.cat" FileName="com0com.sys" Attributes="0" SourcePath="..\bin\Release\net8.0-windows10.0.17763.0\thirdparty programs\com0com\com0com.sys" SelfReg="false"/>
@@ -86,10 +88,19 @@
     <ROW File="uninstall.exe" Component_="uninstall.exe" FileName="UNINST~1.EXE|uninstall.exe" Attributes="0" SourcePath="..\bin\Release\net8.0-windows10.0.17763.0\thirdparty programs\com0com\uninstall.exe" SelfReg="false" DigSign="true"/>
     <ROW File="Microsoft.Win32.SystemEvents.dll" Component_="Microsoft.Win32.SystemEvents.dll" FileName="MICROS~1.DLL|Microsoft.Win32.SystemEvents.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows10.0.17763.0\runtimes\win\lib\net8.0\Microsoft.Win32.SystemEvents.dll" SelfReg="false"/>
     <ROW File="System.IO.Ports.dll_1" Component_="System.IO.Ports.dll_1" FileName="SYSTEM~1.DLL|System.IO.Ports.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows10.0.17763.0\runtimes\win\lib\net8.0\System.IO.Ports.dll" SelfReg="false"/>
-  </COMPONENT>
-  <COMPONENT cid="caphyon.advinst.custcomp.MsiShortcutPropertyComponent">
-    <ROW MsiShortcutProperty="WpfMaiTouchEmulator0" Shortcut_="WpfMaiTouchEmulator" PropertyKey="System.AppUserModel.PreventPinning" PropVariantValue="1"/>
-    <ROW MsiShortcutProperty="WpfMaiTouchEmulator_10" Shortcut_="WpfMaiTouchEmulator_1" PropertyKey="System.AppUserModel.PreventPinning" PropVariantValue="1"/>
+    <ROW File="WpfMaiTouchEmulator.resources.dll" Component_="WpfMaiTouchEmulator.resources.dll" FileName="WPFMAI~1.DLL|WpfMaiTouchEmulator.resources.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows10.0.17763.0\zh-CN\WpfMaiTouchEmulator.resources.dll" SelfReg="false"/>
+    <ROW File="WpfMaiTouchEmulator.resources.dll_1" Component_="WpfMaiTouchEmulator.resources.dll_1" FileName="WPFMAI~1.DLL|WpfMaiTouchEmulator.resources.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows10.0.17763.0\ja-JP\WpfMaiTouchEmulator.resources.dll" SelfReg="false"/>
+    <ROW File="Microsoft.Win32.SystemEvents.dll_1" Component_="Microsoft.Win32.SystemEvents.dll_1" FileName="MICROS~1.DLL|Microsoft.Win32.SystemEvents.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows10.0.17763.0\Microsoft.Win32.SystemEvents.dll" SelfReg="false"/>
+    <ROW File="Microsoft.Windows.SDK.NET.dll" Component_="Microsoft.Windows.SDK.NET.dll" FileName="MICROS~2.DLL|Microsoft.Windows.SDK.NET.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows10.0.17763.0\Microsoft.Windows.SDK.NET.dll" SelfReg="false"/>
+    <ROW File="System.Drawing.Common.dll" Component_="System.Drawing.Common.dll" FileName="SYSTEM~1.DLL|System.Drawing.Common.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows10.0.17763.0\System.Drawing.Common.dll" SelfReg="false"/>
+    <ROW File="System.IO.Ports.dll" Component_="System.IO.Ports.dll" FileName="SYSTEM~2.DLL|System.IO.Ports.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows10.0.17763.0\System.IO.Ports.dll" SelfReg="false"/>
+    <ROW File="System.Private.Windows.Core.dll" Component_="System.Private.Windows.Core.dll" FileName="SYSTEM~3.DLL|System.Private.Windows.Core.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows10.0.17763.0\System.Private.Windows.Core.dll" SelfReg="false"/>
+    <ROW File="WinRT.Runtime.dll" Component_="WinRT.Runtime.dll" FileName="WINRTR~1.DLL|WinRT.Runtime.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows10.0.17763.0\WinRT.Runtime.dll" SelfReg="false"/>
+    <ROW File="WpfMaiTouchEmulator.deps.json" Component_="WpfMaiTouchEmulator.deps.json" FileName="WPFMAI~1.JSO|WpfMaiTouchEmulator.deps.json" Attributes="0" SourcePath="..\bin\Release\net8.0-windows10.0.17763.0\WpfMaiTouchEmulator.deps.json" SelfReg="false"/>
+    <ROW File="WpfMaiTouchEmulator.dll" Component_="WpfMaiTouchEmulator.dll" FileName="WPFMAI~1.DLL|WpfMaiTouchEmulator.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows10.0.17763.0\WpfMaiTouchEmulator.dll" SelfReg="false"/>
+    <ROW File="WpfMaiTouchEmulator.dll.config" Component_="WpfMaiTouchEmulator.deps.json" FileName="WPFMAI~1.CON|WpfMaiTouchEmulator.dll.config" Attributes="0" SourcePath="..\bin\Release\net8.0-windows10.0.17763.0\WpfMaiTouchEmulator.dll.config" SelfReg="false"/>
+    <ROW File="WpfMaiTouchEmulator.exe" Component_="WpfMaiTouchEmulator.exe" FileName="WPFMAI~1.EXE|WpfMaiTouchEmulator.exe" Attributes="0" SourcePath="..\bin\Release\net8.0-windows10.0.17763.0\WpfMaiTouchEmulator.exe" SelfReg="false" DigSign="true"/>
+    <ROW File="WpfMaiTouchEmulator.runtimeconfig.json" Component_="WpfMaiTouchEmulator.deps.json" FileName="WPFMAI~2.JSO|WpfMaiTouchEmulator.runtimeconfig.json" Attributes="0" SourcePath="..\bin\Release\net8.0-windows10.0.17763.0\WpfMaiTouchEmulator.runtimeconfig.json" SelfReg="false"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.AiPersistentPropComponent">
     <ROW Property="AI_INSTALLPERUSER" Registry="AI_INSTALLPERUSER" HklmSearch="AI_INSTALLPERUSER" HkcuSearch="AI_INSTALLPERUSER_1" Hklm64Search="AI_INSTALLPERUSER_2" Hkcu64Search="AI_INSTALLPERUSER_3"/>
@@ -127,6 +138,7 @@
     <ROW Property="AI_INSTALLPERUSER" Signature_="AI_INSTALLPERUSER_3"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiBinaryComponent">
+    <ROW Name="ShortcutFlags.dll" SourcePath="&lt;AI_CUSTACTS&gt;ShortcutFlags.dll"/>
     <ROW Name="SoftwareDetector.dll" SourcePath="&lt;AI_CUSTACTS&gt;SoftwareDetector.dll"/>
     <ROW Name="aicustact.dll" SourcePath="&lt;AI_CUSTACTS&gt;aicustact.dll"/>
   </COMPONENT>
@@ -160,6 +172,7 @@
     <ROW Directory_="APPDIR" Component_="APPDIR" ManualDelete="true"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiCustActComponent">
+    <ROW Action="AI_ApplyShortcutFlags" Type="3073" Source="ShortcutFlags.dll" Target="UpdateShortcutFlags" WithoutSeq="true"/>
     <ROW Action="AI_AuthorSinglePackage" Type="1" Source="aicustact.dll" Target="AI_AuthorSinglePackage" WithoutSeq="true"/>
     <ROW Action="AI_DOWNGRADE" Type="19" Target="4010"/>
     <ROW Action="AI_DetectSoftware" Type="257" Source="SoftwareDetector.dll" Target="OnDetectSoftware"/>
@@ -169,11 +182,18 @@
     <ROW Action="AI_LaunchApp" Type="1" Source="aicustact.dll" Target="LaunchApp"/>
     <ROW Action="AI_PREPARE_UPGRADE" Type="65" Source="aicustact.dll" Target="PrepareUpgrade"/>
     <ROW Action="AI_PRESERVE_INSTALL_TYPE" Type="65" Source="aicustact.dll" Target="PreserveInstallType"/>
+    <ROW Action="AI_PinShortcuts" Type="1" Source="ShortcutFlags.dll" Target="PinShortcuts"/>
+    <ROW Action="AI_PinToStartScreen" Type="1025" Source="ShortcutFlags.dll" Target="PinToStartScreen" WithoutSeq="true"/>
+    <ROW Action="AI_PinToTaskbar" Type="1025" Source="ShortcutFlags.dll" Target="PinToTaskbar" WithoutSeq="true"/>
+    <ROW Action="AI_PrepareShortcutFlags" Type="1" Source="ShortcutFlags.dll" Target="PrepareActionData"/>
     <ROW Action="AI_RESTORE_LOCATION" Type="65" Source="aicustact.dll" Target="RestoreLocation"/>
     <ROW Action="AI_ResolveKnownFolders" Type="1" Source="aicustact.dll" Target="AI_ResolveKnownFolders"/>
     <ROW Action="AI_SETMIXINSTLOCATION" Type="1" Source="aicustact.dll" Target="MixedAllUsersInstallLocation"/>
     <ROW Action="AI_SHOW_LOG" Type="65" Source="aicustact.dll" Target="LaunchLogFile" WithoutSeq="true"/>
     <ROW Action="AI_STORE_LOCATION" Type="51" Source="ARPINSTALLLOCATION" Target="[APPDIR]"/>
+    <ROW Action="AI_UnpinFromStartScreen" Type="1025" Source="ShortcutFlags.dll" Target="UnpinFromStartScreen" WithoutSeq="true"/>
+    <ROW Action="AI_UnpinFromTaskbar" Type="1025" Source="ShortcutFlags.dll" Target="UnpinFromTaskbar" WithoutSeq="true"/>
+    <ROW Action="AI_UnpinShortcuts" Type="1" Source="ShortcutFlags.dll" Target="UnpinShortcuts"/>
     <ROW Action="SET_APPDIR" Type="307" Source="APPDIR" Target="[ProgramFilesFolder][Manufacturer]\[ProductName]" MultiBuildTarget="DefaultBuild:[AI_UserProgramFiles][Manufacturer]\[ProductName]"/>
     <ROW Action="SET_SHORTCUTDIR" Type="307" Source="SHORTCUTDIR" Target="[ProgramMenuFolder][ProductName]"/>
     <ROW Action="SET_TARGETDIR_TO_APPDIR" Type="51" Source="TARGETDIR" Target="[APPDIR]"/>
@@ -186,13 +206,20 @@
     <ROW Feature_="MainFeature" Component_="setup.dll"/>
     <ROW Feature_="MainFeature" Component_="setupc.exe"/>
     <ROW Feature_="MainFeature" Component_="setupg.exe"/>
-    <ROW Feature_="MainFeature" Component_="System.Drawing.Common.dll"/>
     <ROW Feature_="MainFeature" Component_="uninstall.exe"/>
-    <ROW Feature_="MainFeature" Component_="WpfMaiTouchEmulator.dll"/>
-    <ROW Feature_="MainFeature" Component_="WpfMaiTouchEmulator.deps.json"/>
-    <ROW Feature_="MainFeature" Component_="WpfMaiTouchEmulator.exe_1"/>
     <ROW Feature_="MainFeature" Component_="Microsoft.Win32.SystemEvents.dll"/>
     <ROW Feature_="MainFeature" Component_="System.IO.Ports.dll_1"/>
+    <ROW Feature_="MainFeature" Component_="Microsoft.Win32.SystemEvents.dll_1"/>
+    <ROW Feature_="MainFeature" Component_="WpfMaiTouchEmulator.resources.dll"/>
+    <ROW Feature_="MainFeature" Component_="Microsoft.Windows.SDK.NET.dll"/>
+    <ROW Feature_="MainFeature" Component_="WpfMaiTouchEmulator.resources.dll_1"/>
+    <ROW Feature_="MainFeature" Component_="System.Drawing.Common.dll"/>
+    <ROW Feature_="MainFeature" Component_="System.IO.Ports.dll"/>
+    <ROW Feature_="MainFeature" Component_="System.Private.Windows.Core.dll"/>
+    <ROW Feature_="MainFeature" Component_="WinRT.Runtime.dll"/>
+    <ROW Feature_="MainFeature" Component_="WpfMaiTouchEmulator.deps.json"/>
+    <ROW Feature_="MainFeature" Component_="WpfMaiTouchEmulator.dll"/>
+    <ROW Feature_="MainFeature" Component_="WpfMaiTouchEmulator.exe"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiIconsComponent">
     <ROW Name="icon.exe" SourcePath="..\Assets\icon.ico" Index="0"/>
@@ -206,6 +233,9 @@
     <ROW Action="AI_EnableDebugLog" Sequence="51"/>
     <ROW Action="AI_DetectSoftware" Sequence="101"/>
     <ROW Action="AI_SETMIXINSTLOCATION" Sequence="748"/>
+    <ROW Action="AI_PrepareShortcutFlags" Condition="(VersionNT &gt; 501) AND ((NOT Installed) OR (Installed AND (REMOVE&lt;&gt;&quot;ALL&quot;) AND (AI_INSTALL_MODE&lt;&gt;&quot;Remove&quot;)))" Sequence="4501"/>
+    <ROW Action="AI_PinShortcuts" Condition="(VersionNT &gt; 600) AND ((NOT Installed) OR (Installed AND (REMOVE&lt;&gt;&quot;ALL&quot;) AND (AI_INSTALL_MODE&lt;&gt;&quot;Remove&quot;)))" Sequence="6499"/>
+    <ROW Action="AI_UnpinShortcuts" Condition="(VersionNT &gt; 600) AND (REMOVE = &quot;ALL&quot;)" Sequence="3199"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiInstallUISequenceComponent">
     <ROW Action="AI_PRESERVE_INSTALL_TYPE" Sequence="199"/>
@@ -242,8 +272,7 @@
     <ROW Registry="Version" Root="-1" Key="Software\[Manufacturer]\[ProductName]" Name="Version" Value="[ProductVersion]" Component_="ProductInformation"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiShortsComponent">
-    <ROW Shortcut="WpfMaiTouchEmulator" Directory_="ProgramMenuFolder" Name="MAITOU~1|Mai Touch Emulator" Component_="WpfMaiTouchEmulator.exe_1" Target="[#WpfMaiTouchEmulator.exe]" Hotkey="0" Icon_="icon.exe" IconIndex="0" ShowCmd="1" WkDir="APPDIR"/>
-    <ROW Shortcut="WpfMaiTouchEmulator_1" Directory_="DesktopFolder" Name="MAITOU~1|Mai Touch Emulator" Component_="WpfMaiTouchEmulator.exe_1" Target="[#WpfMaiTouchEmulator.exe]" Hotkey="0" Icon_="icon.exe" IconIndex="0" ShowCmd="1" WkDir="APPDIR"/>
+    <ROW Shortcut="WpfMaiTouchEmulator" Directory_="ProgramMenuFolder" Name="MAITOU~1|Mai Touch Emulator" Component_="WpfMaiTouchEmulator.exe" Target="[#WpfMaiTouchEmulator.exe]" Hotkey="0" Icon_="icon.exe" IconIndex="0" ShowCmd="1" WkDir="APPDIR" CustomFlags="2"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiThemeComponent">
     <ATTRIBUTE name="UsedTheme" value="classic"/>
