@@ -139,10 +139,13 @@
     <value>境界線設定</value>
   </data>
   <data name="LbBorderSolid" xml:space="preserve">
-    <value>纯色（#AARRGGBB）</value>
+    <value>纯色</value>
   </data>
   <data name="lbButtonState" xml:space="preserve">
     <value>按钮状态</value>
+  </data>
+  <data name="LbComPort" xml:space="preserve">
+    <value>COM端口</value>
   </data>
   <data name="lbConnectionState" xml:space="preserve">
     <value>连接状态</value>
@@ -188,6 +191,9 @@
   </data>
   <data name="lbSentData" xml:space="preserve">
     <value>已发送数据</value>
+  </data>
+  <data name="LbSettings" xml:space="preserve">
+    <value>设置</value>
   </data>
   <data name="LbTouchPanelDrag" xml:space="preserve">
     <value>拖动</value>

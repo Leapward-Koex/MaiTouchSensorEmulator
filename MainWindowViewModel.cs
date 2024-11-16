@@ -8,84 +8,92 @@ namespace WpfMaiTouchEmulator;
 public class MainWindowViewModel : INotifyPropertyChanged
 {
     // Language
-    public string LbAutoPortConnecting
+    public string? LbAutoPortConnecting
     {
         get; set;
     }
-    public string LbAutoSensorPositioning
+    public string? LbAutoSensorPositioning
     {
         get; set;
     }
-    public string LbButtonState
+    public string? LbButtonState
     {
         get; set;
     }
-    public string LbConnectionState
+    public string? LbConnectionState
     {
         get; set;
     }
-    public string LbConnectionStateNotConnected
+    public string? LbConnectionStateNotConnected
     {
         get; set;
     }
-    public string LbConnectToPort
+    public string? LbConnectToPort
     {
         get; set;
     }
-    public string LbDebugMode
+    public string? LbDebugMode
     {
         get; set;
     }
-    public string LbExitWithSinmai
+    public string? LbExitWithSinmai
     {
         get; set;
     }
-    public string LbEmulateRingButtons
+    public string? LbEmulateRingButtons
     {
         get; set;
     }
-    public string LbInstallComPort
+    public string? LbInstallComPort
     {
         get; set;
     }
-    public string LbLanguageDropdown
+    public string? LbLanguageDropdown
     {
         get; set;
     }
-    public string LbBorderSettings
+    public string? LbBorderSettings
     {
         get; set;
     }
-    public string LbBorderDisabled
+    public string? LbSettings
     {
         get; set;
     }
-    public string LbBorderSolid
+    public string? LbComPort
     {
         get; set;
     }
-    public string LbBorderRainbow
+    public string? LbBorderDisabled
     {
         get; set;
     }
-    public string LbListComPorts
+    public string? LbBorderSolid
     {
         get; set;
     }
-    public string LbReceivedData
+    public string? LbBorderRainbow
     {
         get; set;
     }
-    public string LbRecievedData
+    public string? LbListComPorts
+    {
+        get; set;
+    }
+    public string? LbReceivedData
+    {
+        get; set;
+    }
+    public string? LbRecievedData
     {
         get;
         private set;
     }
-    public string LbSentData
+    public string? LbSentData
     {
         get; set;
     }
-    public string LbUninstallComPort
+    public string? LbUninstallComPort
     {
         get; set;
     }
@@ -334,7 +342,9 @@ public class MainWindowViewModel : INotifyPropertyChanged
         LbInstallComPort = resourceManager.GetString("lbInstallComPort");
         LbLanguageDropdown = resourceManager.GetString("lbLanguageDropdown");
 
+        LbComPort = resourceManager.GetString("LbComPort");
         LbBorderSettings = resourceManager.GetString("LbBorderSettings");
+        LbSettings = resourceManager.GetString("LbSettings");
         LbBorderDisabled = resourceManager.GetString("LbBorderDisabled");
         LbBorderSolid = resourceManager.GetString("LbBorderSolid");
         LbBorderRainbow = resourceManager.GetString("LbBorderRainbow");

@@ -124,7 +124,7 @@ namespace WpfMaiTouchEmulator.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Solid (#AARRGGBB).
+        ///   Looks up a localized string similar to Solid.
         /// </summary>
         internal static string LbBorderSolid {
             get {
@@ -138,6 +138,15 @@ namespace WpfMaiTouchEmulator.Resources {
         internal static string lbButtonState {
             get {
                 return ResourceManager.GetString("lbButtonState", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to COM Port.
+        /// </summary>
+        internal static string LbComPort {
+            get {
+                return ResourceManager.GetString("LbComPort", resourceCulture);
             }
         }
         
@@ -273,6 +282,15 @@ namespace WpfMaiTouchEmulator.Resources {
         internal static string lbSentData {
             get {
                 return ResourceManager.GetString("lbSentData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        internal static string LbSettings {
+            get {
+                return ResourceManager.GetString("LbSettings", resourceCulture);
             }
         }
         

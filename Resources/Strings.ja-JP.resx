@@ -139,10 +139,13 @@
     <value>境界線設定</value>
   </data>
   <data name="LbBorderSolid" xml:space="preserve">
-    <value>単色（#AARRGGBB）</value>
+    <value>単色</value>
   </data>
   <data name="lbButtonState" xml:space="preserve">
     <value>ボタン状態</value>
+  </data>
+  <data name="LbComPort" xml:space="preserve">
+    <value>COMポート</value>
   </data>
   <data name="lbConnectionState" xml:space="preserve">
     <value>接続状態</value>
@@ -188,6 +191,9 @@
   </data>
   <data name="lbSentData" xml:space="preserve">
     <value>送信データ</value>
+  </data>
+  <data name="LbSettings" xml:space="preserve">
+    <value>設定</value>
   </data>
   <data name="LbTouchPanelDrag" xml:space="preserve">
     <value>ドラッグ</value>

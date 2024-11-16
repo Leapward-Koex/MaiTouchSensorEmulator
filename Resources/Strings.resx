@@ -139,10 +139,13 @@
     <value>Border Settings</value>
   </data>
   <data name="LbBorderSolid" xml:space="preserve">
-    <value>Solid (#AARRGGBB)</value>
+    <value>Solid</value>
   </data>
   <data name="lbButtonState" xml:space="preserve">
     <value>Button State</value>
+  </data>
+  <data name="LbComPort" xml:space="preserve">
+    <value>COM Port</value>
   </data>
   <data name="lbConnectionState" xml:space="preserve">
     <value>Connection state</value>
@@ -188,6 +191,9 @@
   </data>
   <data name="lbSentData" xml:space="preserve">
     <value>Sent</value>
+  </data>
+  <data name="LbSettings" xml:space="preserve">
+    <value>Settings</value>
   </data>
   <data name="LbTouchPanelDrag" xml:space="preserve">
     <value>Drag</value>
