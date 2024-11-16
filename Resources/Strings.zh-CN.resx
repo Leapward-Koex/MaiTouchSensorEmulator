@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="LbAbout" xml:space="preserve">
+    <value>关于</value>
+  </data>
   <data name="lbAutoPortConnecting" xml:space="preserve">
     <value>自动连接端口</value>
   </data>
@@ -185,6 +188,9 @@
   </data>
   <data name="lbMenuItemSetup" xml:space="preserve">
     <value>显示设置说明</value>
+  </data>
+  <data name="LbOpenLogFolder" xml:space="preserve">
+    <value>打开日志文件夹</value>
   </data>
   <data name="lbRecievedData" xml:space="preserve">
     <value>已接收数据</value>

@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Closing="MainWindow_Closing"
         Background="AliceBlue"
-        Title="MainWindow" Height="750" Width="500" WindowStartupLocation="CenterScreen">
+        Title="MainWindow" Height="700" Width="500" WindowStartupLocation="CenterScreen">
     <ScrollViewer>
         <StackPanel MaxWidth="400" Margin="0,0,0,50">
             <Menu>
@@ -89,6 +89,7 @@
             </ui:CardExpander>
             <ui:CardExpander
             CornerRadius="8"
+            Margin="0,0,0,10"
             Header="{Binding LbSettings}"
             d:Header="Settings">
                 <ui:CardExpander.Icon>
@@ -104,8 +105,35 @@
                     <CheckBox x:Name="automaticPortConnecting" d:Content="Automatic port connecting" Content="{Binding LbAutoPortConnecting}" IsChecked="{Binding Path=IsAutomaticPortConnectingEnabled}" Click="automaticPortConnecting_Click" ToolTip="{Binding LbAutoPortConnectingTT}"/>
                     <CheckBox x:Name="exitWithSinmai" Content="{Binding LbExitWithSinmai}" d:Content="Exit with Sinmai" IsChecked="{Binding IsExitWithSinmaiEnabled}" Click="exitWithSinmai_Click" ToolTip="{Binding LbExitWithSinmaiTT}"/>
                     <CheckBox x:Name="emulateRingButtons" Content="{Binding LbEmulateRingButtons}" d:Content="Emulate ring buttons" IsChecked="{Binding IsRingButtonEmulationEnabled}" ToolTip="{Binding LbEmulateRingButtonsTT}" Click="emulateRingButtons_Click"/>
+                    <ui:Button x:Name="openLogFolderButton" Content="{Binding LbOpenLogFolder}" d:Content="Open log folder" Click="openLogFolderButton_Click" />
                 </StackPanel>
             </ui:CardExpander>
+            <ui:Card>
+                <StackPanel>
+                    <TextBlock Text="{Binding LbAbout}" d:Text="About" Margin="0,0,0,10"/>
+                    <ui:Anchor
+                    Margin="0"
+                    Padding="16"
+                    HorizontalAlignment="Stretch"
+                    HorizontalContentAlignment="Stretch"
+                    Background="Transparent"
+                    BorderThickness="0,1,0,0"
+                    CornerRadius="0"
+                    NavigateUri="https://github.com/Leapward-Koex/MaiTouchSensorEmulator">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Github" />
+                            <ui:SymbolIcon Grid.Column="1" Symbol="WindowNew20" />
+                        </Grid>
+                    </ui:Anchor>
+                    <Label Content="{Binding LbAppVersion}" d:Content="1.0.0.0"/>
+                    <Label Content="By Leapward-Koex"/>
+                </StackPanel>
+
+            </ui:Card>
         </StackPanel>
     </ScrollViewer>
     

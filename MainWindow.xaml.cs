@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Reflection;
 using System.Windows;
 using WpfMaiTouchEmulator.Managers;
 
@@ -29,6 +30,7 @@ public partial class MainWindow : Window
             IsExitWithSinmaiEnabled = Properties.Settings.Default.IsExitWithSinmaiEnabled,
             IsRingButtonEmulationEnabled = Properties.Settings.Default.IsRingButtonEmulationEnabled,
             BorderColour = Properties.Settings.Default.BorderColour,
+            LbAppVersion = Assembly.GetEntryAssembly()?.GetName().Version?.ToString() ?? "1.0.0.0",
         };
 
         LoadBorderRadioButtonSetting();
@@ -311,5 +313,10 @@ public partial class MainWindow : Window
             Properties.Settings.Default.Save();
             _touchPanel?.SetBorderMode(BorderSetting.Solid, textWithHash);
         }
+    }
+
+    private void openLogFolderButton_Click(object sender, RoutedEventArgs e)
+    {
+        Process.Start("explorer.exe", Logger.GetLogPath());
     }
 }

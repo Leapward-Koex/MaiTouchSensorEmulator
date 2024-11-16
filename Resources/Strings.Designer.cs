@@ -61,6 +61,15 @@ namespace WpfMaiTouchEmulator.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to About.
+        /// </summary>
+        internal static string LbAbout {
+            get {
+                return ResourceManager.GetString("LbAbout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Automatic port connecting.
         /// </summary>
         internal static string lbAutoPortConnecting {
@@ -264,6 +273,15 @@ namespace WpfMaiTouchEmulator.Resources {
         internal static string lbMenuItemSetup {
             get {
                 return ResourceManager.GetString("lbMenuItemSetup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open log folder.
+        /// </summary>
+        internal static string LbOpenLogFolder {
+            get {
+                return ResourceManager.GetString("LbOpenLogFolder", resourceCulture);
             }
         }
         

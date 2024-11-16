@@ -44,6 +44,18 @@ public class MainWindowViewModel : INotifyPropertyChanged
     {
         get; set;
     }
+    public string? LbOpenLogFolder
+    {
+        get; set;
+    }
+    public string? LbAppVersion
+    {
+        get; set;
+    }
+    public string? LbAbout
+    {
+        get; set;
+    }
     public string? LbInstallComPort
     {
         get; set;
@@ -339,6 +351,9 @@ public class MainWindowViewModel : INotifyPropertyChanged
         LbDebugMode = resourceManager.GetString("lbDebugMode");
         LbExitWithSinmai = resourceManager.GetString("lbExitWithSinmai");
         LbEmulateRingButtons = resourceManager.GetString("lbEmulateRingButtons");
+        LbOpenLogFolder = resourceManager.GetString("LbOpenLogFolder");
+        LbAbout = resourceManager.GetString("LbAbout");
+        
         LbInstallComPort = resourceManager.GetString("lbInstallComPort");
         LbLanguageDropdown = resourceManager.GetString("lbLanguageDropdown");
 
