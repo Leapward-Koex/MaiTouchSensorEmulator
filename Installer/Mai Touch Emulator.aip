@@ -62,6 +62,7 @@
     <ROW Component="System.IO.Ports.dll_1" ComponentId="{767812B6-6569-4A50-917D-F7FAB0DEA8FB}" Directory_="net8.0_1_Dir" Attributes="0" KeyPath="System.IO.Ports.dll_1"/>
     <ROW Component="System.Private.Windows.Core.dll" ComponentId="{55D5CCEF-9774-4702-950A-F564146D2473}" Directory_="APPDIR" Attributes="0" KeyPath="System.Private.Windows.Core.dll"/>
     <ROW Component="WinRT.Runtime.dll" ComponentId="{8BEB0AE9-88A8-409E-9129-0A1F2CBE0850}" Directory_="APPDIR" Attributes="0" KeyPath="WinRT.Runtime.dll"/>
+    <ROW Component="Wpf.Ui.dll" ComponentId="{8A193511-50C0-4369-8159-FF599D4CEEB8}" Directory_="APPDIR" Attributes="0" KeyPath="Wpf.Ui.dll"/>
     <ROW Component="WpfMaiTouchEmulator.deps.json" ComponentId="{CD8C5345-8556-4C3E-AAE9-1E7D90E1DD5A}" Directory_="APPDIR" Attributes="0" KeyPath="WpfMaiTouchEmulator.deps.json" Type="0"/>
     <ROW Component="WpfMaiTouchEmulator.dll" ComponentId="{B289ACCE-2BAF-436F-814B-D39E91524B89}" Directory_="APPDIR" Attributes="256" KeyPath="WpfMaiTouchEmulator.dll"/>
     <ROW Component="WpfMaiTouchEmulator.exe" ComponentId="{AA079BFA-401B-4AFA-A56A-92F2A65DB096}" Directory_="APPDIR" Attributes="256" KeyPath="WpfMaiTouchEmulator.exe"/>
@@ -101,6 +102,7 @@
     <ROW File="WpfMaiTouchEmulator.dll.config" Component_="WpfMaiTouchEmulator.deps.json" FileName="WPFMAI~1.CON|WpfMaiTouchEmulator.dll.config" Attributes="0" SourcePath="..\bin\Release\net8.0-windows10.0.17763.0\WpfMaiTouchEmulator.dll.config" SelfReg="false"/>
     <ROW File="WpfMaiTouchEmulator.exe" Component_="WpfMaiTouchEmulator.exe" FileName="WPFMAI~1.EXE|WpfMaiTouchEmulator.exe" Attributes="0" SourcePath="..\bin\Release\net8.0-windows10.0.17763.0\WpfMaiTouchEmulator.exe" SelfReg="false" DigSign="true"/>
     <ROW File="WpfMaiTouchEmulator.runtimeconfig.json" Component_="WpfMaiTouchEmulator.deps.json" FileName="WPFMAI~2.JSO|WpfMaiTouchEmulator.runtimeconfig.json" Attributes="0" SourcePath="..\bin\Release\net8.0-windows10.0.17763.0\WpfMaiTouchEmulator.runtimeconfig.json" SelfReg="false"/>
+    <ROW File="Wpf.Ui.dll" Component_="Wpf.Ui.dll" FileName="WPFUI~1.DLL|Wpf.Ui.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows10.0.17763.0\Wpf.Ui.dll" SelfReg="false"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.AiPersistentPropComponent">
     <ROW Property="AI_INSTALLPERUSER" Registry="AI_INSTALLPERUSER" HklmSearch="AI_INSTALLPERUSER" HkcuSearch="AI_INSTALLPERUSER_1" Hklm64Search="AI_INSTALLPERUSER_2" Hkcu64Search="AI_INSTALLPERUSER_3"/>
@@ -220,6 +222,7 @@
     <ROW Feature_="MainFeature" Component_="WpfMaiTouchEmulator.deps.json"/>
     <ROW Feature_="MainFeature" Component_="WpfMaiTouchEmulator.dll"/>
     <ROW Feature_="MainFeature" Component_="WpfMaiTouchEmulator.exe"/>
+    <ROW Feature_="MainFeature" Component_="Wpf.Ui.dll"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiIconsComponent">
     <ROW Name="icon.exe" SourcePath="..\Assets\icon.ico" Index="0"/>

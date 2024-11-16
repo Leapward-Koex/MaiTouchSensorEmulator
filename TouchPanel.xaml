@@ -18,7 +18,7 @@
             <Border x:Name="DragWindowHandle" HorizontalAlignment="Left" VerticalAlignment="Top"
                         Height="50" Background="White" MouseLeftButtonDown="DragBar_MouseLeftButtonDown"
                         Cursor="SizeAll" Width="70">
-                <Label FontSize="24" Content="{Binding LbTouchPanelDrag}" d:Content="Drag" />
+                <TextBlock FontSize="24" Text="{Binding LbTouchPanelDrag}" d:Text="Drag" />
             </Border>
             <DockPanel VerticalAlignment="Bottom">
                 <Viewbox Stretch="Uniform" Opacity="1">
@@ -68,7 +68,7 @@
 
 
                             <Border x:Name="ResizeGrip" Width="150" Height="90" Background="White" MouseDown="ResizeGrip_MouseDown" Canvas.Left="1290" Canvas.Top="1350" HorizontalAlignment="Center" VerticalAlignment="Top">
-                                <Label FontSize="50" Content="{Binding LbTouchPanelResize}" d:Content="Resize" />
+                                <TextBlock FontSize="50" Text="{Binding LbTouchPanelResize}" d:Text="Resize" />
                             </Border>
 
                         </Canvas>
