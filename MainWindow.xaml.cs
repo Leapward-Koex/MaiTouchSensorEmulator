@@ -22,6 +22,7 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
+        CheckForUserSettingsUpgrade();
         DataContext = new MainWindowViewModel()
         {
             IsDebugEnabled = Properties.Settings.Default.IsDebugEnabled,
@@ -152,6 +153,18 @@ public partial class MainWindow : Window
                 MessageBox.Show(dataContext.TxtFailedToSetupSinmaiExit, dataContext.TxtFailedToSetupSinmaiExitHeader, MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
+    }
+
+    private static void CheckForUserSettingsUpgrade()
+    {
+        if (!Properties.Settings.Default.UserSettingsUpgradeRequired)
+        {
+            return;
+        }
+
+        Properties.Settings.Default.Upgrade();
+        Properties.Settings.Default.UserSettingsUpgradeRequired = false;
+        Properties.Settings.Default.Save();
     }
 
     private void ShowSetupInstructionsDialog()

@@ -130,5 +130,17 @@ namespace WpfMaiTouchEmulator.Properties {
                 this["BorderColour"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool UserSettingsUpgradeRequired {
+            get {
+                return ((bool)(this["UserSettingsUpgradeRequired"]));
+            }
+            set {
+                this["UserSettingsUpgradeRequired"] = value;
+            }
+        }
     }
 }
