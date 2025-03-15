@@ -5,7 +5,7 @@ namespace WpfMaiTouchEmulator.Managers;
 internal class MaiTouchComConnector(MaiTouchSensorButtonStateManager buttonState, MainWindowViewModel viewModel)
 {
     private static SerialPort? serialPort;
-    private bool isActiveMode;
+    private bool _isActiveMode;
     private bool _connected;
     private CancellationTokenSource? _tokenSource;
     private Thread? _pollThread;
@@ -39,7 +39,7 @@ internal class MaiTouchComConnector(MaiTouchSensorButtonStateManager buttonState
         if (!_connected && _shouldReconnect)
         {
             Logger.Info("Trying to connect to COM port...");
-            var virtualPort = "COM23"; // Adjust as needed
+            var virtualPort = "COM23";
             try
             {
                 OnConnectStatusChange?.Invoke(_viewModel.TxtComPortConnecting);
@@ -86,10 +86,10 @@ internal class MaiTouchComConnector(MaiTouchSensorButtonStateManager buttonState
     {
         while (!token.IsCancellationRequested)
         {
-            if (isActiveMode)
+            if (_isActiveMode)
             {
                 SendTouchscreenState();
-                Thread.Sleep(1);
+                Thread.Sleep(10);
             }
             else
             {
@@ -139,48 +139,52 @@ internal class MaiTouchComConnector(MaiTouchSensorButtonStateManager buttonState
     void SerialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
     {
         var recievedData = serialPort?.ReadExisting();
-        var commands = recievedData?.Split(new[] { '}' }, StringSplitOptions.RemoveEmptyEntries);
-        if (commands != null)
+        var commands = recievedData?.Split(['}'], StringSplitOptions.RemoveEmptyEntries);
+
+        if (commands is null)
         {
-            foreach (var command in commands)
+            return;
+        }
+
+        foreach (var command in commands)
+        {
+            var cleanedCommand = command.TrimStart('{');
+            Logger.Info($"Received serial data: '{cleanedCommand}'");
+            OnDataRecieved?.Invoke(cleanedCommand);
+
+            if (cleanedCommand == "STAT")
             {
-                var cleanedCommand = command.TrimStart('{');
-                Logger.Info($"Received serial data: {cleanedCommand}");
-                OnDataRecieved?.Invoke(cleanedCommand);
+                _isActiveMode = true;
+            }
+            else if (cleanedCommand == "RSET")
+            {
 
-                if (cleanedCommand == "STAT")
-                {
-                    isActiveMode = true;
-                }
-                else if (cleanedCommand == "RSET")
-                {
+            }
+            else if (cleanedCommand == "HALT")
+            {
+                _isActiveMode = false;
+            }
+            else if (cleanedCommand.Length >= 4 &&
+                     (cleanedCommand[2] == 'r' || cleanedCommand[2] == 'k'))
+            {
+                var leftOrRight = cleanedCommand[0];
+                var sensor = cleanedCommand[1];
+                var ratio = cleanedCommand[3];
 
-                }
-                else if (cleanedCommand == "HALT")
-                {
-                    isActiveMode = false;
-                }
-                else if (cleanedCommand[2] == 'r' || cleanedCommand[2] == 'k')
-                {
-                    var leftOrRight = cleanedCommand[0];
-                    var sensor = cleanedCommand[1];
-                    var ratio = cleanedCommand[3];
-
-                    var newString = $"({leftOrRight}{sensor}{cleanedCommand[2]}{ratio})";
-                    serialPort?.Write(newString);
-                    OnDataSent?.Invoke(newString);
-                }
-                else
-                {
-                    Logger.Warn($"Unhandled serial data command {cleanedCommand}");
-                }
+                var newString = $"({leftOrRight}{sensor}{cleanedCommand[2]}{ratio})";
+                serialPort?.Write(newString);
+                OnDataSent?.Invoke(newString);
+            }
+            else
+            {
+                Logger.Warn($"Unhandled serial data command '{cleanedCommand}'");
             }
         }
     }
 
     void SendTouchscreenState()
     {
-        if (_connected)
+        if (_connected && _isActiveMode)
         {
             var currentState = _buttonState.GetCurrentState();
             try
