@@ -23,7 +23,6 @@ public enum TouchValue : long
     B8 = 1 << 15, // 2^15
     C1 = 1 << 16, // 2^16
     C2 = 1 << 17, // 2^17
-    C3 = C1 | C2, // A special sensor used because center notes are hard to press using a windows touchscreen
     D1 = 1 << 18, // 2^18
     D2 = 1 << 19, // 2^19
     D3 = 1 << 20, // 2^20
@@ -50,24 +49,6 @@ internal class MaiTouchSensorButtonStateManager
     public MaiTouchSensorButtonStateManager(Label buttonStateValue)
     {
         this.buttonStateValue = buttonStateValue;
-        SetupUpdateLoop();
-    }
-
-    private async Task SetupUpdateLoop()
-    {
-        string? lastButtonState = null;
-        while (true)
-        {
-            if (lastButtonState != buttonState.ToString())
-            {
-                lastButtonState = buttonState.ToString();
-                Application.Current.Dispatcher.Invoke(() =>
-                {
-                    buttonStateValue.Content = lastButtonState;
-                });
-            }
-            await Task.Delay(16);
-        }
     }
 
     public void Reset()
@@ -78,11 +59,21 @@ internal class MaiTouchSensorButtonStateManager
     public void PressButton(TouchValue button)
     {
         buttonState |= (long)button;
+
+        Application.Current.Dispatcher.Invoke(() =>
+        {
+            buttonStateValue.Content = buttonState.ToString();
+        });
     }
 
     public void ReleaseButton(TouchValue button)
     {
         buttonState &= ~(long)button;
+
+        Application.Current.Dispatcher.Invoke(() =>
+        {
+            buttonStateValue.Content = buttonState.ToString();
+        });
     }
 
     public byte[] GetCurrentState()
