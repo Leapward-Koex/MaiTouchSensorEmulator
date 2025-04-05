@@ -180,6 +180,9 @@
   <data name="lbLanguageDropdown" xml:space="preserve">
     <value>语言</value>
   </data>
+  <data name="lbLargeButtons" xml:space="preserve">
+    <value>扩大环形按钮大小</value>
+  </data>
   <data name="lbListComPorts" xml:space="preserve">
     <value>列出已安装的COM端口</value>
   </data>

@@ -250,6 +250,15 @@ namespace WpfMaiTouchEmulator.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Extend ring button size.
+        /// </summary>
+        internal static string lbLargeButtons {
+            get {
+                return ResourceManager.GetString("lbLargeButtons", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to List installed com ports.
         /// </summary>
         internal static string lbListComPorts {

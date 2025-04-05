@@ -180,6 +180,9 @@
   <data name="lbLanguageDropdown" xml:space="preserve">
     <value>言語</value>
   </data>
+  <data name="lbLargeButtons" xml:space="preserve">
+    <value>リングボタンのサイズを拡大</value>
+  </data>
   <data name="lbListComPorts" xml:space="preserve">
     <value>インストールされたCOMポートをリストアップ</value>
   </data>
