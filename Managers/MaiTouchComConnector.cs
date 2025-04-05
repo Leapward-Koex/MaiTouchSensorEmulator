@@ -182,7 +182,7 @@ internal class MaiTouchComConnector(MaiTouchSensorButtonStateManager buttonState
         }
     }
 
-    void SendTouchscreenState()
+    public void SendTouchscreenState()
     {
         if (_connected && _isActiveMode)
         {

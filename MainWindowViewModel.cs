@@ -36,6 +36,10 @@ public class MainWindowViewModel : INotifyPropertyChanged
     {
         get; set;
     }
+    public string? LbLargeButtons
+    {
+        get; set;
+    }
     public string? LbExitWithSinmai
     {
         get; set;
@@ -222,6 +226,7 @@ public class MainWindowViewModel : INotifyPropertyChanged
 
     private bool _isAutomaticPortConnectingEnabled;
     private bool _isDebugEnabled;
+    private bool _isLargeButtonsEnabled;
     private bool _isAutomaticPositioningEnabled;
     private bool _isExitWithSinmaiEnabled;
     private CultureInfo _selectedLanguage;
@@ -261,6 +266,16 @@ public class MainWindowViewModel : INotifyPropertyChanged
         set
         {
             _isDebugEnabled = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public bool IsLargeButtonsEnabled
+    {
+        get => _isLargeButtonsEnabled;
+        set
+        {
+            _isLargeButtonsEnabled = value;
             OnPropertyChanged();
         }
     }
@@ -349,6 +364,7 @@ public class MainWindowViewModel : INotifyPropertyChanged
         LbConnectionStateNotConnected = resourceManager.GetString("lbConnectionStateNotConnected");
         LbConnectToPort = resourceManager.GetString("lbConnectToPort");
         LbDebugMode = resourceManager.GetString("lbDebugMode");
+        LbLargeButtons = resourceManager.GetString("lbLargeButtons");
         LbExitWithSinmai = resourceManager.GetString("lbExitWithSinmai");
         LbEmulateRingButtons = resourceManager.GetString("lbEmulateRingButtons");
         LbOpenLogFolder = resourceManager.GetString("LbOpenLogFolder");

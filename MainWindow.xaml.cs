@@ -30,6 +30,7 @@ public partial class MainWindow : Window
             IsAutomaticPositioningEnabled = Properties.Settings.Default.IsAutomaticPositioningEnabled,
             IsExitWithSinmaiEnabled = Properties.Settings.Default.IsExitWithSinmaiEnabled,
             IsRingButtonEmulationEnabled = Properties.Settings.Default.IsRingButtonEmulationEnabled,
+            IsLargeButtonsEnabled = Properties.Settings.Default.IsLargeButtonsEnabled,
             BorderColour = Properties.Settings.Default.BorderColour,
             LbAppVersion = Assembly.GetEntryAssembly()?.GetName().Version?.ToString() ?? "1.0.0.0",
         };
@@ -82,8 +83,14 @@ public partial class MainWindow : Window
 
             Logger.Info("Main window loaded, creating touch panel");
             _touchPanel = new TouchPanel();
-            _touchPanel.onTouch = (value) => { buttonState.PressButton(value); };
-            _touchPanel.onRelease = (value) => { buttonState.ReleaseButton(value); };
+            _touchPanel.onTouch = (value) => { 
+                buttonState.PressButton(value);
+                connector.SendTouchscreenState();
+            };
+            _touchPanel.onRelease = (value) => {
+                buttonState.ReleaseButton(value);
+                connector.SendTouchscreenState();
+            };
             _touchPanel.onInitialReposition = () => { WindowState = WindowState.Minimized; };
             _touchPanel.SetBorderMode((BorderSetting)Properties.Settings.Default.BorderSetting, dataContext.BorderColour);
             _touchPanel.Show();
@@ -91,6 +98,7 @@ public partial class MainWindow : Window
             _touchPanel.DataContext = dataContext;
 
             _touchPanel.SetDebugMode(dataContext.IsDebugEnabled);
+            _touchPanel.SetLargeButtonMode(dataContext.IsLargeButtonsEnabled);
             if (Properties.Settings.Default.IsAutomaticPositioningEnabled)
             {
                 _touchPanel.DragWindowHandle.Visibility = Visibility.Hidden;
@@ -214,6 +222,16 @@ public partial class MainWindow : Window
         Properties.Settings.Default.IsDebugEnabled = dataContext.IsDebugEnabled;
         Properties.Settings.Default.Save();
         _touchPanel?.SetDebugMode(dataContext.IsDebugEnabled);
+    }
+
+    private void largeButtons_Click(object sender, RoutedEventArgs e)
+    {
+        var dataContext = (MainWindowViewModel)DataContext;
+        var enabled = !dataContext.IsLargeButtonsEnabled;
+        dataContext.IsLargeButtonsEnabled = !enabled;
+        Properties.Settings.Default.IsLargeButtonsEnabled = dataContext.IsLargeButtonsEnabled;
+        Properties.Settings.Default.Save();
+        _touchPanel?.SetLargeButtonMode(dataContext.IsLargeButtonsEnabled);
     }
 
     private void automaticTouchPanelPositioning_Click(object sender, RoutedEventArgs e)
