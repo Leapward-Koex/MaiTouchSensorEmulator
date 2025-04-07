@@ -162,6 +162,9 @@
   <data name="lbDebugMode" xml:space="preserve">
     <value>デバッグモード</value>
   </data>
+  <data name="lbDebugModeTT" xml:space="preserve">
+    <value>タッチパッドを半透明で表示し、入力をハイライト表示</value>
+  </data>
   <data name="lbEmulateRingButtons" xml:space="preserve">
     <value>リングボタンをエミュレートする</value>
   </data>
@@ -182,6 +185,9 @@
   </data>
   <data name="lbLargeButtons" xml:space="preserve">
     <value>リングボタンのサイズを拡大</value>
+  </data>
+  <data name="lbLargeButtonsTT" xml:space="preserve">
+    <value>リングボタンのヒットボックスをウィンドウの端まで拡大</value>
   </data>
   <data name="lbListComPorts" xml:space="preserve">
     <value>インストールされたCOMポートをリストアップ</value>

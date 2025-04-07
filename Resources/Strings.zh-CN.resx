@@ -162,6 +162,9 @@
   <data name="lbDebugMode" xml:space="preserve">
     <value>调试模式</value>
   </data>
+  <data name="lbDebugModeTT" xml:space="preserve">
+    <value>显示半透明的触控板并突出显示输入</value>
+  </data>
   <data name="lbEmulateRingButtons" xml:space="preserve">
     <value>模拟环形按钮</value>
   </data>
@@ -182,6 +185,9 @@
   </data>
   <data name="lbLargeButtons" xml:space="preserve">
     <value>扩大环形按钮大小</value>
+  </data>
+  <data name="lbLargeButtonsTT" xml:space="preserve">
+    <value>将环形按钮的碰撞盒扩展到窗口边缘</value>
   </data>
   <data name="lbListComPorts" xml:space="preserve">
     <value>列出已安装的COM端口</value>

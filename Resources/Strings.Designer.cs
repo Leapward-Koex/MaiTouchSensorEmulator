@@ -196,6 +196,15 @@ namespace WpfMaiTouchEmulator.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show the touchpad with translucency and show inputs highlighted.
+        /// </summary>
+        internal static string lbDebugModeTT {
+            get {
+                return ResourceManager.GetString("lbDebugModeTT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Emulate ring buttons.
         /// </summary>
         internal static string lbEmulateRingButtons {
@@ -255,6 +264,15 @@ namespace WpfMaiTouchEmulator.Resources {
         internal static string lbLargeButtons {
             get {
                 return ResourceManager.GetString("lbLargeButtons", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Extends the ring button hitboxes to the edge of the window.
+        /// </summary>
+        internal static string lbLargeButtonsTT {
+            get {
+                return ResourceManager.GetString("lbLargeButtonsTT", resourceCulture);
             }
         }
         

@@ -1,6 +1,7 @@
 ﻿using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
@@ -17,7 +18,7 @@ public partial class TouchPanel : Window
     internal Action<TouchValue>? onRelease;
     internal Action? onInitialReposition;
 
-    private readonly Dictionary<int, (Polygon polygon, Point lastPoint)> activeTouches = new Dictionary<int, (Polygon, Point)>();
+    private readonly Dictionary<int, (Polygon polygon, Point lastPoint)> activeTouches = new();
     private readonly TouchPanelPositionManager _positionManager;
     private List<Polygon> buttons = [];
     private bool isDebugEnabled = Properties.Settings.Default.IsDebugEnabled;
@@ -36,6 +37,32 @@ public partial class TouchPanel : Window
     [DllImport("user32.dll", CharSet = CharSet.Auto)]
     private static extern int SendMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
 
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct RECT
+    {
+        public int Left;
+        public int Top;
+        public int Right;
+        public int Bottom;
+    }
+
+    public enum SizingEdge
+    {
+        Left = 1,
+        Right = 2,
+        Top = 3,
+        TopLeft = 4,
+        TopRight = 5,
+        Bottom = 6,
+        BottomLeft = 7,
+        BottomRight = 8
+    }
+
+    private const double FixedAspectRatio = 720.0 / 1280.0; // width / height
+    private const int MinWidth = 180;
+    private const int MinHeight = 320;
+
     public TouchPanel()
     {
         InitializeComponent();
@@ -43,6 +70,61 @@ public partial class TouchPanel : Window
         _positionManager = new TouchPanelPositionManager();
         Loaded += Window_Loaded;
         Touch.FrameReported += OnTouchFrameReported;
+    }
+
+
+    protected override void OnSourceInitialized(EventArgs e)
+    {
+        base.OnSourceInitialized(e);
+        var source = HwndSource.FromHwnd(new WindowInteropHelper(this).Handle);
+        source.AddHook(WndProc);
+    }
+
+    private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+    {
+        const int WM_SIZING = 0x0214;
+        if (msg == WM_SIZING)
+        {
+            var rect = Marshal.PtrToStructure<RECT>(lParam);
+            var edge = (SizingEdge)wParam.ToInt32();
+            EnforceAspectRatio(ref rect, edge);
+            Marshal.StructureToPtr(rect, lParam, true);
+            handled = true;
+        }
+        return IntPtr.Zero;
+    }
+
+    private void EnforceAspectRatio(ref RECT rect, SizingEdge edge)
+    {
+        var currentWidth = rect.Right - rect.Left;
+        var currentHeight = rect.Bottom - rect.Top;
+        int newWidth, newHeight;
+
+        if (edge == SizingEdge.BottomRight)
+        {
+            newWidth = (int)(currentHeight * FixedAspectRatio);
+            newHeight = currentHeight;
+        }
+        else
+        {
+            newHeight = (int)(currentWidth / FixedAspectRatio);
+            newWidth = currentWidth;
+        }
+
+        // Enforce minimum size while keeping the aspect ratio.
+        if (newWidth < MinWidth)
+        {
+            newWidth = MinWidth;
+            newHeight = (int)(newWidth / FixedAspectRatio);
+        }
+        if (newHeight < MinHeight)
+        {
+            newHeight = MinHeight;
+            newWidth = (int)(newHeight * FixedAspectRatio);
+        }
+
+        rect.Right = rect.Left + newWidth;
+        rect.Bottom = rect.Top + newHeight;
     }
 
     private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -82,17 +164,14 @@ public partial class TouchPanel : Window
     {
         if (e.LeftButton == MouseButtonState.Pressed)
         {
-            ResizeWindow(ResizeDirection.BottomRight);
+            ResizeWindow(SizingEdge.BottomRight);
         }
     }
 
-    private void ResizeWindow(ResizeDirection direction)
+    private void ResizeWindow(SizingEdge edge)
     {
         ReleaseCapture();
-        SendMessage(new System.Windows.Interop.WindowInteropHelper(this).Handle,
-                    0x112, // WM_SYSCOMMAND message
-                    (IntPtr)(0xF000 + direction),
-                    IntPtr.Zero);
+        SendMessage(new WindowInteropHelper(this).Handle, 0x112, (IntPtr)(0xF000 + (int)edge), IntPtr.Zero);
     }
 
     private void OnTouchFrameReported(object sender, TouchFrameEventArgs e)

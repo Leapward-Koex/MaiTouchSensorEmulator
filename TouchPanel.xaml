@@ -9,16 +9,54 @@
         ResizeMode="NoResize"
         AllowsTransparency="True" WindowStyle="None" Background="Transparent"
 >
+    <Window.Resources>
+        <Style x:Key="DraggableHandleStyle" TargetType="Border">
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                        <GradientStop Color="#FFEEEEEE" Offset="0"/>
+                        <GradientStop Color="#FFCCCCCC" Offset="1"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect Color="Black" BlurRadius="5" ShadowDepth="2"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ResizeGripStyle" TargetType="Border">
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#FFCCCCCC" Offset="0"/>
+                        <GradientStop Color="#FFAAAAAA" Offset="1"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect Color="Black" BlurRadius="5" ShadowDepth="2"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
     <Border Background="#01000000">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <Border x:Name="DragWindowHandle" HorizontalAlignment="Left" VerticalAlignment="Top"
-                        Height="50" Background="White" MouseLeftButtonDown="DragBar_MouseLeftButtonDown"
-                        Cursor="SizeAll" Width="70">
-                <TextBlock FontSize="24" Text="{Binding LbTouchPanelDrag}" d:Text="Drag" />
+            <Border x:Name="DragWindowHandle"
+                    HorizontalAlignment="Left" VerticalAlignment="Top"
+                    Height="50" Width="100"
+                    Style="{StaticResource DraggableHandleStyle}"
+                    MouseLeftButtonDown="DragBar_MouseLeftButtonDown"
+                    Cursor="SizeAll">
+                <TextBlock FontSize="24" Text="{Binding LbTouchPanelDrag}"
+                           VerticalAlignment="Center" HorizontalAlignment="Center" d:Text="Drag"/>
             </Border>
             <DockPanel VerticalAlignment="Bottom">
                 <Viewbox Stretch="Uniform" Opacity="1">
@@ -65,8 +103,13 @@
                             <Polygon Canvas.Left="579" Canvas.Top="583" Points="141,280 81,280 0,199 1,81 81,0 141,0 141,280" Tag="{x:Static local:TouchValue.C2}" Fill="White" />
 
 
-                            <Border x:Name="ResizeGrip" Width="150" Height="90" Background="White" MouseDown="ResizeGrip_MouseDown" Canvas.Left="1290" Canvas.Top="1350" HorizontalAlignment="Center" VerticalAlignment="Top">
-                                <TextBlock FontSize="50" Text="{Binding LbTouchPanelResize}" d:Text="Resize" />
+                            <Border x:Name="ResizeGrip" Width="150" Height="90"
+                                    Style="{StaticResource ResizeGripStyle}"
+                                    MouseDown="ResizeGrip_MouseDown"
+                                    Canvas.Left="1290" Canvas.Top="1350"
+                                    HorizontalAlignment="Center" VerticalAlignment="Top">
+                                <TextBlock FontSize="50" Text="{Binding LbTouchPanelResize}"
+                                           VerticalAlignment="Center" HorizontalAlignment="Center" d:Text="Resize"/>
                             </Border>
 
                         </Canvas>

@@ -40,6 +40,10 @@ public class MainWindowViewModel : INotifyPropertyChanged
     {
         get; set;
     }
+    public string? LbLargeButtonsTT
+    {
+        get; set;
+    }
     public string? LbExitWithSinmai
     {
         get; set;
@@ -208,6 +212,11 @@ public class MainWindowViewModel : INotifyPropertyChanged
         get;
         private set;
     }
+    public string? LbDebugModeTT
+    {
+        get;
+        private set;
+    }
     public string? LbAutoSensorPositioningTT
     {
         get;
@@ -365,6 +374,7 @@ public class MainWindowViewModel : INotifyPropertyChanged
         LbConnectToPort = resourceManager.GetString("lbConnectToPort");
         LbDebugMode = resourceManager.GetString("lbDebugMode");
         LbLargeButtons = resourceManager.GetString("lbLargeButtons");
+        LbLargeButtonsTT = resourceManager.GetString("lbLargeButtonsTT");
         LbExitWithSinmai = resourceManager.GetString("lbExitWithSinmai");
         LbEmulateRingButtons = resourceManager.GetString("lbEmulateRingButtons");
         LbOpenLogFolder = resourceManager.GetString("LbOpenLogFolder");
@@ -388,6 +398,7 @@ public class MainWindowViewModel : INotifyPropertyChanged
         LbMenuCategoryHelp = resourceManager.GetString("lbMenuCategoryHelp");
         LbMenuItemSetup = resourceManager.GetString("lbMenuItemSetup");
         LbAutoPortConnectingTT = resourceManager.GetString("lbAutoPortConnectingTT");
+        LbDebugModeTT = resourceManager.GetString("lbDebugModeTT");
         LbAutoSensorPositioningTT = resourceManager.GetString("lbAutoSensorPositioningTT");
         LbExitWithSinmaiTT = resourceManager.GetString("lbExitWithSinmaiTT");
         LbEmulateRingButtonsTT = resourceManager.GetString("lbEmulateRingButtonsTT");
